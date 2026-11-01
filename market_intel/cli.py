@@ -23,7 +23,7 @@ import pandas as pd
 
 from . import ai, config, net, notify, overnight, prefetch, research, signals, theme_card
 from .analysis import news_signals, picks, sector_flow, target_price
-from .fetchers import macro, news, podcast, ptt, stock_futures, taifex, telegram_channel, threads, tw_daily, tw_realtime, yahoo
+from .fetchers import macro, news, podcast, ptt, stock_futures, taifex, telegram_channel, threads, tw_daily, tw_realtime, txf, yahoo
 from .report import md_table, news_table
 from .utils import CACHE_DIR, REPORT_DIR, ensure_dirs, now_tw
 
@@ -519,6 +519,11 @@ def cmd_realtime(args) -> None:
         log.warning("量增價未漲預警準備失敗：%s", e)
     if vp:
         codes = list(dict.fromkeys(codes + list(vp["levels"])))
+    fd = None
+    try:
+        fd = _futures_day_setup()
+    except Exception as e:  # noqa: BLE001
+        log.warning("台指期日內訊號準備失敗：%s", e)
     news_map: dict[str, dict] = {}  # 今天看過的新聞依個股彙總（題材、漲價）
     alerted: set[str] = set()
     pushed_times: set[str] = set()
@@ -552,6 +557,11 @@ def cmd_realtime(args) -> None:
                     _volprice_check(vp, quotes, listings, now)
                 except Exception as e:  # noqa: BLE001
                     log.warning("量增價未漲預警失敗：%s", e)
+            if fd and _in_session(now):
+                try:
+                    _futures_day_check(fd, now)
+                except Exception as e:  # noqa: BLE001
+                    log.warning("台指期日內訊號失敗：%s", e)
             flow = sector_flow.theme_flow_intraday(quotes, themes_tw, listings, now)
             head = " ｜ ".join(f"{k} {q.price:,.2f} ({q.change_pct:+.2f}%)" for k, q in idx.items()
                                if q.price is not None and q.change_pct is not None)
@@ -630,6 +640,36 @@ def cmd_realtime(args) -> None:
         if args.once:
             break
         time.sleep(interval)
+    if fd:
+        try:
+            from .trade import futures_day
+            summary = futures_day.finish_day(fd["st"], fd["cfg"])
+            if summary:
+                notify.send(f"📈 台指期日內計畫帳收盤\n{summary}", channel="trade")
+        except Exception as e:  # noqa: BLE001
+            log.warning("台指期日內收盤記錄失敗：%s", e)
+
+
+def _futures_day_setup() -> dict | None:
+    """台指期日內順勢突破的訊號（trade/futures_day.py）：設定、今天已記的狀態、前幾天的日收盤。"""
+    from .trade import futures_day
+    cfg = futures_day.settings()
+    if not cfg["enabled"]:
+        return None
+    day = f"{now_tw():%Y-%m-%d}"
+    return {"cfg": cfg, "st": futures_day.load_state(day), "closes": futures_day.load_closes(day)}
+
+
+def _futures_day_check(fd: dict, now: datetime) -> None:
+    from .trade import futures_day
+    q = txf.fetch()
+    ts = q and q["ts"]
+    if not q or not ts or ts.date() != now.date() or (now - ts).total_seconds() > 180:
+        return          # 沒資料、或報價時間太舊（休市、資料沒更新）：不拿舊價發訊號
+    sigs = futures_day.step(fd["st"], now, q["price"], fd["cfg"], fd["closes"], q["high"], q["low"])
+    if sigs:
+        notify.send(futures_day.format_message(sigs, fd["st"], fd["cfg"]), channel="trade")
+    futures_day.save_state(fd["st"])
 
 
 # ---------------------------------------------------------------- news / target
@@ -1113,7 +1153,11 @@ def cmd_threads(args) -> None:
     if not cfg.get("enabled", True):
         return
     src = config.sources()
-    handles = [h.lstrip("@") for h in (args.accounts or src.get("threads_accounts") or [])][:120]
+    handles = [h.lstrip("@") for h in (args.accounts or src.get("threads_accounts") or [])]
+    learn = {h.lstrip("@").lower() for h in (src.get("threads_learn_accounts") or [])}
+    if not args.accounts:
+        handles += sorted(learn - {h.lower() for h in handles})
+    handles = handles[:120]
     if not handles:
         return
     st = signals.load_state()
@@ -1147,10 +1191,13 @@ def cmd_threads(args) -> None:
             print(f"@{h}：讀到 {len(posts)} 則，要偵測 {len(fresh)} 則，待檢視 {len(review)} 則")
         for p in review:
             tags, score = signals.post_tags(p.text, names, listings, cfg)
+            mine = h.lower() in learn and p.author.lower() == h.lower()
+            if mine:   # 學習帳號自己的貼文：手法、心得不會提到公司，也一律進待檢視清單
+                tags, score = ["學習"] + tags, max(score, 5)
             if score >= 2:
                 entries.append({"id": f"{p.author}/{p.code}", "author": p.author, "url": p.url, "at": p.posted_at,
-                                "seen_at": now.isoformat(timespec="seconds"), "reply_to": p.reply_to, "text": p.text[:500],
-                                "tags": tags, "score": score})
+                                "seen_at": now.isoformat(timespec="seconds"), "reply_to": p.reply_to,
+                                "text": p.text[:2000 if mine else 500], "tags": tags, "score": score})
                 if args.dry:
                     print(f"  ＋待檢視（{score} 分）@{p.author}：{p.text[:50]!r} {tags}")
         for p in fresh:
@@ -2858,6 +2905,10 @@ def cmd_macro(args) -> None:
 
 def cmd_check(args) -> None:
     """資料檢查：印出各資料來源的原始欄位，不推播。"""
+    try:
+        print(txf.probe())
+    except Exception as e:  # noqa: BLE001
+        print(f"台指期日盤報價檢查失敗：{e}")
     _verify_margin()
     return
     print(json.dumps(stock_futures.raw_samples(), ensure_ascii=False, indent=1)[:6000])
