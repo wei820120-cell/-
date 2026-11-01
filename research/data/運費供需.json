@@ -1,0 +1,253 @@
+{
+ "topic": "運費供需",
+ "one_line": "伊朗波斯灣海峽管理局（PGSA）10/27 宣布 11/1 起對 Sinokor 船隻『採取法律行動』（中文新聞多寫成『禁止通行』，措辭比原始聲明強，11/1 當日實際執法未查到）。Sinokor 占 9 月荷姆茲 VLCC 通行量 47%、10 月前十天逾 50%，運力高度集中；VLCC 運費今年漲逾 1,600%（中文媒體說法，基期不明）、TD3C 10 月約 133 萬美元／日（Lloyd's List 說法）。台股對應：新興（2605）上半年 EPS 3.67 元（含售船利益，VLCC 日均淨收入 8.68 萬美元、+146%），但 Q2 已賣一艘 VLCC；裕民、益航曝險未核實。運價可因運力少而漲、也可能因貨量少而跌。",
+ "status": "混合",
+ "horizon": "短期（事件驅動，數天到數週）",
+ "keywords": [
+  "運費",
+  "VLCC",
+  "TD3C",
+  "荷姆茲",
+  "Sinokor",
+  "PGSA",
+  "戰爭險",
+  "新興",
+  "裕民",
+  "益航",
+  "油輪"
+ ],
+ "catalysts": [
+  "11/1 之後 PGSA 實際執法（扣船、罰款、通行限制）",
+  "TD3C／VLCC 即期收益變化",
+  "戰爭險保費與承保狀況",
+  "新興、裕民、益航 10 月營收（11/10 前）",
+  "Q3 財報（11 月中前）"
+ ],
+ "risks": [
+  "『法律行動』與『禁止通行』措辭落差，實際執法未查到",
+  "數字口徑不一（1,600%、133 萬、60 萬、20 萬美元／日）",
+  "貨量下滑可能壓低灣內運價（招商輪船觀點）",
+  "政策管制可能迅速轉向，持續性未知",
+  "新興上半年 EPS 含售船一次性利益",
+  "裕民、益航的 VLCC 曝險未核實"
+ ],
+ "spec_tables": [
+  {
+   "title": "表：事件與運價數字（來源與口徑不同，勿互相加減）",
+   "columns": [
+    "項目",
+    "數字／說法",
+    "來源性質"
+   ],
+   "rows": [
+    [
+     "PGSA 聲明",
+     "11/1 起對 Sinokor 船隻採取法律行動；點名 7 艘 VLCC",
+     "Splash247、Seatrade、Al-Monitor"
+    ],
+    [
+     "Sinokor 市占",
+     "9 月占荷姆茲 VLCC 通行量 47%；10 月前十天逾 50%",
+     "Lloyd's List Intelligence（經 Seatrade）"
+    ],
+    [
+     "占波斯灣原油量",
+     "9 月約 37%（觸發新聞說近 4 成）",
+     "二手報導"
+    ],
+    [
+     "VLCC 運費漲幅",
+     "年內漲逾 1,600%",
+     "網易（基期不明）"
+    ],
+    [
+     "TD3C",
+     "10 月約 133 萬美元／日（歷史新高）；另有 60 萬美元／日的舊報導",
+     "Lloyd's List／Bloomberg 轉述（搜尋摘要）"
+    ],
+    [
+     "荷姆茲以外 VLCC 即期收益",
+     "約 20 萬美元／日",
+     "搜尋摘要"
+    ],
+    [
+     "戰爭險",
+     "約 6～10% 船體價值／航次",
+     "報導"
+    ],
+    [
+     "運費占到岸原油成本",
+     "約 3% → 約 27%",
+     "Poten 估（搜尋摘要）"
+    ]
+   ],
+   "note": "11/1 當日實際執法與運價反應未查到。"
+  }
+ ],
+ "evolution": [
+  {
+   "name": "荷姆茲通行受限期",
+   "composition": "繞行、船對船轉運、戰爭險上升",
+   "spec": "戰爭險 6～10% 船體價值／航次",
+   "application": "有效運力下降"
+  },
+  {
+   "name": "運價創高期",
+   "composition": "VLCC 即期收益飆升",
+   "spec": "TD3C 約 133 萬美元／日（10 月）",
+   "application": "油輪船東獲利大增"
+  },
+  {
+   "name": "點名單一船東（本次）",
+   "composition": "PGSA 對 Sinokor 採法律行動",
+   "spec": "首次對單一船東整支船隊發布警告",
+   "application": "集中度風險顯現"
+  }
+ ],
+ "concepts": [
+  {
+   "title": "供需缺口怎麼來的",
+   "points": [
+    "管制與安全風險使『敢走荷姆茲』的有效運力下降，而原油需求不變",
+    "單一船東（Sinokor）占一半以上通行量，對它採取行動會放大缺口（推論，待實際執法驗證）",
+    "運價上升反映運力稀缺與風險溢價，而非貨量增加"
+   ]
+  },
+  {
+   "title": "誰受惠、誰受傷",
+   "points": [
+    "受惠：運力可用、願承擔風險的 VLCC 船東（台股：新興，已賣一艘；裕民、益航曝險未核實）",
+    "受傷：煉油廠與進口國（運費占到岸成本 3%→27%）、租船人、被點名的船東",
+    "替代供應：荷姆茲以外航線、船對船轉運；成本都較高"
+   ]
+  },
+  {
+   "title": "運價的雙向性",
+   "points": [
+    "運力少 → 運價上；貨量少 → 灣內運價下",
+    "要同時看運力與貨量，單看事件標題會誤判"
+   ]
+  }
+ ],
+ "conclusion": [
+  "PGSA 的原始聲明是 11/1 起對 Sinokor 船隻『採取法律行動』，不等於已禁止通行；Sinokor 占荷姆茲 VLCC 通行量逾一半，若真執法會放大運力缺口，但 11/1 之後的實際動作未查到。",
+  "運價已是歷史級高位（TD3C 約 133 萬美元／日、年內漲逾 1,600%，口徑不一）；方向可能因貨量下滑而反轉。",
+  "台股對應：新興（上半年 EPS 3.67 元含售船利益，已賣一艘 VLCC）；裕民、益航曝險未核實，列追蹤。下一步看 11/1 之後的實際執法與 10 月營收。"
+ ],
+ "sources": [
+  {
+   "title": "Splash247：Iran singles out Sinokor",
+   "url": "https://splash247.com/iran-singles-out-sinokor/"
+  },
+  {
+   "title": "Seatrade Maritime：Iran's Hormuz authority to take 'legal action' against Sinokor fleet",
+   "url": "https://www.seatrade-maritime.com/security/iran-s-hormuz-authority-blacklists-entire-sinokor-fleet"
+  },
+  {
+   "title": "Maritime Executive：Iranian forces threaten Sinokor with legal action for Hormuz violations",
+   "url": "https://maritime-executive.com/article/iranian-forces-threaten-sinokor-with-legal-action-for-hormuz-violations"
+  },
+  {
+   "title": "Al-Monitor：Iran says Sinokor vessels face legal action; South Korean shipowners deny link（2026/10）",
+   "url": "https://www.al-monitor.com/originals/2026/10/iran-says-sinokor-vessels-face-legal-action-south-korean-shipowners-deny-link"
+  },
+  {
+   "title": "Gulf News：Iran warns South Korean shipper Sinokor — 'legal action' from Nov. 1",
+   "url": "https://gulfnews.com/world/mena/iran-warns-south-korean-shipper-sinokor-legal-action-from-nov-1-1.500726271"
+  },
+  {
+   "title": "網易：盯上『海峽最大油輪船隊』！點名韓國船東，伊朗警告 11 月 1 日採取『全面行動』（運費年內漲逾 1600% 的出處）",
+   "url": "https://www.163.com/dy/article/LAKV3JAI05198NMR.html"
+  },
+  {
+   "title": "鉅亨網（佇列觸發新聞）：伊朗盯上荷姆茲最大油輪船隊",
+   "url": "https://news.cnyes.com/news/id/6643199"
+  },
+  {
+   "title": "鳳凰網：霍爾木茲海峽暗航盛行，原油運價創 60 年新高（含招商輪船觀點）",
+   "url": "https://finance.ifeng.com/c/8xcpGAP4c3u"
+  },
+  {
+   "title": "Seatrade Maritime：VLCC spot rates hit the stratosphere with Sinokor Hormuz fixture",
+   "url": "https://www.seatrade-maritime.com/tankers/vlcc-spot-rates-hit-the-stratosphere-with-sinokor-hormuz-fixture"
+  },
+  {
+   "title": "TFTC：Iran bans Sinokor fleet from Hormuz（單一來源，措辭比其他報導強）",
+   "url": "https://www.tftc.io/iran-pgsa-sinokor-fleet-ban-hormuz-crude-november-2026"
+  },
+  {
+   "title": "ETtoday：新興航運上半年 EPS 3.67 元，主因售船與高漲的超大型油輪運價",
+   "url": "https://finance.ettoday.net/news/3217951"
+  },
+  {
+   "title": "ETtoday：新興首季 EPS 0.66 元，第二季因油輪運價高漲與賣船利益 EPS 上看 3 元",
+   "url": "https://finance.ettoday.net/news/3165394"
+  },
+  {
+   "title": "Fugle：新興 2605 法說會摘要（2026/5/22）",
+   "url": "https://blog.fugle.tw/post/earnings-call-2605-2026-05-22"
+  },
+  {
+   "title": "ETtoday：裕民股利 4.31 元、未分配盈餘 215.51 億元",
+   "url": "https://finance.ettoday.net/news/3169480"
+  }
+ ],
+ "layers": [
+  {
+   "layer": "VLCC 油輪運價（灣區→亞洲）",
+   "description": "TD3C 10 月約 133 萬美元／日（Lloyd's List，搜尋摘要）；Sinokor 占荷姆茲 VLCC 通行量逾 50%；排除荷姆茲航次的主流即期收益約 20 萬美元／日。",
+   "global_players": [
+    "Sinokor",
+    "Frontline",
+    "DHT",
+    "CMB.Tech",
+    "招商輪船（China Merchants Energy）",
+    "COSCO Shipping Energy"
+   ],
+   "tw_stocks": [
+    {
+     "code": "2605",
+     "name": "新興",
+     "role": "VLCC＋海岬型",
+     "impact": "受惠，但已賣一艘 VLCC"
+    },
+    {
+     "code": "2606",
+     "name": "裕民",
+     "role": "散裝為主，含油輪／LNG",
+     "impact": "VLCC 曝險未核實"
+    },
+    {
+     "code": "2601",
+     "name": "益航",
+     "role": "油輪",
+     "impact": "本次查無資料"
+    }
+   ]
+  },
+  {
+   "layer": "戰爭險與保險",
+   "description": "荷姆茲航次戰爭險約 6～10% 船體價值／航次（報導）；PGSA 警告貨主、租船人與保險業者。",
+   "global_players": [
+    "Lloyd's 市場承保人",
+    "P&I Clubs"
+   ],
+   "tw_stocks": []
+  },
+  {
+   "layer": "買方成本（煉油廠、進口國）",
+   "description": "運費占到岸原油成本由約 3% 升到約 27%（Poten 估，搜尋摘要）。",
+   "global_players": [
+    "亞洲煉油廠"
+   ],
+   "tw_stocks": [
+    {
+     "code": "6505",
+     "name": "台塑化",
+     "role": "煉油（有自有 VLCC 船隊，另案研究）",
+     "impact": "淨效果未量化"
+    }
+   ]
+  }
+ ]
+}
