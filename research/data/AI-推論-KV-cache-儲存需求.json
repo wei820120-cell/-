@@ -1,0 +1,203 @@
+{
+ "topic": "AI 推論 KV cache 儲存需求",
+ "one_line": "SanDisk 2026 年 8 月 Investor Day 預估 2030 年企業資料中心 flash 約 1.2 ZB、持久化 KV cache 裝機約 1 ZB、KV cache 約占 AI 資料中心 flash 市場 35%（頻道說『約三分之一』吻合）；這是賣方預測、無獨立第三方驗證，也沒有拆出訂單。已證實的買單是 SanDisk FY27 Q1 資料中心營收 48 億美元（季增 61%），但那是整體資料中心 SSD，不是 KV cache 單項。台股對應以群聯（控制晶片）為主，本次未查個股數字。",
+ "status": "混合",
+ "horizon": "長期（1年以上）",
+ "keywords": [
+  "KV cache",
+  "推論",
+  "企業級SSD",
+  "NAND",
+  "HBF",
+  "SanDisk",
+  "群聯",
+  "agentic",
+  "持久化KV cache"
+ ],
+ "catalysts": [
+  "SanDisk Q1 法說全文（KV cache 量化訊息）",
+  "雲端／模型廠推論儲存層架構公布",
+  "TrendForce 11 月企業級 SSD 合約價",
+  "群聯、威剛 10 月營收與法說"
+ ],
+ "risks": [
+  "35% 是賣方（SanDisk）對自家市場的預測，無獨立驗證",
+  "KV cache 壓縮／量化、CXL 記憶體池、更大 HBM／DRAM 都可能降低 flash 卸載需求（推論，未逐一查證）",
+  "預測到 2030，近期價格由整體 SSD 需求與供給配額決定",
+  "客戶端採用持久化 KV cache 的獨立證據本次未找到",
+  "個股數字本次未查，不可直接當作受惠幅度"
+ ],
+ "spec_tables": [
+  {
+   "title": "表：SanDisk Investor Day（2026/8）長期預測（二手報導）",
+   "columns": [
+    "項目",
+    "預測",
+    "備註"
+   ],
+   "rows": [
+    [
+     "企業資料中心 flash 可服務市場（2030）",
+     "約 1.2 ZB",
+     "SanDisk 自估"
+    ],
+    [
+     "持久化 KV cache 裝機容量（2030）",
+     "約 1 ZB",
+     "SanDisk 自估"
+    ],
+    [
+     "KV cache 占 AI 資料中心 flash",
+     "約 35%",
+     "報導的分母略有不同（市場／工作負載）"
+    ],
+    [
+     "FY28～FY30 營收成長",
+     "約十幾 % 中後段（mid-to-high teens）",
+     "與 bit 成長一致"
+    ],
+    [
+     "FY28～FY30 非 GAAP 毛利率／營業利益率",
+     "約 80%／約 75%",
+     "隱含供給持續緊"
+    ]
+   ],
+   "note": "賣方預測；二手報導。"
+  }
+ ],
+ "evolution": [
+  {
+   "name": "GPU 本地 HBM 放 KV",
+   "composition": "HBM",
+   "spec": "最快、最貴、容量有限",
+   "application": "短上下文推論"
+  },
+  {
+   "name": "DRAM／CXL 擴充",
+   "composition": "主機 DRAM 或 CXL 記憶體池",
+   "spec": "容量大於 HBM",
+   "application": "中等上下文"
+  },
+  {
+   "name": "持久化 KV cache（flash）",
+   "composition": "企業級 NVMe SSD、HBF",
+   "spec": "SanDisk 估 2030 年約 1 ZB",
+   "application": "長上下文、agentic 多輪對話"
+  }
+ ],
+ "concepts": [
+  {
+   "title": "為什麼 flash 會被用來放 KV cache",
+   "points": [
+    "上下文越長，KV cache 越大；放 HBM／DRAM 太貴",
+    "重複讀取歷史上下文時，從 flash 讀回比重算便宜",
+    "flash 成為推論記憶體階層的第三層"
+   ]
+  },
+  {
+   "title": "如何看這個預測",
+   "points": [
+    "賣方替自己的市場估規模，要打折看",
+    "近期看整體資料中心 SSD 的實際財報（48 億美元），不是 2030 年的比例",
+    "台股受惠度取決於控制晶片與模組廠能否切入雲端採購，本次未量化"
+   ]
+  }
+ ],
+ "conclusion": [
+  "SanDisk 預估 2030 年 KV cache 約占 AI 資料中心 flash 35%，和頻道說的『約三分之一』吻合，但是賣方預測、沒有獨立驗證。",
+  "已證實的是整體資料中心 SSD 需求（SanDisk FY27 Q1 資料中心 48 億美元、季增 61%），並未拆出 KV cache。",
+  "台股對應以群聯（控制晶片）為首，其次威剛、力成；旺宏／華邦電與 KV cache 關聯弱。本次未查個股數字，列追蹤。",
+  "下一步：確認 Q1 法說是否量化 KV cache，並看雲端廠是否公開推論儲存層架構。"
+ ],
+ "sources": [
+  {
+   "title": "StorageNewsletter（2026/8/19）：Sandisk 公布成長策略與長期財務模型（Investor Day）",
+   "url": "https://www.storagenewsletter.com/2026/08/19/sandisk-details-growth-strategy-and-long-term-financial-model/"
+  },
+  {
+   "title": "CryptoBriefing：SanDisk 預期 KV cache 到 2030 年占 AI 資料中心 NAND 工作負載 35%",
+   "url": "https://cryptobriefing.com/sandisk-kv-cache-nand-ai-data-centers/"
+  },
+  {
+   "title": "GuruFocus：SanDisk Q4 2026 法說重點（KV cache 機會逐步成熟、視使用情境而定）",
+   "url": "https://www.gurufocus.com/news/9009608/sandisk-corp-sndk-q4-2026-earnings-call-highlights-record-revenue-and-eps-driven-by-ai-data-center-surge"
+  },
+  {
+   "title": "Sandisk 官方：Fiscal First Quarter 2027 Financial Results（2026/10/29）",
+   "url": "https://investor.sandisk.com/node/8476/pdf"
+  },
+  {
+   "title": "tech-insider（轉述 TrendForce）：企業級 SSD 2026 Q4 價格（二手）",
+   "url": "https://tech-insider.org/enterprise-ssd-prices-q4-2026-nand-supplier-race/"
+  }
+ ],
+ "layers": [
+  {
+   "layer": "推論記憶體階層（HBM → DRAM → flash）",
+   "description": "KV cache 隨上下文長度與並行用戶增大；冷資料卸載到 flash 比重算便宜，flash 成為第三層。",
+   "global_players": [
+    "Nvidia",
+    "SanDisk（HBF）",
+    "SK hynix",
+    "Samsung",
+    "Micron"
+   ],
+   "tw_stocks": [
+    {
+     "code": "8299",
+     "name": "群聯",
+     "role": "SSD 控制晶片與 GPU 記憶體擴充方案",
+     "impact": "潛在受惠，未量化"
+    }
+   ]
+  },
+  {
+   "layer": "企業級 SSD 與 NAND 供給",
+   "description": "SanDisk 資料中心營收 48 億美元（FY27 Q1，季增 61%）；Q4 企業級 SSD 合約價預估 +23～28%（二手）。",
+   "global_players": [
+    "SanDisk",
+    "Samsung",
+    "SK hynix／Solidigm",
+    "Micron",
+    "Kioxia"
+   ],
+   "tw_stocks": [
+    {
+     "code": "3260",
+     "name": "威剛",
+     "role": "儲存模組",
+     "impact": "潛在受惠，未查證"
+    },
+    {
+     "code": "6239",
+     "name": "力成",
+     "role": "NAND 封測",
+     "impact": "跟 bit 出貨走"
+    }
+   ]
+  },
+  {
+   "layer": "伺服器整機",
+   "description": "企業級 SSD 隨 AI 伺服器出貨。",
+   "global_players": [
+    "Dell",
+    "Supermicro",
+    "HPE"
+   ],
+   "tw_stocks": [
+    {
+     "code": "6669",
+     "name": "緯穎",
+     "role": "雲端伺服器",
+     "impact": "間接，未查證"
+    },
+    {
+     "code": "2382",
+     "name": "廣達",
+     "role": "AI 伺服器",
+     "impact": "間接，未查證"
+    }
+   ]
+  }
+ ]
+}
