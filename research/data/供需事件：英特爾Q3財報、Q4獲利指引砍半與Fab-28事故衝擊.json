@@ -1,0 +1,184 @@
+{
+ "topic": "供需事件：英特爾Q3財報、Q4獲利指引砍半與Fab 28事故衝擊",
+ "one_line": "Intel Q3（10/29）營收 165 億美元（+21%）、非 GAAP EPS 0.52 美元（共識約 0.40）、毛利率 44.1%，已由官方新聞稿證實；Q4 指引營收 150～160 億、非 GAAP EPS 0.25 美元（腰斬，股價重挫）；Fab 28 事故使 Q4 少約 3 億美元營收、毛利率承壓約 200 bp，與貼文『約 2 個百分點』吻合。貼文說的『Q4 毛利率 44%→38%』與『市場預期 0.43』我沒查到出處，列未證實。",
+ "status": "混合",
+ "horizon": "短期（1-3個月）",
+ "keywords": [
+  "英特爾",
+  "Intel",
+  "Fab 28",
+  "Q4指引",
+  "毛利率",
+  "AMD",
+  "PC供貨",
+  "以色列"
+ ],
+ "catalysts": [
+  "Intel 10-Q 與法說完整逐字稿",
+  "Fab 28 復產時程",
+  "PC 品牌廠 Q4 出貨",
+  "台灣 PC 供應鏈 10 月營收（11/10 前）"
+ ],
+ "risks": [
+  "Q4 毛利率 38% 與『預期 0.43』未證實",
+  "事故停產天數與復原時程未取得",
+  "指引砍半中事故以外的原因本次未取得公司說明",
+  "『爆炸』說法僅見新聞，公司稱 incident"
+ ],
+ "spec_tables": [
+  {
+   "title": "表：Intel 2026 Q3 與 Q4 指引（官方文件）",
+   "columns": [
+    "項目",
+    "Q3 實績",
+    "Q4 指引"
+   ],
+   "rows": [
+    [
+     "營收",
+     "165 億美元（年增 21%）",
+     "150～160 億美元"
+    ],
+    [
+     "非 GAAP EPS",
+     "0.52 美元（共識約 0.40）",
+     "0.25 美元"
+    ],
+    [
+     "GAAP EPS",
+     "0.60 美元",
+     "0.10 美元"
+    ],
+    [
+     "非 GAAP 毛利率",
+     "44.1%（高於指引約 200 bp）",
+     "未取得（貼文稱 38%，未證實）"
+    ],
+    [
+     "Fab 28 事故",
+     "—",
+     "約 3 億美元營收、毛利率約 −200 bp（早期評估）"
+    ]
+   ],
+   "note": "來源：Intel 新聞稿／SEC 8-K／法說逐字稿摘要。"
+  }
+ ],
+ "evolution": [
+  {
+   "name": "Q3 優於預期",
+   "composition": "營收 +21%、EPS 0.52",
+   "spec": "毛利率 44.1%",
+   "application": "股價仍因指引重挫"
+  },
+  {
+   "name": "Q4 指引砍半",
+   "composition": "EPS 0.25、營收 150～160 億",
+   "spec": "含 Fab 28 衝擊約 200 bp",
+   "application": "市場重估獲利能力"
+  }
+ ],
+ "concepts": [
+  {
+   "title": "供需缺口怎麼來的",
+   "points": [
+    "Fab 28 事故使 Q4 少約 3 億美元營收，PC 品牌廠一度急找其他貨源",
+    "指引砍半另有結構性因素，細節待逐字稿確認"
+   ]
+  },
+  {
+   "title": "誰受惠、誰受傷",
+   "points": [
+    "受傷：Intel；PC 品牌與 ODM 面臨供貨與成本壓力",
+    "潛在受惠：AMD 等替代供應（未查證）"
+   ]
+  }
+ ],
+ "conclusion": [
+  "Intel Q3 數字與 Q4 EPS／營收指引已由官方文件證實；Fab 28 約 3 億美元營收、200 bp 毛利率衝擊與貼文吻合。",
+  "貼文的『Q4 毛利率 38%』與『市場預期 0.43』未查到出處，列未證實。",
+  "下一步看 10-Q／逐字稿確認 Q4 毛利率與事故復原時程。"
+ ],
+ "sources": [
+  {
+   "title": "Intel 官方：Intel Reports Third-Quarter 2026 Financial Results",
+   "url": "https://www.intc.com/news-events/press-releases/detail/1786/intel-reports-third-quarter-2026-financial-results"
+  },
+  {
+   "title": "SEC 8-K：Intel Q3 2026 earnings release",
+   "url": "https://www.sec.gov/Archives/edgar/data/0000050863/000005086326000188/q326earningsrelease.htm"
+  },
+  {
+   "title": "Yahoo Finance：Intel Q3 FY2026 earnings call transcript",
+   "url": "https://finance.yahoo.com/quote/INTC/earnings/INTC-Q3-2026-earnings_call-714242.html"
+  },
+  {
+   "title": "Investing.com：Earnings call transcript: Intel beats Q3 2026 estimates, but stock sinks",
+   "url": "https://www.investing.com/news/transcripts/earnings-call-transcript-intel-beats-q3-2026-estimates-but-stock-sinks-93CH-4985498"
+  },
+  {
+   "title": "Jon Peddie Research：Intel's Q3'26 financial results",
+   "url": "https://www.jonpeddie.com/news/intels-q326-financial-results/"
+  },
+  {
+   "title": "Threads @ai.podcast.summarist（轉述來源，未證實）：Q3 財報與 Q4 指引",
+   "url": "https://www.threads.com/@ai.podcast.summarist/post/DfMC7XFkjGt"
+  },
+  {
+   "title": "Threads @ai.podcast.summarist（轉述來源，未證實）：Q4 毛利率與 Fab 28",
+   "url": "https://www.threads.com/@ai.podcast.summarist/post/DfMC9BnknrJ"
+  }
+ ],
+ "layers": [
+  {
+   "layer": "Intel 營運與指引",
+   "description": "Q3 營收 165 億美元、EPS 0.52；Q4 營收 150～160 億、EPS 0.25；Fab 28 事故約 3 億美元營收／200 bp 毛利率。",
+   "global_players": [
+    "Intel",
+    "AMD"
+   ],
+   "tw_stocks": [
+    {
+     "code": "2330",
+     "name": "台積電",
+     "role": "部分 Intel 產品代工，間接",
+     "impact": "未查證"
+    }
+   ]
+  },
+  {
+   "layer": "PC 品牌與 ODM（供貨風險）",
+   "description": "Fab 28 事故導致 PC 品牌廠急找其他貨源（見既有研究）；本次未新增個股數字。",
+   "global_players": [
+    "Dell",
+    "HP",
+    "Lenovo"
+   ],
+   "tw_stocks": [
+    {
+     "code": "2353",
+     "name": "宏碁",
+     "role": "PC 品牌",
+     "impact": "供貨風險，未新增數字"
+    },
+    {
+     "code": "2357",
+     "name": "華碩",
+     "role": "PC 品牌",
+     "impact": "供貨風險，未新增數字"
+    },
+    {
+     "code": "2382",
+     "name": "廣達",
+     "role": "筆電 ODM",
+     "impact": "間接，未查證"
+    },
+    {
+     "code": "2356",
+     "name": "英業達",
+     "role": "筆電 ODM",
+     "impact": "間接，未查證"
+    }
+   ]
+  }
+ ]
+}
