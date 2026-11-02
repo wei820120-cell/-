@@ -39,6 +39,51 @@
     "台積電"
    ],
    "score": 3
+  },
+  {
+   "id": "ai.podcast.summarist/DfQdf_lk9H5",
+   "author": "ai.podcast.summarist",
+   "url": "https://www.threads.com/@ai.podcast.summarist/post/DfQdf_lk9H5",
+   "at": "2026-11-02T23:13:36.000Z",
+   "seen_at": "2026-11-03T07:20:51+08:00",
+   "reply_to": "",
+   "text": "股海飯桶WilsonRice\n5分鐘\n🎙️ 股海飯桶WilsonRice · EP106｜漲停開場白 市場隱憂以及後續供應鏈布局方向 聯發科新客戶\nIntel 過去在通用伺服器的市佔率是 80% 到 90%，《股海飯桶》主持人 Williamson 說到明年（2027 年）有可能反過來，變成 AMD 拿下 80% 到 90%\npod-summarist.rock070.dev/e/c9y…",
+   "tags": [
+    "聯發科（2454）",
+    "英特爾",
+    "超微"
+   ],
+   "score": 4
+  },
+  {
+   "id": "ai.podcast.summarist/DfQdjMoE19f",
+   "author": "ai.podcast.summarist",
+   "url": "https://www.threads.com/@ai.podcast.summarist/post/DfQdjMoE19f",
+   "at": "2026-11-02T23:14:06.000Z",
+   "seen_at": "2026-11-03T07:20:51+08:00",
+   "reply_to": "",
+   "text": "主持人現在避開 ODM（代工組裝）、散熱、PCB（印刷電路板）與 CCL（銅箔基板）。原因是這些環節層層向上游預訂產能，沒人知道有多少是重複下單，一旦 CSP（雲端大廠）砍單，下游會先受傷。",
+   "tags": [
+    "CCL",
+    "銅箔基板"
+   ],
+   "score": 3
+  },
+  {
+   "id": "ai.podcast.summarist/DfQdkzbEyv_",
+   "author": "ai.podcast.summarist",
+   "url": "https://www.threads.com/@ai.podcast.summarist/post/DfQdkzbEyv_",
+   "at": "2026-11-02T23:14:19.000Z",
+   "seen_at": "2026-11-03T07:20:51+08:00",
+   "reply_to": "",
+   "text": "越靠近上游，從晶片到伺服器機櫃出貨的時間越短，也越貼近 CSP 的真實需求。所以他偏好聯發科、創意、世芯-KY 等 IC 設計與 IP 公司，以及封裝和載板。",
+   "tags": [
+    "聯發科（2454）",
+    "創意（3443）",
+    "世芯-KY（3661）",
+    "載板"
+   ],
+   "score": 6
   }
  ]
 }
