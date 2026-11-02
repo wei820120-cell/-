@@ -1,0 +1,226 @@
+{
+ "topic": "供需事件：聯電拿下訂單或認證（傳聞求證）",
+ "one_line": "經濟日報等 11/02 報導聯電奪下中際旭創（Innolight）與賽麗的矽光子大單，初期總量上看 1 萬片、新加坡廠生產、單價約傳統 CMOS 的 7 倍；聯電不評論客戶與接單。這三個數字（客戶、1 萬片、7 倍）只有媒體說法，未證實。已證實的是公司層面：聯電 Q2 交付首批量產的 12 吋矽光子 PIC、2027 年推出一般客戶平台、矽光子產能目標約 1.8 萬片／月（初期放量 2028 年底、2030 年達完整規模），並追加約 32 億美元資本支出；客戶在終端驗證中、未具名。廠區、時程與資本支出口徑在不同報導間互相矛盾。",
+ "status": "混合",
+ "horizon": "中期（3-12個月）",
+ "keywords": [
+  "聯電",
+  "2303",
+  "矽光子",
+  "PIC",
+  "CPO",
+  "中際旭創",
+  "賽麗",
+  "新加坡",
+  "7倍單價",
+  "傳聞求證"
+ ],
+ "catalysts": [
+  "聯電重大訊息與 11 月營收",
+  "年底／明年初法說對矽光子營收的量化",
+  "中際旭創、賽麗是否公開供應商",
+  "台積電 COUPE／CPO 量產進度",
+  "新加坡 P3／P4 與南科 P7／P8 時程"
+ ],
+ "risks": [
+  "大單內容（客戶、1 萬片、7 倍價）僅媒體說法，聯電不評論",
+  "廠區與時程說法矛盾，初期 1 萬片的時間點不明",
+  "資本支出口徑不一（15→20 億美元 vs 追加約 32 億美元）",
+  "矽光子量體小，短期對營收貢獻有限（我的判斷）",
+  "毛利率承壓、評價偏高（財務長說法、股價 10/29 曾跌停）",
+  "全文未讀，細節可能與摘要不同"
+ ],
+ "spec_tables": [
+  {
+   "title": "表：矽光子傳聞 vs 公司說法",
+   "columns": [
+    "項目",
+    "媒體報導（未證實）",
+    "公司說法（法說摘要）"
+   ],
+   "rows": [
+    [
+     "客戶",
+     "中際旭創、賽麗",
+     "未具名；終端客戶驗證中"
+    ],
+    [
+     "規模",
+     "初期總量上看 1 萬片",
+     "目標 1.8 萬片／月，初期放量 2028 年底、2030 年達規模"
+    ],
+    [
+     "價格",
+     "約傳統 CMOS 7 倍",
+     "未揭露"
+    ],
+    [
+     "生產地",
+     "新加坡",
+     "新加坡 P4 擴產；南科 P7、P8 規劃"
+    ],
+    [
+     "量產進度",
+     "—",
+     "Q2 已交付首批量產 12 吋 PIC；2027 年推出一般客戶平台"
+    ],
+    [
+     "資本支出",
+     "2026 年 15→20 億美元；2026～27 合計 50 億美元",
+     "追加約 32 億美元加速先進封裝與矽光子"
+    ]
+   ],
+   "note": "聯電對特定客戶與接單消息不予評論。"
+  }
+ ],
+ "evolution": [
+  {
+   "name": "首批量產 PIC",
+   "composition": "12 吋矽光子積體電路",
+   "spec": "開發到量產約 18 個月",
+   "application": "Q2 交付，通過大型雲端客戶驗證"
+  },
+  {
+   "name": "一般客戶平台",
+   "composition": "矽光子平台",
+   "spec": "2027 年推出",
+   "application": "擴大客戶"
+  },
+  {
+   "name": "擴產放量",
+   "composition": "新加坡 P4／南科 P7、P8",
+   "spec": "目標 1.8 萬片／月；2028 年底起、2030 年規模",
+   "application": "AI 光通訊"
+  }
+ ],
+ "concepts": [
+  {
+   "title": "供需缺口怎麼來的",
+   "points": [
+    "AI 資料中心光互連需求成長快於已認證的矽光子產能",
+    "台積電以外的 12 吋矽光子代工來源有限，客戶尋找第二來源"
+   ]
+  },
+  {
+   "title": "誰受惠、誰受傷",
+   "points": [
+    "受惠：有量產能力的聯電；矽光子光模組客戶取得另一來源",
+    "未證實：具體客戶與數量",
+    "風險：量體小、時程長、毛利與評價壓力"
+   ]
+  },
+  {
+   "title": "如何判讀這則傳聞",
+   "points": [
+    "公司層面證據（量產、擴產）≠ 具體大單",
+    "三個關鍵數字都沒有官方佐證"
+   ]
+  }
+ ],
+ "conclusion": [
+  "聯電矽光子的量產、2027 年一般客戶平台與擴產計畫已有公司層面證據；『奪下中際旭創與賽麗大單、初期 1 萬片、單價 7 倍』只是媒體消息，聯電不評論，未證實。",
+  "廠區、時程與資本支出口徑在不同報導間矛盾；矽光子大規模產能要到 2028 年底之後，短期營收貢獻有限（我的判斷）。",
+  "下一步看聯電的正式說法與中際旭創、賽麗是否公開供應商，並盯台積電 COUPE 進度。"
+ ],
+ "sources": [
+  {
+   "title": "經濟日報：聯電奪矽光子大單 中際旭創、賽麗等都上門 單價是傳統 CMOS 製程七倍（11/02，搜尋摘要，全文未讀）",
+   "url": "https://money.udn.com/money/story/5612/9850895"
+  },
+  {
+   "title": "聯合新聞網：聯電奪光通訊重量級大單 價格為傳統製程七倍 挹注獲利大躍進",
+   "url": "https://udn.com/news/story/7240/9850709"
+  },
+  {
+   "title": "世界新聞網：聯電奪光通訊大單 單價為傳統製程 7 倍",
+   "url": "https://www.worldjournal.com/wj/story/121347/9851037"
+  },
+  {
+   "title": "Motley Fool：UMC Q3 2026 Earnings Call Transcript（2026/10/28；本次僅取得搜尋摘要）",
+   "url": "https://www.fool.com/earnings/call-transcripts/2026/10/28/umc-umc-q3-2026-earnings-call-transcript/"
+  },
+  {
+   "title": "Benzinga：United Microelectronics Q3 2026 Earnings Call Transcript",
+   "url": "https://www.benzinga.com/news/26/10/62646009/united-microelectronics-q3-2026-earnings-call-transcript"
+  },
+  {
+   "title": "GuruFocus：UMC Q3 2026 法說重點——創紀錄出貨量、92% 稼動率、ASP 上調約 10%",
+   "url": "https://www.gurufocus.com/news/9151896/united-microelectronics-corp-umc-q3-2026-earnings-call-highlights-record-wafer-shipments-92-utilization-and-a-10-asp-jump-on-the-horizon"
+  },
+  {
+   "title": "鉅亨網：〈聯電法說〉AI 營收三年拚逾 10 億美元 搶先進封裝、矽光子商機",
+   "url": "https://news.cnyes.com/news/id/6550989"
+  },
+  {
+   "title": "經濟日報：聯電強攻 CPO 星國新廠進入技術導入與試產準備階段 預計 2027 年量產",
+   "url": "https://udn.com/news/story/7253/9275408"
+  },
+  {
+   "title": "TechNews：聯電第二季財報報佳音，布局矽光子與先進封裝法人看法分歧（7/30）",
+   "url": "https://finance.technews.tw/2026/07/30/umcs-second-quarter-financial-report-brings-good-news/"
+  },
+  {
+   "title": "旺得富：台積電矽光子生態系——聯電、旺矽、欣銓等 5 檔最受惠（9/6，標題層級）",
+   "url": "https://wantrich.chinatimes.com/news/20260906900001-420101"
+  },
+  {
+   "title": "CMoney 投資網誌（觸發來源，標題層級）：聯電(2303)拿下矽光子大單，產能開出後獲利撐得起評價嗎？",
+   "url": "https://news.google.com/rss/articles/CBMiggFBVV95cUxPdS1oZWk5OGRPTTllMWpmNUFkaVRmdW9mbEpVTmJPRnNfLTVSQTVUZ01Jb2oxdlk3WlpiRGd0ZUM2OXo1NkQyVXFCWm9ZWk1HSlRxck5HMmRoSFA4UzhnWEJNa0tmQy02TnZPTDVkWEJqdFlXcXFxUEh2SEtObFN6bkdB?oc=5"
+  }
+ ],
+ "layers": [
+  {
+   "layer": "矽光子 12 吋晶圓代工（PIC）",
+   "description": "聯電已交付首批量產 PIC；矽光子目標約 1.8 萬片／月，放量 2028 年底起、2030 年達規模；2027 年推一般客戶平台。報導稱初期訂單約 1 萬片、單價約傳統 CMOS 的 7 倍（未證實）。",
+   "global_players": [
+    "TSMC（COUPE）",
+    "GlobalFoundries",
+    "Tower Semiconductor"
+   ],
+   "tw_stocks": [
+    {
+     "code": "2303",
+     "name": "聯電",
+     "role": "矽光子 PIC 代工",
+     "impact": "受惠（量產已證實；大單未證實）"
+    },
+    {
+     "code": "2330",
+     "name": "台積電",
+     "role": "矽光子競爭者",
+     "impact": "競爭，未查細節"
+    }
+   ]
+  },
+  {
+   "layer": "光模組／光引擎客戶（報導）",
+   "description": "報導點名中際旭創（光模組龍頭）與賽麗（騰訊創投注資的光引擎晶片業者）；皆未獲官方證實。",
+   "global_players": [
+    "中際旭創（Innolight）",
+    "賽麗"
+   ],
+   "tw_stocks": []
+  },
+  {
+   "layer": "測試與探針（矽光子帶動）",
+   "description": "旺得富標題將旺矽、欣銓列入矽光子生態系受惠名單（標題層級）。",
+   "global_players": [
+    "測試設備與代測廠"
+   ],
+   "tw_stocks": [
+    {
+     "code": "6223",
+     "name": "旺矽",
+     "role": "探針卡",
+     "impact": "連動，未查個股數字"
+    },
+    {
+     "code": "3264",
+     "name": "欣銓",
+     "role": "IC 測試",
+     "impact": "連動，未查個股數字"
+    }
+   ]
+  }
+ ]
+}
