@@ -7,8 +7,8 @@
  "duration_min": 50,
  "paras": 25,
  "ad_paras": 0,
- "chars": 20099,
- "market_start": "09:47",
+ "chars": 20125,
+ "market_start": "",
  "qa_start": "",
  "tags": {
   "特斯拉": 6,
@@ -16,6 +16,7 @@
   "全家（5903）": 2,
   "安心（1259）": 1,
   "群創（3481）": 1,
+  "星雲（8047）": 1,
   "幸福（1108）": 1
  },
  "terms": {
@@ -34,5 +35,6 @@
   "基本面": 1
  },
  "model": "medium",
- "transcribed_at": "2026-10-26T05:29:47+00:00"
+ "transcribed_at": "2026-11-03T16:21:09+00:00",
+ "archive_key": "a245ba719986"
 }
