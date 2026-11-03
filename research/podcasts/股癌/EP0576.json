@@ -5,9 +5,9 @@
  "published": "2025-07-19T08:20:33+00:00",
  "key": "40e544c7e0cf",
  "duration_min": 50,
- "paras": 26,
+ "paras": 25,
  "ad_paras": 1,
- "chars": 19384,
+ "chars": 19401,
  "market_start": "",
  "qa_start": "",
  "tags": {
@@ -27,7 +27,7 @@
  "terms": {
   "部位": 1,
   "槓桿": 1,
-  "估值": 10,
+  "估值": 7,
   "財報": 1,
   "法說": 1,
   "指數": 1,
@@ -45,5 +45,6 @@
   "毛利": 2
  },
  "model": "medium",
- "transcribed_at": "2026-10-26T01:29:34+00:00"
+ "transcribed_at": "2026-11-03T22:49:16+00:00",
+ "archive_key": "a245ba719986"
 }
