@@ -17,6 +17,10 @@ on:
         type: boolean
         default: false
 
+# 收盤後要把 state/ 推回 repo（台指期計畫帳、日線收盤、已推播紀錄）；沒有這個權限會在最後一步 403、整個執行變紅，當天記錄全部遺失
+permissions:
+  contents: write
+
 concurrency:
   group: realtime
   cancel-in-progress: false
