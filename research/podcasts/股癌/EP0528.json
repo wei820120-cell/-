@@ -7,9 +7,9 @@
  "duration_min": 51,
  "paras": 25,
  "ad_paras": 1,
- "chars": 19198,
- "market_start": "08:08",
- "qa_start": "24:54",
+ "chars": 19193,
+ "market_start": "08:09",
+ "qa_start": "",
  "tags": {
   "全家（5903）": 3,
   "鴻海（2317）": 2,
@@ -42,5 +42,6 @@
   "供應鏈": 1
  },
  "model": "medium",
- "transcribed_at": "2026-10-26T04:34:53+00:00"
+ "transcribed_at": "2026-11-03T16:43:48+00:00",
+ "archive_key": "a245ba719986"
 }
