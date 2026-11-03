@@ -7,14 +7,14 @@
  "duration_min": 51,
  "paras": 27,
  "ad_paras": 1,
- "chars": 20585,
+ "chars": 20570,
  "market_start": "",
  "qa_start": "",
  "tags": {
   "輝達": 9,
+  "全家（5903）": 5,
+  "谷歌": 4,
   "CCL": 3,
-  "全家（5903）": 3,
-  "谷歌": 3,
   "AWS": 2,
   "Meta": 2,
   "OpenAI": 2,
@@ -39,8 +39,9 @@
   "基本面": 1,
   "產業": 6,
   "供應鏈": 4,
-  "毛利": 5
+  "毛利": 6
  },
  "model": "medium",
- "transcribed_at": "2026-10-26T08:13:15+00:00"
+ "transcribed_at": "2026-11-03T21:23:45+00:00",
+ "archive_key": "a245ba719986"
 }
