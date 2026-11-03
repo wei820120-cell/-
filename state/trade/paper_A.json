@@ -17,7 +17,7 @@
    "r0": 0.8822281020503482,
    "realized": -122.11399688720704,
    "half_done": true,
-   "days": 15,
+   "days": 16,
    "exit_next": ""
   },
   {
@@ -34,7 +34,7 @@
    "r0": 0.9459572100168714,
    "realized": -101.51,
    "half_done": true,
-   "days": 15,
+   "days": 16,
    "exit_next": ""
   },
   {
@@ -51,8 +51,8 @@
    "r0": 0.37942126100774587,
    "realized": -206.69199844360352,
    "half_done": false,
-   "days": 3,
-   "exit_next": ""
+   "days": 4,
+   "exit_next": "跌破20日線"
   }
  ],
  "closed": [
@@ -168,8 +168,10 @@
   }
  ],
  "plan": [],
- "last_date": "2026-11-02",
+ "last_date": "2026-11-03",
  "regime": "空頭／盤整",
  "blocked": [],
- "last_events": []
+ "last_events": [
+  "⚠️ 2633 台灣高鐵 收盤跌破 20 日線，明天開盤出場"
+ ]
 }
