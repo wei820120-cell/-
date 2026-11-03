@@ -7,12 +7,13 @@
  "duration_min": 49,
  "paras": 25,
  "ad_paras": 0,
- "chars": 19523,
+ "chars": 19565,
  "market_start": "",
  "qa_start": "",
  "tags": {
-  "AWS": 2,
+  "AWS": 3,
   "特斯拉": 1,
+  "金居（8358）": 1,
   "南亞（1303）": 1,
   "進階（3118）": 1,
   "旺宏（2337）": 1,
@@ -42,5 +43,6 @@
   "毛利": 2
  },
  "model": "medium",
- "transcribed_at": "2026-10-26T00:15:52+00:00"
+ "transcribed_at": "2026-11-03T22:27:58+00:00",
+ "archive_key": "a245ba719986"
 }
