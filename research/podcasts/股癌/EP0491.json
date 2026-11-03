@@ -7,11 +7,11 @@
  "duration_min": 54,
  "paras": 27,
  "ad_paras": 1,
- "chars": 20591,
+ "chars": 20566,
  "market_start": "",
  "qa_start": "",
  "tags": {
-  "特斯拉": 4,
+  "特斯拉": 5,
   "幸福（1108）": 3,
   "進階（3118）": 2,
   "輝達": 1,
@@ -46,5 +46,6 @@
   "毛利": 1
  },
  "model": "medium",
- "transcribed_at": "2026-10-26T06:08:38+00:00"
+ "transcribed_at": "2026-11-03T15:51:09+00:00",
+ "archive_key": "a245ba719986"
 }
