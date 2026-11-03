@@ -244,6 +244,13 @@ def channel_info(show: dict) -> dict:
             "urls": sorted(set(re.findall(r"https?://[^\s<>\"')]+", ET.tostring(ch, encoding="unicode"))))[:30]}
 
 
+def pubkey_id(pubkey_pem: bytes | None = None) -> str:
+    """公鑰的短指紋：記在每集摘要的 archive_key，用來分辨這一集的加密逐字稿是用哪一把公鑰存的（換金鑰後只重轉指定集數）。"""
+    import hashlib
+    pem = pubkey_pem if pubkey_pem is not None else PUBKEY_PATH.read_bytes()
+    return hashlib.sha256(pem).hexdigest()[:12]
+
+
 def encrypt_text(text: str, pubkey_pem: bytes | None = None) -> bytes:
     """RSA-OAEP 包 AES-GCM 金鑰；公開 repo 裡只放這種加密檔，私鑰不在 repo。沒有公鑰就拒絕存檔。"""
     import zlib
