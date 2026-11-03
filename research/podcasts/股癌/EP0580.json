@@ -7,7 +7,7 @@
  "duration_min": 49,
  "paras": 25,
  "ad_paras": 1,
- "chars": 18996,
+ "chars": 19035,
  "market_start": "",
  "qa_start": "",
  "tags": {
@@ -26,7 +26,7 @@
   "部位": 6,
   "槓桿": 1,
   "籌碼": 2,
-  "估值": 3,
+  "估值": 2,
   "題材": 6,
   "財報": 2,
   "Earnings": 1,
@@ -42,5 +42,6 @@
   "毛利": 5
  },
  "model": "medium",
- "transcribed_at": "2026-10-26T03:37:30+00:00"
+ "transcribed_at": "2026-11-03T21:46:01+00:00",
+ "archive_key": "a245ba719986"
 }
