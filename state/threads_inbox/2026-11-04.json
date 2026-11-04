@@ -13,6 +13,46 @@
     "冠軍（1806）"
    ],
    "score": 3
+  },
+  {
+   "id": "xiagumin/DfT1ez6FGew",
+   "author": "xiagumin",
+   "url": "https://www.threads.com/@xiagumin/post/DfT1ez6FGew",
+   "at": "2026-11-04T06:40:49.000Z",
+   "seen_at": "2026-11-04T14:43:13+08:00",
+   "reply_to": "",
+   "text": "股票日常\n1分鐘\nSMCI這數字....挺暴利的\n昨天還公布\n美超微（Supermicro）與 SambaNova 正式展開策略合作，初期規劃導入 10,000 顆 SN50 AI 推論晶片，打造新一代 AI 推論伺服器\nAMAX這個RDU大客戶沒意外就是SambaNova\n後面的訂單量有非常大的想像空間\nSambaNova 的 RDU 晶片、Neocloud 的區域化，以及 AI 推論需求的轉變\nAI 資料中心的下一場戰爭，可能不只是比誰的園區更大\n最近看到一篇很有意思的報導\n隨著 AI 從模型訓練走向 Agentic AI（代理人 AI），資料中心的建置方向也開始出現變化\n幾個重點：\n1. AI 算力開始走向區域化\n過去市場追逐的是數百 MW 甚至 GW 級的大型資料中心\n但 Agentic AI 需要反覆推理、拆解任務、即時呼叫工具\n如果每次運算都要傳到遠端資料中心，網路延遲就會影響使用體驗\n因此，未來可能出現更多部署在都會區附近的中小型 AI 資料中心\n2. VC2 宣布三年投資 35 億美元",
+   "tags": [
+    "超微"
+   ],
+   "score": 3
+  },
+  {
+   "id": "xiagumin/DfT1hNnFONL",
+   "author": "xiagumin",
+   "url": "https://www.threads.com/@xiagumin/post/DfT1hNnFONL",
+   "at": "2026-11-04T06:41:08.000Z",
+   "seen_at": "2026-11-04T14:43:13+08:00",
+   "reply_to": "",
+   "text": "股票日常\n1分鐘\n新興雲端業者 Vector Core Compute（VC2）計畫布局美國 50 個主要都會區\n每座資料中心規劃約 5～20MW\n從洛杉磯開始，接下來拓展芝加哥、西雅圖等城市\n這代表 AI 基礎建設不一定全部集中在超大型園區\n區域型、分散式算力也可能成為新的市場\n3. SambaNova RDU 成為關鍵角色\n這次合作最值得注意的是 SambaNova 自研的 RDU 晶片\n整套架構採用異質運算：\nNVIDIA Blackwell GPU 負責 Prefill\nSambaNova RDU 負責 Decode\n簡單來說，就是讓不同晶片負責自己擅長的工作\nSambaNova 主打透過資料流架構與記憶體設計，改善 AI 逐 Token 生成時的瓶頸\n其生成速度目標可達 400 Tokens/s 以上\n後續也將從 SN40 升級至 SN50",
+   "tags": [
+    "新興（2605）",
+    "輝達"
+   ],
+   "score": 4
+  },
+  {
+   "id": "pingyunhuang/DfT1NUXE3O0",
+   "author": "pingyunhuang",
+   "url": "https://www.threads.com/@pingyunhuang/post/DfT1NUXE3O0",
+   "at": "2026-11-04T06:38:25.000Z",
+   "seen_at": "2026-11-04T14:43:13+08:00",
+   "reply_to": "",
+   "text": "噱爆法\n4分鐘\n昨天沒有放空很後悔，還好今天補回來",
+   "tags": [
+    "學習"
+   ],
+   "score": 5
   }
  ]
 }
