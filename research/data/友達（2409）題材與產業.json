@@ -1,6 +1,6 @@
 {
  "topic": "友達（2409）題材與產業",
- "one_line": "友達（2409）Q2 EPS 0.18 元終結連三季虧損，但營業淨利率僅 0.3%，顯示科技仍虧損、智慧移動（車用）占 29% 淨利率 3.8%；Q3 營收指引持平，10 月電視面板價格持平、Q4 需求季減；先進封裝（TGV、RDL）是題材但尚無客戶與營收證據。這是連動預研，新聞點名原因未取得。",
+ "one_line": "原研究寫『新聞點名原因未取得』，這次補上：2026-10-29 友達董事會通過把台中二期廠（五代＋7.5 代）以 388 億元賣給台積電、預估處分利益約 185 億元，同日終止華亞廠予廣達的出售案；董事長彭双浪說資產活化告一段落、資金轉投策略與未來性投資。這是一次性資產活化，不是持續營收；先進封裝（玻璃基板、CPO）仍在送樣驗證，營收未見。本次未取得友達 2026 Q3 財報數字。",
  "status": "混合",
  "horizon": "中期（3-12個月）",
  "keywords": [
@@ -15,18 +15,24 @@
   "資金輪動"
  ],
  "catalysts": [
+  "交割與利益認列時點（重訊）",
+  "彭双浪所說的『策略性與未來性投資』具體標的",
+  "Q3 財報與 Q4 展望（本次未取得）",
+  "玻璃基板／CPO 的送樣與客戶驗證",
   "友達第三季法說（約 11 月中下旬）",
   "TrendForce 11 月面板報價",
   "友達先進封裝試產線進度與客戶",
-  "車用訂單（智慧移動）",
-  "10 月營收（約 11/5 前後）"
+  "車用訂單（智慧移動）"
  ],
  "risks": [
+  "董事會通過不等於成交",
+  "賣廠利益為一次性，本業與面板報價才是持續獲利來源",
+  "華亞案終止顯示資產處分的不確定性",
+  "先進封裝題材先行、營收在後",
   "營業淨利率僅 0.3%，本業獲利薄",
   "Q3 指引持平；Q4 電視需求預估季減約 5%、監視器季減 8%",
   "先進封裝試產線來源為部落格，尚無客戶與營收",
-  "題材已被外資認定『利多反映』（2026/2）",
-  "資金輪動新聞全文未取得，點名原因不明"
+  "題材已被外資認定『利多反映』（2026/2）"
  ],
  "spec_tables": [
   {
@@ -149,11 +155,43 @@
   }
  ],
  "conclusion": [
+  "點名原因已補上：賣台中二期廠給台積電（388 億元、利益約 185 億元）；尚未交割，利益今年可能無法認列（二手轉述）。",
+  "同日終止華亞廠予廣達案，預估 133.9 億元利益落空；友達說對財務業務無影響。",
+  "賣廠是資產活化，不是本業改善；本業、Q3 數字、11 月面板報價本次未取得，仍是下一步要查的。",
+  "先進封裝題材（與康寧展示 510×515 mm 玻璃核心基板、Micro LED 光通訊）仍在展示與驗證階段，尚無客戶與營收證據。",
   "友達本業剛轉盈、獲利很薄，Q3 指引持平；面板價格 10 月持平。",
   "先進封裝題材有，但尚無客戶與營收證據，資金輪動新聞點名原因未取得。",
   "要追的是 Q3 法說、11 月面板報價與試產線進度。"
  ],
  "sources": [
+  {
+   "title": "優分析：友達台中二期廠 388 億元賣給台積電 處分利益估 185 億元",
+   "url": "https://uanalyze.com.tw/articles/2996657963"
+  },
+  {
+   "title": "TechNews（2026/10/29）：友達賣台中二期廠給台積電",
+   "url": "https://finance.technews.tw/2026/10/29/auo-tsmc/"
+  },
+  {
+   "title": "TrendForce（2026/08/10，傳聞）：TSMC reportedly eyes two AUO fabs worth TWD 30B+ for FOPLP and CoPoS",
+   "url": "https://www.trendforce.com/news/2026/08/10/news-tsmc-reportedly-eyes-two-auo-fabs-worth-twd-30b-for-foplp-and-copos-longtan-could-add-1-4nm/"
+  },
+  {
+   "title": "TrendForce（2026/04/13）：TSMC advances panel-level packaging CoPoS pilot line",
+   "url": "https://www.trendforce.com/news/2026/04/13/news-tsmc-advances-panel-level-packaging-copos-pilot-line-reportedly-set-for-june-completion-2028-29-ramp-eyed/"
+  },
+  {
+   "title": "人民報／鏡周刊轉述：友達轉虧仍加碼投資 台積電 388 億買廠揭彭双浪盤算",
+   "url": "https://www.peoplenews.tw/?p=64288"
+  },
+  {
+   "title": "經濟日報：友達想複製群創先進封裝行情？玻璃基板＋Micro LED 光通訊成下一波關鍵",
+   "url": "https://money.udn.com/money/amp/story/5607/9791485"
+  },
+  {
+   "title": "數位時代：為什麼台積電、美光買了群創、友達的廠",
+   "url": "https://www.bnext.com.tw/article/80450/why-tsmc-micron-bought-innolux-auo"
+  },
   {
    "title": "自由財經：轉虧為盈！友達 Q2 賺 13.4 億元 EPS 0.18 元",
    "url": "https://ec.ltn.com.tw/article/breakingnews/5522940"
