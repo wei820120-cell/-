@@ -1,26 +1,8 @@
 {
  "start": "2026-10-04",
  "capital": 100000,
- "equity": 99492.49422603096,
- "positions": [
-  {
-   "code": "1101",
-   "name": "台泥",
-   "setup": "拉回",
-   "contract": "DFF",
-   "mult": 2000,
-   "qty": 1,
-   "qty0": 1,
-   "entry_date": "2026-10-07",
-   "entry": 25.25,
-   "stop": 25.25,
-   "r0": 0.9459572100168714,
-   "realized": -101.51,
-   "half_done": true,
-   "days": 18,
-   "exit_next": "跌破20日線"
-  }
- ],
+ "equity": 100088.6574638697,
+ "positions": [],
  "closed": [
   {
    "code": "2376",
@@ -109,10 +91,32 @@
    "pnl": 2851,
    "r": 1.67,
    "reason": "跌破20日線"
+  },
+  {
+   "code": "1101",
+   "name": "台泥",
+   "setup": "拉回",
+   "contract": "DFF",
+   "mult": 2000,
+   "qty": 1,
+   "qty0": 1,
+   "entry_date": "2026-10-07",
+   "entry": 25.25,
+   "stop": 25.25,
+   "r0": 0.9459572100168714,
+   "realized": -101.51,
+   "half_done": true,
+   "days": 19,
+   "exit_next": "跌破20日線",
+   "exit_date": "2026-11-06",
+   "exit": 25.649999618530273,
+   "pnl": 596,
+   "r": 0.32,
+   "reason": "跌破20日線"
   }
  ],
  "plan": [],
- "last_date": "2026-11-05",
+ "last_date": "2026-11-06",
  "regime": "空頭／盤整",
  "blocked": []
 }
