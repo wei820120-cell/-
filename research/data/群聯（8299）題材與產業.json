@@ -1,0 +1,257 @@
+{
+ "topic": "群聯（8299）題材與產業",
+ "one_line": "群聯是 NAND 控制晶片與 SSD 方案廠：2026/9 營收 306.39 億元（年增 370%）、Q3 營收 860.77 億元、AI 相關模組占比據稱逾 50%（搜尋摘要，未核對）；公司（潘健成）說 NAND 缺貨可能延續到 2027～2028 年、2027 年供貨已掌握 70% 以上並在增加庫存，11/6 標題寫『春節後中國 AI 需求爆發』；券商則認為長約價格上限會使 2026 下半年漲幅趨緩。Q3 財報與 10 月營收這次查不到。",
+ "status": "混合",
+ "horizon": "短期看 Q3 財報與 10 月營收；中期看 2027 年 NAND 供需與庫存跌價風險",
+ "keywords": [
+  "群聯",
+  "8299",
+  "NAND",
+  "企業級SSD",
+  "PCIe SSD",
+  "控制晶片",
+  "aiDAPTIV",
+  "缺貨",
+  "潘健成",
+  "2027",
+  "AI 推論",
+  "中國 AI"
+ ],
+ "catalysts": [
+  "Q3 財報與 10 月營收",
+  "NAND 合約價走勢與長約條款",
+  "原廠資本支出與 2027 年底新產能",
+  "中國 AI 需求（春節後）與出口管制",
+  "公司 2027 年 NAND 供貨進度"
+ ],
+ "risks": [
+  "NAND 價格反轉造成庫存跌價與毛利壓力（群聯在增加庫存）",
+  "長約價格上限壓抑漲幅",
+  "供應仰賴原廠",
+  "數字來自搜尋摘要，Q3 財報未核對",
+  "中國需求受出口管制影響"
+ ],
+ "spec_tables": [
+  {
+   "title": "表：群聯近期營收（搜尋摘要，未核對）",
+   "columns": [
+    "期間",
+    "營收／數字",
+    "備註"
+   ],
+   "rows": [
+    [
+     "2026/6",
+     "248.53 億元，年增逾 300%",
+     "首度單月逾 200 億；1～6 月累計約 1,088.55 億元"
+    ],
+    [
+     "2026 Q2",
+     "678.88 億元",
+     "毛利率 65.31%；單季 EPS 118.57 元（異常值，未核對）"
+    ],
+    [
+     "2026/9",
+     "306.39 億元，年增 370%、月增 8%",
+     "AI 相關模組占比據稱逾 50%"
+    ],
+    [
+     "2026 Q3",
+     "860.77 億元，季增 27%",
+     "財報未取得"
+    ],
+    [
+     "2026 1～9 月",
+     "1,949.32 億元，年增 290.92%",
+     "—"
+    ]
+   ],
+   "note": "全部取自媒體摘要，未核對公開資訊觀測站。"
+  }
+ ],
+ "evolution": [
+  {
+   "name": "2026 Q1",
+   "composition": "企業級 SSD 營收比重約 3 成（對比 2025 Q4 約 1 成）",
+   "spec": "CSP 客戶主動找上門",
+   "application": "3 月法說（搜尋摘要）"
+  },
+  {
+   "name": "2026 Q3",
+   "composition": "AI 相關模組占比逾 50%",
+   "spec": "PCIe SSD 控制晶片 8 月出貨月增 77%",
+   "application": "企業級 SSD、aiDAPTIV、AI Server、Boot Drive"
+  },
+  {
+   "name": "2027",
+   "composition": "已掌握全年目標需求量 70% 以上",
+   "spec": "11 月親赴供應商爭取產能",
+   "application": "11/6 報導（搜尋摘要）"
+  }
+ ],
+ "concepts": [
+  {
+   "title": "供需缺口怎麼來的",
+   "points": [
+    "AI 推論帶動企業級 SSD 吃掉 NAND 產能",
+    "原廠擴產慢，新產能最快 2027 年底",
+    "公司說缺口約 10～15%"
+   ]
+  },
+  {
+   "title": "誰受惠、誰受傷",
+   "points": [
+    "受惠：取得 NAND 配額的控制晶片與模組廠",
+    "受傷：消費端、拿不到料的客戶；價格反轉時囤庫存者",
+    "長約價格上限會壓抑漲幅"
+   ]
+  },
+  {
+   "title": "群聯的位置與風險",
+   "points": [
+    "拿得到多少 NAND 決定出貨",
+    "正在增加庫存以鎖定 2027 供貨",
+    "高毛利不會長期維持（公司自述）"
+   ]
+  }
+ ],
+ "conclusion": [
+  "群聯營收爆發由 NAND 缺貨與企業級 SSD 驅動（搜尋摘要：1～9 月年增約 291%、AI 相關模組占比據稱逾 50%），公司稱缺貨可能延續到 2027～2028 年，並已掌握 2027 年 70% 以上供貨、增加庫存。",
+  "券商認為長約價格上限使 2026 下半年漲幅趨緩；公司自述高毛利不會長期維持，庫存增加也帶來跌價風險。",
+  "MoneyDJ 觸發報導只取得標題；Q3 財報、10 月營收與『春節後中國 AI 需求爆發』細節這次查不到。"
+ ],
+ "sources": [
+  {
+   "title": "MoneyDJ（觸發，只取得標題）：群聯看年後 AI 需求大增；企業級業務動能靚",
+   "url": "https://news.google.com/rss/articles/CBMikgFBVV95cUxQc3U4LU1FdWVuRG9zZjhaR01way1DWEhhWVhQQzJ2R2F3VzlJRlpTR2Jrbng3ZURXejVSRm1RRnpwRFprVXFWMWR5QjBQR0hERlF0X2FLeGNCWWtEQ0NRb1FzaXBKVEtlTkRKZ1FSelVYRlBhb0hCZkVEUFJRaWRGNFVrRW1aNUVaSGpwZlZMRTRWdw?oc=5"
+  },
+  {
+   "title": "壹蘋新聞網（搜尋摘要，2026/11/6）：群聯法說會｜春節後中國 AI 需求爆發！潘健成：NAND、PCB 缺貨延續",
+   "url": "https://news.nextapple.com/finance/20261106/511DC081AAE249692519A86949473CE2"
+  },
+  {
+   "title": "鉅亨網（搜尋摘要）：〈群聯法說〉AI 引爆存儲需求 NAND 供需 2027、2028 年恐仍難平衡",
+   "url": "https://news.cnyes.com/news/id/6575811"
+  },
+  {
+   "title": "風傳媒（搜尋摘要）：記憶體缺貨 2027 年還難解？群聯潘健成曝關鍵：中國產能全開也不夠",
+   "url": "https://www.storm.mg/article/11167353"
+  },
+  {
+   "title": "優分析（搜尋摘要）：群聯 Q3 營收衝上 181 億元 改寫單季新高（日期未核對，疑為舊年度報導）",
+   "url": "https://uanalyze.com.tw/articles/6858134758"
+  },
+  {
+   "title": "TechNews（搜尋摘要，2026/7/8）：群聯 6 月營收年增逾 300% 創新高，潘健成指 NAND 需求仍高度成長",
+   "url": "https://technews.tw/2026/07/08/phisons-june-revenue-increased-by-over-300-year-on-year-setting-a-new-record/"
+  },
+  {
+   "title": "優分析（搜尋摘要）：〈群聯法說〉CSP 客戶主動找上門 今年企業級 SSD 大成長 Q1 營收比重衝 3 成",
+   "url": "https://uanalyze.com.tw/articles/2022448538"
+  },
+  {
+   "title": "財報狗（搜尋摘要）：NAND Flash 產業追蹤：AI 排擠消費性需求，Server 與消費性 NAND 下半年起報價漲勢分歧",
+   "url": "https://statementdog.com/industry_reports/50"
+  },
+  {
+   "title": "今周刊／理財週刊等（搜尋摘要）：群聯 2026 年 9 月營收 306.39 億元、Q3 營收 860.77 億元",
+   "url": "https://www.moneyweekly.com.tw/_Article?AID=258569"
+  }
+ ],
+ "layers": [
+  {
+   "layer": "NAND 原廠（供給）",
+   "description": "新產能最快 2027 年底才開出（群聯說法）；企業級 SSD 擠壓消費性產品供給。",
+   "global_players": [
+    "三星",
+    "SK 海力士",
+    "鎧俠",
+    "美光",
+    "SanDisk",
+    "長江存儲"
+   ],
+   "tw_stocks": []
+  },
+  {
+   "layer": "控制晶片與 SSD 方案",
+   "description": "群聯營收爆發，AI 相關模組占比據稱逾 50%，零售占比低於 5%。",
+   "global_players": [
+    "慧榮（Silicon Motion）",
+    "Marvell",
+    "Samsung（自家控制器）"
+   ],
+   "tw_stocks": [
+    {
+     "code": "8299",
+     "name": "群聯",
+     "role": "NAND 控制晶片與 SSD 方案",
+     "impact": "營收 1～9 月年增約 291%（搜尋摘要）；Q3 財報與庫存未取得"
+    }
+   ]
+  },
+  {
+   "layer": "模組與通路",
+   "description": "受惠 NAND 缺貨與漲價，但庫存成本與毛利波動大（見記憶體供需與十銓研究檔）。",
+   "global_players": [
+    "金士頓",
+    "SanDisk"
+   ],
+   "tw_stocks": [
+    {
+     "code": "3260",
+     "name": "威剛",
+     "role": "記憶體模組",
+     "impact": "同業；見記憶體供需"
+    },
+    {
+     "code": "4967",
+     "name": "十銓",
+     "role": "記憶體模組",
+     "impact": "同業；見十銓研究檔"
+    },
+    {
+     "code": "2451",
+     "name": "創見",
+     "role": "記憶體模組",
+     "impact": "同業"
+    },
+    {
+     "code": "5289",
+     "name": "宜鼎",
+     "role": "工控記憶體與 SSD",
+     "impact": "同業"
+    }
+   ]
+  },
+  {
+   "layer": "利基型快閃與長約",
+   "description": "SLC／NOR 等利基型產品與長約需求另見研究庫。",
+   "global_players": [
+    "旺宏相關國際競爭者"
+   ],
+   "tw_stocks": [
+    {
+     "code": "2337",
+     "name": "旺宏",
+     "role": "利基型快閃",
+     "impact": "另見 NAND 快閃記憶體 SLC 與長約需求研究檔"
+    },
+    {
+     "code": "2344",
+     "name": "華邦電",
+     "role": "利基型記憶體",
+     "impact": "另見該研究檔"
+    }
+   ]
+  },
+  {
+   "layer": "終端需求",
+   "description": "資料中心企業級 SSD、AI 推論、中國 AI、開機碟；消費端偏弱。",
+   "global_players": [
+    "輝達",
+    "雲端大廠"
+   ],
+   "tw_stocks": []
+  }
+ ]
+}
