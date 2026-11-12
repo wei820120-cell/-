@@ -226,3 +226,89 @@ def test_extension_add_needs_gap_distance_qualified_and_profit():
     lots = st2["lots"]
     last = datetime.fromisoformat(st2["ticks"][-1][0])
     assert fd.step(st2, last.replace(second=last.second + 5 if last.second < 50 else 59), st2["last_price"], cfg) == [] and st2["lots"] == lots
+
+
+# ---------------------------------------------------------------- 夜盤（15:00–隔天 05:00，跨午夜）
+
+NIGHT_CFG = dict(fd.DEFAULTS)
+NIGHT_CFG.update(fd.NIGHT)
+
+
+def n_at(hm: str, next_day: bool = False) -> datetime:
+    h, m = hm.split(":")
+    return datetime(2026, 10, 30 + (1 if next_day else 0), int(h), int(m), tzinfo=TW_TZ)
+
+
+def n_path(points: list[tuple[str, float]]) -> list[tuple[datetime, float]]:
+    """夜盤的（時間, 價格）轉折點，每分鐘一筆內插；時間小於 15:00 視為隔天凌晨。"""
+    pts = [(n_at(t, int(t.split(":")[0]) < 15), p) for t, p in points]
+    out = []
+    for (a, p0), (b, p1) in zip(pts, pts[1:]):
+        n = int((b - a).total_seconds() // 60)
+        for i in range(n):
+            out.append((a + (b - a) * i / n, p0 + (p1 - p0) * i / n))
+    out.append(pts[-1])
+    return out
+
+
+def test_after_compares_across_midnight_with_session_start():
+    base = "15:00"
+    assert fd._after(n_at("23:30"), "15:15", base) and not fd._after(n_at("15:10"), "15:15", base)
+    assert fd._after(n_at("01:00", True), "23:30", base)                 # 凌晨 01:00 已經晚於 23:30
+    assert not fd._after(n_at("01:00", True), "03:30", base)             # 但還沒到 03:30
+    assert fd._after(n_at("04:40", True), "04:35", base) and not fd._after(n_at("04:30", True), "04:35", base)
+    assert fd._after(n_at("10:00"), "09:30") and not fd._after(n_at("09:00"), "09:30")   # 日盤（base 00:00）行為不變
+
+
+def test_night_session_ids_and_window():
+    sid, start, end = fd.night_session(datetime(2026, 11, 13, 2, 0, tzinfo=TW_TZ))        # 週五凌晨 → 週四開的那一場
+    assert sid == "2026-11-12N" and start.hour == 15 and end == datetime(2026, 11, 13, 5, 0, tzinfo=TW_TZ)
+    assert fd.night_session(datetime(2026, 11, 12, 15, 1, tzinfo=TW_TZ))[0] == "2026-11-12N"
+    assert fd.night_session(datetime(2026, 11, 12, 14, 40, tzinfo=TW_TZ))[0] == "2026-11-12N"   # 開盤前 30 分鐘內算今晚
+    assert fd.night_session(datetime(2026, 11, 12, 10, 0, tzinfo=TW_TZ))[0] == "2026-11-11N"    # 白天算前一晚（已收）
+
+
+def test_night_settings_override_hours_and_wording_but_share_risk_settings():
+    day, night = fd.settings(), fd.settings("night")
+    assert day["label"] == "日內" and night["label"] == "夜盤" and night["session_start"] == "15:00"
+    assert night["entry_start"] == "15:15" and night["exit_times"] == ["04:35", "04:50"]
+    assert night["capital"] == day["capital"] and night["stop_pct"] == day["stop_pct"] and night["contract"] == "微台"   # 資金、停損、契約共用
+
+
+def test_night_trend_enters_adds_and_scales_out_across_midnight():
+    # 夜盤開 20000：15:00–15:15 區間 19960～20040；之後多方趨勢（跨午夜）、有拉回，04:35 以後分批出場
+    ticks = n_path([("15:00", 20000), ("15:10", 19960), ("15:15", 20040), ("15:25", 20110), ("15:45", 20230), ("15:55", 20200),
+                    ("16:30", 20260), ("16:45", 20230), ("19:00", 20300), ("23:00", 20320), ("02:00", 20340), ("04:30", 20350), ("04:55", 20360)])
+    sigs, st = fd.replay(ticks, NIGHT_CFG)
+    ks = kinds(sigs)
+    assert ks[0] == "進場" and "做多試單" in sigs[0]["text"] and "本場只做這個方向" in sigs[0]["text"]
+    assert "突破本場高點" in sigs[0]["text"]
+    assert "出場" in ks and st["lots"] == 0                                   # 04:35／04:50 的分批與收盤前全出
+    assert all(s["time"] >= "15:15" or s["time"] < "05:00" for s in sigs)
+    msg = fd.format_message(sigs[:1], st, NIGHT_CFG)
+    assert msg.startswith("📈 台指期夜盤訊號") and "盤面：夜盤振幅" in msg and "本場虧損上限" in msg and msg.endswith("（待校準）")
+
+
+def test_night_no_new_entries_after_entry_until_or_before_entry_start():
+    cfg = dict(NIGHT_CFG)
+    early = n_path([("15:00", 20000), ("15:05", 20000), ("15:10", 20100), ("15:12", 20100)])     # 15:15 以前的突破不進場
+    sigs, st = fd.replay(early, cfg)
+    assert st["entries"] == 0 and not any(s["kind"] == "進場" for s in sigs)
+    late = n_path([("15:00", 20000), ("15:15", 20010), ("03:29", 20012), ("03:31", 20400)])       # 03:30 以後的突破不進場
+    sigs, st = fd.replay(late, cfg)
+    assert st["entries"] == 0
+
+
+def test_state_save_keeps_both_sessions(tmp_path):
+    p = tmp_path / "futures_day.json"
+    day = fd.new_day("2026-11-12")
+    day["ticks"].append([at("09:00").isoformat(), 100.0]); day["last_price"] = 100.0
+    night = fd.new_day("2026-11-12N")
+    night["ticks"].append([n_at("15:01").isoformat(), 101.0]); night["last_price"] = 101.0
+    fd.save_state(night, p, session="night")
+    fd.save_state(day, p)                                                    # 存日盤不能蓋掉夜盤
+    assert fd.load_state("2026-11-12N", p, "night")["last_price"] == 101.0 and fd.load_state("2026-11-12", p)["last_price"] == 100.0
+    assert fd.load_state("2026-11-13N", p, "night")["ticks"] == []           # 不同場次不接續
+    summary = fd.finish_night(night, NIGHT_CFG, p)
+    assert summary is None and fd.load_state("2026-11-12N", p, "night")["finished"] is True
+    assert fd.load_closes("2026-11-13", p) == []                             # 夜盤不記日收盤

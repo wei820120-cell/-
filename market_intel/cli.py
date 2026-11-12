@@ -672,6 +672,84 @@ def _futures_day_check(fd: dict, now: datetime) -> None:
     futures_day.save_state(fd["st"])
 
 
+def cmd_futures_night(args) -> None:
+    """台指期夜盤（15:00–隔天 05:00）日內順勢突破訊號：和日盤同一套規則（trade/futures_day.py），只發訊號、不下單。
+
+    一次最多跑 --minutes 分鐘（GitHub 單次執行有時間上限，realtime-night.yml 分段接續）；狀態存在 state/futures_day.json 的 night。
+    結束碼：0＝這一段跑完、這一場還沒結束（要接續）；10＝這一場已結束、或今晚沒有夜盤（不用接續）。
+    --status 只印 run／skip（要不要啟動夜盤監控），--no-push 不推播、改印在畫面上（測試用）。
+    """
+    from .trade import futures_day
+    ensure_dirs()
+    cfg = futures_day.settings("night")
+    now = now_tw()
+    sid, start, end = futures_day.night_session(now)
+    st = futures_day.load_state(sid, session="night")
+    closes = futures_day.load_closes(sid)
+    over = end + timedelta(minutes=2)
+    if args.status:
+        live = cfg["enabled"] and not st.get("finished") and now < over and start.weekday() < 5
+        print("run" if live or (args.force and cfg["enabled"]) else "skip")
+        return
+    if not cfg["enabled"]:
+        print("夜盤訊號已停用（settings.yaml 的 futures_night.enabled）")
+        raise SystemExit(10)
+    if not args.force and (st.get("finished") or now >= over or start.weekday() >= 5):
+        print(f"{sid} 這一場已結束或沒有夜盤，不啟動。")
+        raise SystemExit(10)
+
+    def send(msg: str) -> None:
+        if args.no_push:
+            print(msg)
+        else:
+            notify.send(msg, channel="trade")
+
+    interval = args.interval or 20
+    deadline = time.monotonic() + args.minutes * 60 if args.minutes else None
+    rc = 0
+    while True:
+        now = now_tw()
+        if not args.force and now >= over:
+            rc = 10
+            break
+        if not args.force and now < start:
+            if start - now > timedelta(minutes=30):
+                rc = 10
+                break
+            time.sleep(min(interval, 20))
+            continue
+        try:
+            q = txf.fetch(night=True)
+        except Exception as e:  # noqa: BLE001
+            log.warning("夜盤報價抓取失敗：%s", e)
+            q = None
+        ts = q and q["ts"]
+        fresh = bool(q and ts and abs((now - ts).total_seconds()) <= 180
+                     and start - timedelta(minutes=5) <= ts <= end + timedelta(minutes=5))      # 沒資料、或報價太舊：不拿舊價發訊號
+        if fresh:
+            sigs = futures_day.step(st, now, q["price"], cfg, closes, q["high"], q["low"])
+            if sigs:
+                send(futures_day.format_message(sigs, st, cfg))
+            futures_day.save_state(st, session="night")
+        elif not st["ticks"] and not args.force and now >= start + timedelta(minutes=45):
+            print("夜盤開盤 45 分鐘仍沒有報價：今晚沒有夜盤（休市日）。")
+            st["finished"] = True
+            futures_day.save_state(st, session="night")
+            rc = 10
+            break
+        if args.once:
+            break
+        if deadline and time.monotonic() >= deadline:
+            break
+        time.sleep(interval)
+    if rc == 10 and not st.get("finished"):
+        summary = futures_day.finish_night(st, cfg)
+        if summary:
+            send(f"🌙 台指期夜盤計畫帳收盤\n{summary}")
+    if rc:
+        raise SystemExit(rc)
+
+
 # ---------------------------------------------------------------- news / target
 
 def push_news(listings: dict, min_score: float) -> None:
@@ -3062,6 +3140,15 @@ def main(argv: list[str] | None = None) -> None:
     rt.add_argument("--interval", type=int, help="報價更新秒數")
     rt.add_argument("--until", help="到這個時間（HH:MM，台北時間）自動結束，例如 13:35")
     rt.set_defaults(func=cmd_realtime)
+
+    fn = sub.add_parser("futures-night", help="台指期夜盤（15:00–隔天 05:00）日內順勢突破訊號（分段執行，狀態存 state/）")
+    fn.add_argument("--minutes", type=float, default=0, help="這一段最多跑幾分鐘（0＝跑到這一場收盤）")
+    fn.add_argument("--interval", type=int, help="報價更新秒數（預設 20）")
+    fn.add_argument("--once", action="store_true", help="只抓一次")
+    fn.add_argument("--force", action="store_true", help="不管時段與是否已收盤都執行（測試用）")
+    fn.add_argument("--no-push", action="store_true", help="不推播，改印在畫面上")
+    fn.add_argument("--status", action="store_true", help="只印 run／skip：現在該不該啟動夜盤監控")
+    fn.set_defaults(func=cmd_futures_night)
 
     nw = sub.add_parser("news", help="掃描新聞與公告")
     nw.add_argument("--limit", type=int, default=50)
