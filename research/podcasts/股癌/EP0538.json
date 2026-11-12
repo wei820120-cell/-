@@ -7,11 +7,11 @@
  "duration_min": 49,
  "paras": 26,
  "ad_paras": 0,
- "chars": 20328,
+ "chars": 20386,
  "market_start": "",
  "qa_start": "",
  "tags": {
-  "蘋果": 4,
+  "蘋果": 5,
   "博通": 3,
   "谷歌": 3,
   "Meta": 3,
@@ -37,7 +37,7 @@
   "槓桿": 6,
   "估值": 4,
   "庫存": 2,
-  "Earnings": 2,
+  "Earnings": 1,
   "回檔": 2,
   "反彈": 7,
   "風險": 4,
@@ -55,5 +55,6 @@
   "報價": 1
  },
  "model": "medium",
- "transcribed_at": "2026-10-26T08:57:18+00:00"
+ "transcribed_at": "2026-11-03T17:08:13+00:00",
+ "archive_key": "a245ba719986"
 }

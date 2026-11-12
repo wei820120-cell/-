@@ -5,9 +5,9 @@
  "published": "2025-03-05T08:40:55+00:00",
  "key": "96426d4c05a3",
  "duration_min": 50,
- "paras": 25,
+ "paras": 26,
  "ad_paras": 0,
- "chars": 20058,
+ "chars": 20214,
  "market_start": "",
  "qa_start": "",
  "tags": {
@@ -31,7 +31,6 @@
   "題材": 1,
   "指數": 1,
   "反彈": 1,
-  "高原": 1,
   "趨勢": 4,
   "加碼": 5,
   "減碼": 1,
@@ -40,5 +39,6 @@
   "產業": 11
  },
  "model": "medium",
- "transcribed_at": "2026-10-26T02:25:57+00:00"
+ "transcribed_at": "2026-11-03T16:48:44+00:00",
+ "archive_key": "a245ba719986"
 }

@@ -1,0 +1,266 @@
+{
+  "topic": "供需事件：SpaceX Kessel太空機櫃與PCB midplane材料（傳聞）",
+  "one_line": "Threads 個人帳號稱 SpaceX 客製機櫃 Kessel 以 PCB midplane 取代線纜、84 層 midplane 全用 M10+Q、稱 100% 用台光電 898K4、單板 2 萬美元以上——未證實，搜尋找不到 midplane、M10、台光電的任何佐證。可佐證的只有：SpaceX 與輝達要把 Vera Rubin NVL72 適配軌道（首發目標 2027 Q4），以及 FundaAI（單一來源）稱太空版代號 Kessel、約 9U、2027 年 6,000 個機櫃。",
+  "status": "傳聞",
+  "horizon": "中期（3-12個月）",
+  "layers": [
+    {
+      "layer": "太空 AI 機櫃與伺服器 ODM",
+      "description": "FundaAI 稱太空版 NVL72（Kessel）保留 72 GPU NVLink 域、約 9U，SpaceX 向某領先伺服器 ODM 下 2027 年 6,000 個機櫃（約 43.2 萬顆 GPU、1.05 GW）。ODM 未點名、SpaceX 未確認，屬分析師估計。",
+      "global_players": [
+        "SpaceX／SpaceXAI",
+        "輝達",
+        "（未點名的伺服器 ODM）"
+      ],
+      "tw_stocks": []
+    },
+    {
+      "layer": "高階銅箔基板（CCL，M9／M10）",
+      "description": "貼文稱 84L midplane 全用 M10+Q 且 100% 為台光電 898K4（未證實）。背景：M9 以石英布取代玻纖布並搭配 HVLP4；台光電被稱為首家 M9 認證與出貨廠，另有報導稱台光電與聯茂皆取得 M9 認證；EM-898 與 M10 規格搜尋沒有找到。",
+      "global_players": [
+        "Panasonic",
+        "Isola",
+        "Rogers"
+      ],
+      "tw_stocks": [
+        {
+          "code": "2383",
+          "name": "台光電",
+          "role": "高階 CCL，貼文稱供應 Kessel 的 midplane 材料（未證實）；M9 已認證出貨",
+          "impact": "受惠"
+        },
+        {
+          "code": "6213",
+          "name": "聯茂",
+          "role": "另一家被報導取得 M9 認證的 CCL 廠",
+          "impact": "受惠"
+        },
+        {
+          "code": "6274",
+          "name": "台燿",
+          "role": "高階 CCL 廠，AI 伺服器 M8／M9 題材相關",
+          "impact": "受惠"
+        }
+      ]
+    },
+    {
+      "layer": "石英布與玻纖布",
+      "description": "M9 的關鍵材料是高純度石英布（Q-glass）；若 84 層 midplane 全用 Q 布，需求會集中在少數供應商。台灣玻纖布與石英布供應細節請參考既有研究「玻纖布與石英布（Q布）」。",
+      "global_players": [
+        "日東紡（Nittobo）",
+        "Shin-Etsu 石英布"
+      ],
+      "tw_stocks": [
+        {
+          "code": "1815",
+          "name": "富喬",
+          "role": "電子級玻纖紗與布廠，石英布題材相關",
+          "impact": "受惠"
+        }
+      ]
+    },
+    {
+      "layer": "高層數 PCB（midplane）",
+      "description": "貼文稱 84 層 midplane 單板估 2 萬美元以上，來源不明；Rubin Ultra Kyber 中層板據里昂預計採 M9、78 層。哪些台廠會被選用沒有來源。",
+      "global_players": [
+        "（未點名）"
+      ],
+      "tw_stocks": []
+    }
+  ],
+  "keywords": [
+    "SpaceX",
+    "Kessel",
+    "太空機櫃",
+    "軌道資料中心",
+    "NVL72",
+    "midplane",
+    "cable cartridge",
+    "M10",
+    "M9",
+    "Q布",
+    "石英布",
+    "台光電",
+    "898K4",
+    "HVLP4",
+    "Starmind",
+    "FundaAI"
+  ],
+  "catalysts": [
+    "SpaceX／輝達是否公布 Kessel 規格與供應商",
+    "台光電、聯茂法說與月營收對太空與 M9／M10 的說法",
+    "FundaAI 後續更新與 6,000 個機櫃是否被證實",
+    "輝達 Rubin Ultra Kyber 中層板材料規格確認",
+    "SpaceX 首次軌道算力發射時程（目標 2027 Q4）"
+  ],
+  "risks": [
+    "貼文為個人說法，未證實；沒有任何來源提到 midplane、M10、台光電 898K4、84 層",
+    "FundaAI 為單一來源，ODM 未點名、SpaceX 未確認",
+    "單板 2 萬美元沒有依據，不可用來推算營收",
+    "太空環境對 PCB 材料的可靠度要求可能不同，設計可能改變",
+    "發射時程可能延後；SpaceX 自己說晶片取得有風險",
+    "資料缺口：台灣供應鏈與 Kessel 的連結、EM-898 與 M10 規格都沒查到"
+  ],
+  "spec_tables": [
+    {
+      "title": "表 A：貼文宣稱與搜尋佐證對照",
+      "columns": [
+        "宣稱",
+        "搜尋佐證",
+        "狀態"
+      ],
+      "rows": [
+        [
+          "Kessel 為 SpaceX 客製機櫃",
+          "FundaAI 稱太空版 NVL72 代號 Kessel、約 9U",
+          "單一來源"
+        ],
+        [
+          "以 PCB midplane 取代 cable cartridges",
+          "沒有找到",
+          "未證實"
+        ],
+        [
+          "18 層 compute tray 對 9 層 switch tray",
+          "沒有找到（FundaAI 稱保留 72 GPU NVLink 域）",
+          "未證實"
+        ],
+        [
+          "84L midplane 全上 M10+Q",
+          "沒有找到 M10 規格；里昂稱 Kyber 中層板預計 M9、78 層",
+          "未證實"
+        ],
+        [
+          "100% 用台光電 898K4",
+          "沒有找到；僅知台光電為 M9 首家認證出貨",
+          "未證實"
+        ],
+        [
+          "單板 2 萬美元以上",
+          "沒有找到",
+          "未證實"
+        ]
+      ],
+      "note": "貼文宣稱與搜尋佐證分開看，不要混用。"
+    },
+    {
+      "title": "表 B：太空算力的可佐證時間線",
+      "columns": [
+        "時間",
+        "事件",
+        "來源性質"
+      ],
+      "rows": [
+        [
+          "2026/8",
+          "SpaceX 與輝達宣布適配 Vera Rubin NVL72 上軌道",
+          "多家媒體"
+        ],
+        [
+          "2026/11/6",
+          "FundaAI：SpaceX 向 ODM 下 2027 年 6,000 個太空機櫃（分析師估計）",
+          "單一 Substack，未證實"
+        ],
+        [
+          "2027 Q4",
+          "SpaceX 首次軌道算力發射目標",
+          "多家媒體，可能延後"
+        ],
+        [
+          "IPO 文件",
+          "SpaceX 說可能拿不到足夠 AI 晶片，計畫建 Terafab",
+          "公司文件轉述"
+        ]
+      ],
+      "note": "時間線來自搜尋摘要。"
+    }
+  ],
+  "evolution": [
+    {
+      "name": "地面 NVL72 機櫃",
+      "composition": "48U 機櫃、cable cartridge 互連",
+      "spec": "72 GPU NVLink 域",
+      "application": "地面 AI 資料中心"
+    },
+    {
+      "name": "太空版 NVL72（Kessel，傳聞）",
+      "composition": "約 9U、PCB midplane（貼文說法）",
+      "spec": "每顆衛星一個機櫃（FundaAI）",
+      "application": "軌道資料中心"
+    },
+    {
+      "name": "Rubin Ultra Kyber 中層板",
+      "composition": "M9、78 層（里昂說法）",
+      "spec": "高階 CCL＋Q 布",
+      "application": "地面機櫃的中層 PCB"
+    }
+  ],
+  "concepts": [
+    {
+      "title": "供需缺口怎麼來的",
+      "points": [
+        "太空機櫃要在小體積內承載高算力，用 PCB midplane 取代線纜是設計方向之一（貼文說法）",
+        "高層數、石英布的 midplane 會占用高階 CCL、石英布與高層板產能",
+        "6,000 個機櫃與 2027 時程目前只有分析師估計"
+      ]
+    },
+    {
+      "title": "誰受惠、誰受傷（替代供應、轉單、成本上升）",
+      "points": [
+        "受惠（推測）：台光電、聯茂等高階 CCL，石英布與高層板供應商",
+        "受傷／風險：高階材料被占用而延後出貨的其他 AI 客戶；設計改回線纜時方案落空",
+        "替代供應：貼文稱台光電 100%，沒有第二來源",
+        "成本：Q 布與高層板成本高，單板價格沒有來源"
+      ]
+    },
+    {
+      "title": "傳聞要如何驗證",
+      "points": [
+        "先看 SpaceX／輝達是否公布 Kessel 規格",
+        "再看台光電與聯茂的法說與月營收是否提到太空客戶",
+        "最後才是 FundaAI 的訂單估計是否被 ODM 或供應鏈證實"
+      ]
+    }
+  ],
+  "conclusion": [
+    "Kessel 太空機櫃與 PCB midplane 材料是未證實的供應鏈傳聞：SpaceX／輝達太空算力與 FundaAI 的 Kessel 代號有佐證，但 midplane、M10+Q、台光電 898K4、單板 2 萬美元都找不到來源",
+    "若屬實，受惠的是高階 CCL、石英布與高層板；但目前不能當成台廠訂單",
+    "要追蹤官方規格、台光電與聯茂的說法、以及 FundaAI 的後續更新"
+  ],
+  "sources": [
+    {
+      "title": "FourWeekMBA：SpaceX Said to Order 6,000 Racks for Orbital Data Centers（引 FundaAI，僅看到搜尋摘要）",
+      "url": "https://fourweekmba.com/ai-spacex-said-to-order-6-000-racks-for-orbital-data-centers/"
+    },
+    {
+      "title": "Light Reading：With Nvidia on board, SpaceX orbital data centers to hit 'significant scale' in 2028（僅看到標題）",
+      "url": "https://www.lightreading.com/satellite/with-nvidia-on-board-spacex-orbital-data-centers-to-hit-significant-scale-in-2028"
+    },
+    {
+      "title": "Channel Insider：SpaceXAI and Nvidia Take AI Into Orbit: First Launch Set for 2027（僅看到標題）",
+      "url": "https://www.channelinsider.com/ai/news-spacexai-nvidia-orbital-ai-satellite-2027/"
+    },
+    {
+      "title": "TechRadar：SpaceX admits its aims of getting data centers in space may fall short due to a lack of chips（僅看到搜尋摘要）",
+      "url": "https://www.techradar.com/pro/our-ability-to-achieve-orbital-ai-at-scale-depends-on-our-ability-to-access-a-sufficient-number-of-ai-chips-significantly-more-than-are-currently-available-to-us-spacex-admits-its-aims-of-getting-data-centers-in-space-may-fall-short-due-to-a-lack-of-chips"
+    },
+    {
+      "title": "TrendForce：Space Launch and LEO Satellite Communications: SpaceX Extends Its Lead（僅看到標題）",
+      "url": "https://www.trendforce.com/research/download/RP251223FE"
+    },
+    {
+      "title": "Digitimes（2026/4，台灣供應鏈瞄準軌道資料中心，僅看到標題）",
+      "url": "https://www.digitimes.com/news/a20260402PD224.html"
+    },
+    {
+      "title": "technews：AI 伺服器材料升級（M9、石英布，僅看到搜尋摘要）",
+      "url": "https://technews.tw/2025/09/05/2025-ai-server-material-upgrade/"
+    },
+    {
+      "title": "Threads @thatmrchien（未證實）",
+      "url": "https://www.threads.com/@thatmrchien/post/DfmIndqk0m4"
+    }
+  ],
+  "report": "# 供需事件：SpaceX Kessel 太空機櫃與 PCB midplane 材料（傳聞）\n\n> 資料說明：事件來自 Threads 個人帳號 @thatmrchien 2026-11-11 的貼文，**未證實**。搜尋只能佐證「SpaceX 與輝達要把 Vera Rubin NVL72 適配軌道、FundaAI 稱太空版代號 Kessel」，**找不到任何來源提到 midplane PCB、M10+Q、84 層、台光電 898K4、單板 2 萬美元**；這些細節請視為傳聞。資料來自搜尋摘要。\n\n## 1. 貼文說了什麼（未證實）\n- SpaceX 客製一個全新機櫃架構「Kessel」：**用 PCB midplane 取代 cable cartridges**；機櫃維持 18 層 compute tray 對 9 層 switch tray。\n- 貼文稱最大重點是 **84 層（84L）midplane 全部用 M10+Q（石英布）**，目前看 **100% 用台光電的 898K4**，一張板子估計 2 萬美元以上、也可能更多。\n\n## 2. 搜尋能佐證與不能佐證的\n- **佐證（單一來源，未證實）**：FundaAI（Substack 研究電子報）11/6 稱太空版 NVL72 代號 Kessel，保留 72 GPU 的 NVLink 域、把 48U 機櫃縮到約 9U；稱 SpaceX 向某「領先伺服器 ODM」下 2027 年 6,000 個太空機櫃（約 43.2 萬顆 GPU、1.05 GW），每顆衛星一個 NVL72 機櫃，AI1 衛星峰值 250 kW。**SpaceX 沒有確認這張訂單，FundaAI 沒有點名製造商，6,000 個機櫃是分析師估計。**\n- **相對可靠**：SpaceX 與輝達表示將改造 Vera Rubin NVL72 上軌道，SpaceX 目標 2027 Q4 首次發射；SpaceX 已向 FCC 申請最多 100 萬顆衛星的軌道資料中心系統；SpaceX 的 IPO 文件說可能拿不到足夠的 AI 晶片，並計畫建 Terafab。\n- **台灣供應鏈**：TrendForce 預期台廠會爭取 SpaceX 供應鏈，Starlink 零件包含 PCB；Digitimes 4 月有「台灣供應鏈瞄準軌道資料中心」的標題（只看到標題）。**沒有任何來源點名台光電或任何台廠在 Kessel 的角色。**\n- **材料背景**：M9 的關鍵是以石英布（Q-glass）取代一般玻纖布並搭配 HVLP4 銅箔；里昂稱 Rubin Ultra Kyber 的中層板預計採 M9、78 層；台光電被稱為首家取得 M9 認證並出貨的廠商，另有報導稱台光電與聯茂兩家取得 M9 認證；法人認為 PTFE 難以撼動 M9／M10 的主流地位。搜尋**沒有**找到 EM-898 型號或 M10 的具體規格。\n\n## 3. 供需缺口怎麼來的（若屬實）\n- 太空機櫃要把大量算力、電力與散熱塞進小體積，用 PCB midplane 取代線纜可減少連接器與重量，但層數與材料等級高（84 層、石英布），**高階 CCL 與石英布本來就是 AI 伺服器供應偏緊的環節**。\n- 6,000 個機櫃（若屬實）與 2027 年出貨時程，會把高階 CCL、石英布與高層板的產能需求往前拉；但目前只有分析師估計。\n- 單板 2 萬美元的說法沒有來源，**不可用來推算營收**。\n\n## 4. 誰受惠、誰受傷（若屬實）\n- **受惠（推測）**：高階 CCL 與石英布供應鏈——台光電（M9／M10）、聯茂（M9 認證）、石英布與玻纖布廠；高層數 PCB 製造商（若有被選上）。\n- **受傷／風險**：因高階材料被太空機櫃占用而延後出貨的其他 AI 伺服器客戶（推測）；若設計改回線纜或改規格，PCB 方案落空。\n- **替代供應**：不清楚；貼文稱台光電 100%，沒有第二來源。\n\n## 5. 風險與資料缺口\n- 貼文為個人說法；FundaAI 為單一來源；搜尋沒有找到任何台廠與 Kessel 的連結。\n- 太空環境的可靠度、熱循環與輻射對 PCB 材料的要求可能不同於地面。\n- 發射時程（2027 Q4）可能延後；SpaceX 自己說晶片取得有風險。\n- 台灣廠商是否被選用、單板價格、層數與材料都需要供應鏈與法說驗證。\n\n## 6. 要追蹤的時間點\n- SpaceX／輝達是否公布 Kessel 規格；台光電與聯茂的法說與月營收說法；FundaAI 後續更新。\n- 輝達 Rubin Ultra Kyber 中層板的材料規格（M9／M10）是否確認。\n\n## 資料來源\n- [FourWeekMBA：SpaceX Said to Order 6,000 Racks for Orbital Data Centers（引 FundaAI，僅看到搜尋摘要）](https://fourweekmba.com/ai-spacex-said-to-order-6-000-racks-for-orbital-data-centers/)\n- [Light Reading：With Nvidia on board, SpaceX orbital data centers to hit 'significant scale' in 2028（僅看到標題）](https://www.lightreading.com/satellite/with-nvidia-on-board-spacex-orbital-data-centers-to-hit-significant-scale-in-2028)\n- [Channel Insider：SpaceXAI and Nvidia Take AI Into Orbit: First Launch Set for 2027（僅看到標題）](https://www.channelinsider.com/ai/news-spacexai-nvidia-orbital-ai-satellite-2027/)\n- [TechRadar：SpaceX admits its aims of getting data centers in space may fall short due to a lack of chips（僅看到搜尋摘要）](https://www.techradar.com/pro/our-ability-to-achieve-orbital-ai-at-scale-depends-on-our-ability-to-access-a-sufficient-number-of-ai-chips-significantly-more-than-are-currently-available-to-us-spacex-admits-its-aims-of-getting-data-centers-in-space-may-fall-short-due-to-a-lack-of-chips)\n- [TrendForce：Space Launch and LEO Satellite Communications: SpaceX Extends Its Lead（僅看到標題）](https://www.trendforce.com/research/download/RP251223FE)\n- [Digitimes（2026/4，台灣供應鏈瞄準軌道資料中心，僅看到標題）](https://www.digitimes.com/news/a20260402PD224.html)\n- [technews：AI 伺服器材料升級（M9、石英布，僅看到搜尋摘要）](https://technews.tw/2025/09/05/2025-ai-server-material-upgrade/)\n- [Threads @thatmrchien（未證實）](https://www.threads.com/@thatmrchien/post/DfmIndqk0m4)\n",
+  "trigger": "2026-11-12 供需失衡（需求爆發，未證實）：來自待檢視清單——Threads @thatmrchien 2026-11-11 貼文稱 SpaceX 客製機櫃 Kessel 以 PCB midplane 取代 cable cartridges、機櫃維持 18 層 compute tray 對 9 層 switch tray，84L midplane 全上 M10+Q、稱 100% 用台光電 898K4、一張板子估計 2 萬美元以上。這是個人帳號說法，未證實。\nhttps://www.threads.com/@thatmrchien/post/DfmIndqk0m4"
+}

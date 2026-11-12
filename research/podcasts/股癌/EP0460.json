@@ -7,9 +7,9 @@
  "duration_min": 49,
  "paras": 24,
  "ad_paras": 1,
- "chars": 18353,
- "market_start": "37:37",
- "qa_start": "43:56",
+ "chars": 18348,
+ "market_start": "37:47",
+ "qa_start": "42:02",
  "tags": {
   "蘋果": 8,
   "微軟": 4,
@@ -32,7 +32,7 @@
   "寶一（8222）": 1
  },
  "terms": {
-  "部位": 3,
+  "部位": 4,
   "槓桿": 2,
   "題材": 2,
   "財報": 1,
@@ -44,5 +44,6 @@
   "毛利": 2
  },
  "model": "medium",
- "transcribed_at": "2026-10-26T06:33:06+00:00"
+ "transcribed_at": "2026-11-03T20:13:58+00:00",
+ "archive_key": "a245ba719986"
 }

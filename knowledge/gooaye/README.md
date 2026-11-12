@@ -13,12 +13,14 @@
 | 2020 | 見 `research/podcasts/股癌/` | EP1～101（共 101 集；其餘轉錄後補讀；筆記在 `episodes/2020.md`） |
 | 2021 | 見 `research/podcasts/股癌/` | EP102～205（共 104 集；其餘轉錄後補讀；筆記在 `episodes/2021.md`） |
 | 2022 | 見 `research/podcasts/股癌/` | EP206～310（共 105 集；其餘轉錄後補讀；筆記在 `episodes/2022.md`） |
-| 2026 | 見 `research/podcasts/股癌/` | EP624、EP634、EP644、EP649、EP651～652、EP654、EP656～660、EP662～665、EP669、EP671、EP673～674、EP676～687、EP689～690、EP694～695、EP698～708（共 47 集；其餘轉錄後補讀；筆記在 `episodes/2026.md`） |
-| 2024 | 見 `research/podcasts/股癌/` | EP474、EP484、EP492、EP494、EP504、EP506、EP512、EP514（共 8 集；其餘轉錄後補讀；筆記在 `episodes/2024.md`） |
+| 2026 | 見 `research/podcasts/股癌/` | EP624～626、EP634、EP644、EP649、EP651～652、EP654、EP656～660、EP662～665、EP669、EP671、EP673～674、EP676～687、EP689～690、EP694～695、EP698～708（共 49 集；其餘轉錄後補讀；筆記在 `episodes/2026.md`） |
+| 2024 | 見 `research/podcasts/股癌/` | EP415～518（共 104 集，2024 全年；筆記在 `episodes/2024.md`，全年心得見 `principles.md` §4.12） |
+| 2025 | 見 `research/podcasts/股癌/` | EP519～623（共 105 集，2025 全年；筆記在 `episodes/2025.md`，全年心得見 `principles.md` §4.13） |
 | 2023 | 見 `research/podcasts/股癌/` | EP311～414（共 104 集；其餘轉錄後補讀；筆記在 `episodes/2023.md`） |
 
 ## 怎麼繼續（給之後接手的研究員）
 - 轉文字：開發分支上的 `research.yml` 用 probe 啟動 `cmd:podcasts --backfill --show 股癌 --shard N --shards 8 --budget-min 330 --model medium`（N=0～7，每一片轉完會自己再啟動，直到那一片全部處理完）。進度看 `research/podcasts/股癌/` 的檔案數（總共 708 集，約 559 小時音檔）。
+- **換金鑰重轉（2026-11-03）**：容器重啟後舊私鑰遺失，改產生新金鑰對（公鑰 `config/podcast_archive_pub.pem`，私鑰備份給使用者保管，放回容器 `/root/.claude/podcast_archive_priv.pem` 才讀得到）。只重轉**還沒讀的集數**：`cmd:podcasts --backfill --show 股癌 --shard N --shards 10 --budget-min 330 --model medium --eps <未讀集數範圍>`；每集摘要多了 `archive_key`（公鑰指紋），`--eps` 模式下指紋不同的集數才會重轉，已讀的集數（筆記在 `episodes/`）不重轉，舊金鑰加密的 `.bin` 之後讀不了（也不需要）。
 - 閱讀：`tools/gy.py`（需要私鑰，放在研究員容器的 `/root/.claude/podcast_archive_priv.pem`；私鑰不在 repo，容器被回收就要重新轉一次逐字稿）。
   - `gy.py list` 已處理的集數；`gy.py brief N N2 …` 略過業配與閒聊的精簡版；`gy.py show N --full` 整集；`gy.py grep 關鍵字 --eps 1-100` 跨集搜尋；`gy.py terms`、`gy.py tags` 依年份統計。
 - 讀法：由舊到新，每讀一批就更新 `episodes/<年份>.md`（逐集重點）與 `principles.md`（原則，標出處集數），再 commit & push。

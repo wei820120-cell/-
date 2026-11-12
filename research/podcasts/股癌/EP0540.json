@@ -7,7 +7,7 @@
  "duration_min": 49,
  "paras": 26,
  "ad_paras": 1,
- "chars": 19452,
+ "chars": 19486,
  "market_start": "",
  "qa_start": "",
  "tags": {
@@ -47,5 +47,6 @@
   "產業": 2
  },
  "model": "medium",
- "transcribed_at": "2026-10-26T08:38:33+00:00"
+ "transcribed_at": "2026-11-03T21:01:18+00:00",
+ "archive_key": "a245ba719986"
 }

@@ -1290,12 +1290,27 @@ def _archive_episode(ep, paras, names: dict, listings: dict, cfg: dict, skip: li
     ads = [any(re.search(pt, text) for pt in skip) for _, text in paras]
     tags = [signals.post_tags(text, names, listings, cfg)[0] if not ad else [] for (_, text), ad in zip(paras, ads)]
     digest = podcast.build_digest(ep, paras, ads, tags, model)
+    digest["archive_key"] = podcast.pubkey_id()   # 記下用哪把公鑰加密（換金鑰時用來判斷哪些集數要重轉）
     apath, dpath = podcast.archive_path(ep), podcast.digest_path(ep)
     apath.parent.mkdir(parents=True, exist_ok=True)
     dpath.parent.mkdir(parents=True, exist_ok=True)
     apath.write_bytes(podcast.encrypt_text(podcast.transcript_text(ep, paras)))
     dpath.write_text(json.dumps(digest, ensure_ascii=False, indent=1) + "\n", encoding="utf-8")
     return digest
+
+
+def _parse_ep_ranges(spec: str) -> set[int]:
+    """「428-473,475,500-503」→ 集數集合；空字串＝沒有指定。"""
+    out: set[int] = set()
+    for part in re.split(r"[,\s]+", (spec or "").strip()):
+        if not part:
+            continue
+        m = re.fullmatch(r"(\d+)(?:-(\d+))?", part)
+        if not m:
+            raise SystemExit(f"--eps 格式錯誤：{part}（例：428-473,475,500-503）")
+        lo, hi = int(m.group(1)), int(m.group(2) or m.group(1))
+        out.update(range(min(lo, hi), max(lo, hi) + 1))
+    return out
 
 
 def _podcast_backfill(show: dict, src: dict, args) -> None:
@@ -1306,8 +1321,28 @@ def _podcast_backfill(show: dict, src: dict, args) -> None:
     shards = max(args.shards, 1)
     min_ep = getattr(args, "min_ep", 0) or 0
     pool = [e for e in eps if (podcast.episode_no(e.title) or 0) >= min_ep] if min_ep else eps
+    targets = _parse_ep_ranges(getattr(args, "eps", "") or "")   # 指定集數（換金鑰後只重轉這些）
+    if targets:
+        pool = [e for e in pool if podcast.episode_no(e.title) in targets]
+    cur_key = podcast.pubkey_id() if podcast.PUBKEY_PATH.exists() else ""
+
+    def is_done(ep) -> bool:
+        """一般模式：有摘要就算處理過。指定集數（--eps）：摘要記的公鑰指紋要等於現在這把、而且加密檔在，才算處理過。"""
+        dp = podcast.digest_path(ep)
+        if not dp.exists():
+            return False
+        if not targets:
+            return True
+        try:
+            d = json.loads(dp.read_text(encoding="utf-8"))
+            if d.get("skipped") and d.get("archive_key") == cur_key:
+                return True   # 太長而略過的集數：不會有加密檔，記錄在就不再重試
+            return d.get("archive_key") == cur_key and podcast.archive_path(ep).exists()
+        except (ValueError, OSError):
+            return False
+
     mine = [e for i, e in enumerate(pool) if i % shards == args.shard]
-    todo = [e for e in mine if not podcast.digest_path(e).exists()]
+    todo = [e for e in mine if not is_done(e)]
     if getattr(args, "newest_first", False):
         todo.reverse()   # 從最新往回轉：和『由舊到新』的片在中間會合，不用等舊的片慢慢爬
     if args.plan:
@@ -1344,7 +1379,7 @@ def _podcast_backfill(show: dict, src: dict, args) -> None:
         if done_n and os.environ.get("GITHUB_ACTIONS"):
             import subprocess
             subprocess.run(["git", "pull", "--rebase", "-q"], cwd=str(research.ROOT), capture_output=True)   # 別片剛轉好的集數會同步進來，下一行就能略過
-        if podcast.digest_path(ep).exists():
+        if is_done(ep):
             continue
         left = args.budget_min - (time.monotonic() - t_start) / 60 if args.budget_min else 1e9
         need = ep.duration_s / 60 / 1.8 + 4   # 保守估：約 1.8 倍速加下載
@@ -1355,7 +1390,7 @@ def _podcast_backfill(show: dict, src: dict, args) -> None:
             log.warning("%s 太長，略過", ep.title)
             dpath = podcast.digest_path(ep)
             dpath.parent.mkdir(parents=True, exist_ok=True)
-            dpath.write_text(json.dumps({"show": ep.show, "ep": podcast.episode_no(ep.title), "title": ep.title, "skipped": "太長，沒有轉文字"}, ensure_ascii=False) + "\n", encoding="utf-8")
+            dpath.write_text(json.dumps({"show": ep.show, "ep": podcast.episode_no(ep.title), "title": ep.title, "skipped": "太長，沒有轉文字", "archive_key": cur_key}, ensure_ascii=False) + "\n", encoding="utf-8")
             continue
         try:
             import shutil
@@ -1377,7 +1412,7 @@ def _podcast_backfill(show: dict, src: dict, args) -> None:
             _git_publish(f"歷史逐字稿 {show['name']} {podcast.episode_name(ep)}（加密）與摘要", [str(apath.relative_to(research.ROOT)), str(dpath.relative_to(research.ROOT))])
         except Exception as e:  # noqa: BLE001 - 一集失敗不影響其他集數，下次再試
             log.warning("%s 處理失敗：%s", ep.title, e)
-    left_n = sum(1 for e in mine if not podcast.digest_path(e).exists())
+    left_n = sum(1 for e in mine if not is_done(e))
     print(f"這次處理 {done_n} 集，耗時 {(time.monotonic() - t_start) / 60:.0f} 分鐘；這一片還剩 {left_n} 集")
     if done_n and left_n:
         print(f"接力：還有 {left_n} 集（workflow 會再啟動同一片）")
@@ -3007,6 +3042,7 @@ def main(argv: list[str] | None = None) -> None:
     pcp.add_argument("--shards", type=int, default=1, help="--backfill：總共分幾片（依集數順序輪流分配）")
     pcp.add_argument("--budget-min", type=int, default=0, help="--backfill：最多跑幾分鐘，剩下的時間不夠轉下一集就收工（0＝不限）")
     pcp.add_argument("--min-ep", type=int, default=0, help="--backfill：只處理第幾集（含）以後的集數，分片也只在這些集數裡分")
+    pcp.add_argument("--eps", default="", help="--backfill：只處理這些集數（例 428-473,475,500-503）；已有摘要但記的公鑰指紋和現在這把不同的也會重轉（換金鑰時用）")
     pcp.add_argument("--newest-first", action="store_true", help="--backfill：這片由新到舊轉（搭配 --min-ep，另開一批片加速）")
     pcp.set_defaults(func=cmd_podcasts)
     th = sub.add_parser("threads", help="追蹤指定 Threads 帳號的新貼文（與他們回覆的原貼文）：不推播，供應鏈訊號排求證研究，值得看的貼文放進待檢視清單")

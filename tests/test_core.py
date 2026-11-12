@@ -2647,6 +2647,54 @@ def test_podcast_names_encryption_and_digest():
     assert d["tags"] == {"台燿（6274）": 1} and d["terms"]["停損"] == 1 and d["terms"]["部位"] == 1 and "贊助" not in str(d)
 
 
+def test_podcast_backfill_eps_rekey(tmp_path, monkeypatch):
+    """換金鑰：--eps 只重轉指定集數（摘要記的公鑰指紋≠現在這把才算沒處理），沒指定的集數不動；重跑不重複下載。"""
+    import argparse
+    import json
+    import sys
+    import types
+    from market_intel import cli, config, research
+    from market_intel.fetchers import podcast as pc
+    priv1, pub1 = _pod_keypair()
+    priv2, pub2 = _pod_keypair()
+    (tmp_path / "config").mkdir()
+    pubfile = tmp_path / "config" / "pub.pem"
+    pubfile.write_bytes(pub1)
+    monkeypatch.setitem(sys.modules, "faster_whisper", types.ModuleType("faster_whisper"))
+    monkeypatch.setattr(research, "ROOT", tmp_path)
+    monkeypatch.setattr(pc, "PUBKEY_PATH", pubfile)
+    monkeypatch.setattr(pc, "ARCHIVE_DIR", tmp_path / "state" / "podcast_archive")
+    monkeypatch.setattr(pc, "DIGEST_DIR", tmp_path / "research" / "podcasts")
+    monkeypatch.setattr(config, "sources", lambda: {"podcasts": [{"name": "股癌", "feed": "https://f"}]})
+    monkeypatch.setattr(cli, "_listings", lambda: SIG_LISTINGS)
+    eps = pc.parse_feed(POD_BACKFILL_RSS, "股癌")
+    monkeypatch.setattr(pc, "fetch_episodes", lambda show: eps)
+    downloads = []
+    monkeypatch.setattr(pc, "download", lambda url, dest, max_mb=300: downloads.append(url) or dest)
+    segs = [pc.Segment(0.0, 20.0, "接下來我們來進入市場話題。" + "今天聊台燿的停損。" * 40)]
+    monkeypatch.setattr(pc, "transcribe", lambda path, model, minutes, prompt, threads, start: segs)
+    base = dict(list=False, dry=False, show=None, max_episodes=0, max_minutes=0, from_minutes=0, first=1, force=False, model=None, threads=0,
+                plan=False, backfill=True, shard=0, shards=1, budget_min=0, eps="")
+    cli.cmd_podcasts(argparse.Namespace(**base))      # 舊金鑰存好 EP1～3
+    assert len(downloads) == 3
+    dg = lambda n: json.loads((tmp_path / "research" / "podcasts" / "股癌" / f"EP{n:04d}.json").read_text(encoding="utf-8"))  # noqa: E731
+    assert dg(1)["archive_key"] == pc.pubkey_id(pub1)
+    pubfile.write_bytes(pub2)                          # 換新金鑰
+    assert pc.pubkey_id(pub1) != pc.pubkey_id(pub2)
+    cli.cmd_podcasts(argparse.Namespace(**base))      # 沒指定 --eps：一般模式，有摘要就略過
+    assert len(downloads) == 3
+    cli.cmd_podcasts(argparse.Namespace(**{**base, "eps": "1-2"}))   # 指定 EP1～2：重轉
+    assert downloads[3:] == ["https://cdn/1.mp3", "https://cdn/2.mp3"]
+    arch = tmp_path / "state" / "podcast_archive" / "股癌"
+    assert "台燿" in pc.decrypt_text((arch / "EP0001.bin").read_bytes(), priv2) and dg(2)["archive_key"] == pc.pubkey_id(pub2)
+    assert dg(3)["archive_key"] == pc.pubkey_id(pub1)   # EP3 沒指定，還是舊金鑰
+    cli.cmd_podcasts(argparse.Namespace(**{**base, "eps": "1-2"}))   # 重跑：已用新金鑰處理過，不再下載
+    assert len(downloads) == 5
+    import pytest
+    with pytest.raises(SystemExit):
+        cli.cmd_podcasts(argparse.Namespace(**{**base, "eps": "abc"}))
+
+
 def test_podcast_backfill_plan_and_resume(tmp_path, monkeypatch, capsys):
     import argparse
     import json

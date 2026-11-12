@@ -7,12 +7,12 @@
  "duration_min": 48,
  "paras": 26,
  "ad_paras": 1,
- "chars": 19497,
+ "chars": 19520,
  "market_start": "",
  "qa_start": "",
  "tags": {
-  "輝達": 4,
   "全家（5903）": 4,
+  "輝達": 3,
   "群聯（8299）": 2,
   "特斯拉": 2,
   "幸福（1108）": 2,
@@ -36,5 +36,6 @@
   "供應鏈": 1
  },
  "model": "medium",
- "transcribed_at": "2026-10-26T05:16:34+00:00"
+ "transcribed_at": "2026-11-03T16:25:20+00:00",
+ "archive_key": "a245ba719986"
 }

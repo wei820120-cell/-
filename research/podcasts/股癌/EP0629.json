@@ -7,7 +7,7 @@
  "duration_min": 50,
  "paras": 25,
  "ad_paras": 0,
- "chars": 19714,
+ "chars": 19682,
  "market_start": "",
  "qa_start": "",
  "tags": {
@@ -32,5 +32,6 @@
   "毛利": 1
  },
  "model": "medium",
- "transcribed_at": "2026-10-26T00:22:40+00:00"
+ "transcribed_at": "2026-11-03T22:59:06+00:00",
+ "archive_key": "a245ba719986"
 }

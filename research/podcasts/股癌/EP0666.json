@@ -7,8 +7,8 @@
  "duration_min": 55,
  "paras": 28,
  "ad_paras": 0,
- "chars": 22296,
- "market_start": "10:03",
+ "chars": 22229,
+ "market_start": "10:05",
  "qa_start": "45:14",
  "tags": {
   "OpenAI": 3,
@@ -44,7 +44,7 @@
   "法說": 2,
   "指數": 1,
   "回檔": 4,
-  "紀律": 5,
+  "紀律": 6,
   "升息": 1,
   "加碼": 2,
   "放空": 1,
@@ -55,5 +55,6 @@
   "毛利": 1
  },
  "model": "medium",
- "transcribed_at": "2026-10-26T03:41:17+00:00"
+ "transcribed_at": "2026-11-03T23:14:53+00:00",
+ "archive_key": "a245ba719986"
 }

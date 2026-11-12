@@ -7,13 +7,13 @@
  "duration_min": 50,
  "paras": 26,
  "ad_paras": 0,
- "chars": 20699,
+ "chars": 20509,
  "market_start": "",
  "qa_start": "",
  "tags": {
+  "AWS": 5,
   "谷歌": 5,
   "幸福（1108）": 4,
-  "AWS": 4,
   "全家（5903）": 4,
   "大立光（3008）": 3,
   "進階（3118）": 2,
@@ -43,5 +43,6 @@
   "供應鏈": 2
  },
  "model": "medium",
- "transcribed_at": "2026-10-26T00:51:20+00:00"
+ "transcribed_at": "2026-11-03T18:04:58+00:00",
+ "archive_key": "a245ba719986"
 }

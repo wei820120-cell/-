@@ -7,11 +7,11 @@
  "duration_min": 50,
  "paras": 25,
  "ad_paras": 0,
- "chars": 19995,
- "market_start": "31:48",
+ "chars": 20023,
+ "market_start": "31:42",
  "qa_start": "",
  "tags": {
-  "特斯拉": 8,
+  "特斯拉": 7,
   "輝達": 5,
   "蘋果": 5,
   "谷歌": 4,
@@ -53,5 +53,6 @@
   "毛利": 6
  },
  "model": "medium",
- "transcribed_at": "2026-10-26T06:10:16+00:00"
+ "transcribed_at": "2026-11-03T15:26:33+00:00",
+ "archive_key": "a245ba719986"
 }

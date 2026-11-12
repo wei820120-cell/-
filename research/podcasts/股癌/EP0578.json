@@ -7,9 +7,9 @@
  "duration_min": 49,
  "paras": 25,
  "ad_paras": 0,
- "chars": 19659,
- "market_start": "07:57",
- "qa_start": "23:56",
+ "chars": 19722,
+ "market_start": "07:52",
+ "qa_start": "23:42",
  "tags": {
   "特斯拉": 7,
   "谷歌": 3,
@@ -25,7 +25,7 @@
   "蘋果": 1
  },
  "terms": {
-  "部位": 8,
+  "部位": 9,
   "融資": 1,
   "籌碼": 1,
   "估值": 1,
@@ -46,5 +46,6 @@
   "毛利": 2
  },
  "model": "medium",
- "transcribed_at": "2026-10-26T02:29:39+00:00"
+ "transcribed_at": "2026-11-03T22:05:47+00:00",
+ "archive_key": "a245ba719986"
 }
