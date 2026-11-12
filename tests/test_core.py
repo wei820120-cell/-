@@ -2741,3 +2741,26 @@ def test_podcast_backfill_plan_and_resume(tmp_path, monkeypatch, capsys):
     import pytest
     with pytest.raises(SystemExit):
         cli.cmd_podcasts(argparse.Namespace(**{**base, "backfill": True, "max_episodes": 1}))
+
+
+def test_major_events_catches_leader_executive_exit_headlines(tmp_path, monkeypatch):
+    """2026-11-12 黃仁勳請辭：標題沒有漲價／缺貨等關鍵字，舊規則完全沒推。龍頭高層異動要推新聞機器人（同一事件一天一次）、不誤推一般新聞。"""
+    from market_intel import cli, notify, research
+    from market_intel.fetchers.news import NewsItem
+    monkeypatch.setattr(research, "ROOT", tmp_path)
+    monkeypatch.setattr(research, "QUEUE_DIR", tmp_path / "queue")
+    monkeypatch.setattr(research, "INDEX_PATH", tmp_path / "index.json")
+    monkeypatch.setattr(cli, "MAJOR_PATH", tmp_path / "major.json")
+    sent = []
+    monkeypatch.setattr(notify, "send", lambda text, channel="market": sent.append((channel, text)))
+    quiet = [NewsItem(source="Google", title="黃仁勳出席computex發表演說預告新品", summary=""),
+             NewsItem(source="Google", title="輝達財報11月17日公布市場預期營收創高", summary=""),
+             NewsItem(source="Google", title="台積電董事長魏哲家出席法說", summary="")]
+    assert cli.major_events(quiet, {}, macro_rows=[]) == []
+    ev = [NewsItem(source="Google", title="快訊輝達宣布黃仁勳辭職即刻生效財務長出任臨時執行長", summary="", url="http://x/1"),
+          NewsItem(source="Google", title="傳輝達準備撤換黃仁勳董事會最快11日開會決定去留", summary="", url="http://x/2")]
+    assert cli.major_events(ev, {}, macro_rows=[]) == ["龍頭高層異動與治理風險"]
+    assert sent and sent[0][0] == "news" and "黃仁勳辭職" in sent[0][1] and "供需事件：龍頭企業高層異動對AI供應鏈的影響" in sent[0][1]
+    assert cli.major_events(ev, {}, macro_rows=[]) == []        # 同一事件一天只推一次
+    other = [NewsItem(source="Google", title="蘋果執行長庫克宣布請辭", summary="", url="http://x/3")]
+    assert cli.major_events(other, {}, macro_rows=[]) == []      # 同一類別當天已推過
