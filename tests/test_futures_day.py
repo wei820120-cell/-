@@ -107,10 +107,11 @@ def test_daily_loss_cap_flattens_and_halts_the_day():
     assert fd.step(dict(st), at("11:00"), 20500, cfg) == []                    # halted：之後不再發任何訊號
 
 
-def test_message_has_board_risk_and_no_order_disclaimer():
+def test_message_has_board_risk_and_calibration_note():
     sigs, st = fd.replay(TREND[:30], CFG)
     msg = fd.format_message(sigs, st, CFG)
-    assert "盤面：日內振幅" in msg and "當日虧損上限 30,000 元" in msg and "不是下單" in msg and "微台每點 10 元" in msg
+    assert "盤面：日內振幅" in msg and "當日虧損上限 30,000 元" in msg and "微台每點 10 元" in msg
+    assert msg.endswith("\n（待校準）")        # 結尾括號只留「待校準」
     assert "計畫帳" in fd.summary(st, CFG)
 
 
