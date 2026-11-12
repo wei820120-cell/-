@@ -13,9 +13,6 @@ on:
         description: "測試模式：只抓一次夜盤報價、印出訊號（不推播、不存檔）"
         type: boolean
         default: false
-  push:                        # 暫時：開發分支推這個檔案時跑一次測試模式（合併前移除）
-    branches: ["claude/funny-goodall-fft1u6"]
-    paths: [".github/workflows/realtime-night.yml"]
 
 permissions:
   contents: write
@@ -45,7 +42,7 @@ jobs:
           TELEGRAM_TRADE_CHAT_ID: ${{ secrets.TELEGRAM_TRADE_CHAT_ID }}
           DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
         run: |
-          if [ "${{ inputs.test }}" = "true" ] || [ "${{ github.event_name }}" = "push" ]; then
+          if [ "${{ inputs.test }}" = "true" ]; then
             python -m market_intel futures-night --minutes 1.5 --interval 15 --force --no-push
             python -m market_intel futures-night --status --force
             exit 0
@@ -75,7 +72,7 @@ jobs:
           done
           echo "finished=$finished" >> "$GITHUB_OUTPUT"
       - name: 接續下一段（這一場還沒結束才接續；只在預設分支）
-        if: ${{ !cancelled() && github.ref_name == github.event.repository.default_branch && github.event_name != 'push' && inputs.test != true && steps.run.outputs.finished != '1' }}
+        if: ${{ !cancelled() && github.ref_name == github.event.repository.default_branch && inputs.test != true && steps.run.outputs.finished != '1' }}
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
