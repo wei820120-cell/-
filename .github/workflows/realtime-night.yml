@@ -1,0 +1,82 @@
+# 微台夜盤（15:00–隔天 05:00）日內順勢突破訊號：和 realtime.yml 同一套規則（trade/futures_day.py），只發訊號、不下單，推到進出場機器人。
+# GitHub 單次執行最長約 6 小時、夜盤有 14 小時，所以分段接續：每段約 5 小時 45 分，快到時間就再啟動下一段；
+# 狀態（本場高低點、持倉、已發訊號）存在 state/futures_day.json 的 night，每 10 分鐘 commit 一次，換執行也能接續。
+# 休市日（夜盤沒有報價）會自動結束。排程常延遲或漏掉，所以 watch.yml 平日 14:56 起會檢查、沒在跑就補啟動。
+name: realtime-night
+
+on:
+  schedule:
+    - cron: "50 6 * * 1-5"   # 台北時間平日 14:50 啟動，等 15:00 開盤
+  workflow_dispatch:
+    inputs:
+      test:
+        description: "測試模式：只抓一次夜盤報價、印出訊號（不推播、不存檔）"
+        type: boolean
+        default: false
+
+permissions:
+  contents: write
+  actions: write
+
+concurrency:
+  group: realtime-night
+  cancel-in-progress: false
+
+jobs:
+  night:
+    runs-on: ubuntu-latest
+    timeout-minutes: 355
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+      - run: pip install -r requirements.txt
+      - name: 夜盤監控（約 5 小時 45 分，或到這一場收盤）
+        id: run
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+          TELEGRAM_TRADE_BOT_TOKEN: ${{ secrets.TELEGRAM_TRADE_BOT_TOKEN }}
+          TELEGRAM_TRADE_CHAT_ID: ${{ secrets.TELEGRAM_TRADE_CHAT_ID }}
+          DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
+        run: |
+          if [ "${{ inputs.test }}" = "true" ]; then
+            python -m market_intel futures-night --minutes 1.5 --interval 15 --force --no-push
+            python -m market_intel futures-night --status --force
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          save() {
+            [ -d state ] || return 0
+            git add -A state
+            git diff --cached --quiet && return 0
+            git commit -q -m "夜盤記錄 $(TZ=Asia/Taipei date '+%F %H:%M')"
+            for i in 1 2 3; do
+              # 與 watch 同時改到 state 檔會衝突：以夜盤記錄為準（-X theirs），不要讓整個執行變紅
+              git pull --rebase -X theirs -q && git push -q && return 0
+              git rebase --abort 2>/dev/null; sleep 5
+            done
+            echo "存檔一直衝突，放棄這次記錄"
+          }
+          end=$(( $(date +%s) + 345 * 60 ))
+          finished=0
+          while [ "$(date +%s)" -lt "$end" ]; do
+            timeout 700 python -m market_intel futures-night --minutes 10
+            rc=$?
+            save
+            if [ "$rc" = "10" ]; then finished=1; break; fi     # 這一場結束、或今晚沒有夜盤
+            [ "$rc" = "0" ] || sleep 20                         # 其他失敗（網路等）：稍等再試，不要空轉
+          done
+          echo "finished=$finished" >> "$GITHUB_OUTPUT"
+      - name: 接續下一段（這一場還沒結束才接續；只在預設分支）
+        if: ${{ !cancelled() && github.ref_name == github.event.repository.default_branch && inputs.test != true && steps.run.outputs.finished != '1' }}
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          git pull --rebase -q || true
+          if [ "$(python -m market_intel futures-night --status)" = "run" ]; then
+            gh workflow run realtime-night.yml --ref "${GITHUB_REF_NAME}"
+          fi

@@ -13,7 +13,7 @@ from __future__ import annotations
 
 import json
 import logging
-from datetime import datetime
+from datetime import datetime, timedelta
 from pathlib import Path
 
 from .. import config
@@ -41,12 +41,42 @@ DEFAULTS = {
     "exit_times": ["13:10", "13:25"],   # 第一次出一半、第二次全出（盤中監控約 13:35 結束）
     "max_entries": 2,               # 一天最多進場（含停損後重進）幾次
     "min_open_range_pct": 0.3,      # 進場前日內高低差至少 % ，避免開盤後一直平盤卻被小突破觸發
+    # 時段與用詞（日盤預設；夜盤用 NIGHT 覆蓋）
+    "session": "day",
+    "session_start": "00:00",       # 一場的起點：時間比較以此為 0（夜盤 15:00 開、跨午夜，所以用「離開盤幾分鐘」比較）
+    "early_until": "09:30",         # 在這之前就達到 early_trend_pct → 標示動能強
+    "label": "日內", "period": "今天", "today_word": "今日", "loss_word": "當日", "early_word": "早盤動能強",
 }
 
+# 夜盤（15:00 開、隔天 05:00 收）：沿用日盤規則，只換時間窗、用詞，並把和振幅有關的門檻先縮小（夜盤波動較小）。
+# 這些門檻都是沒有夜盤成交明細可校準的暫定值，以 config/settings.yaml 的 futures_night 區塊覆蓋，待校準。
+NIGHT = {
+    "session": "night", "session_start": "15:00", "early_until": "15:30",
+    "label": "夜盤", "period": "本場", "today_word": "本場", "loss_word": "本場", "early_word": "開盤動能強",
+    "entry_start": "15:15",         # 開盤後 15 分鐘先建立本場高低點
+    "entry_until": "03:30",         # 這之後不再進場（05:00 收盤）
+    "exit_times": ["04:35", "04:50"],   # 第一次出一半、第二次全出
+    "active_range_pct": 0.7, "early_trend_pct": 0.6, "bar_range_pct": 0.75, "tick_jump_pct": 0.2, "min_open_range_pct": 0.2,
+}
+NIGHT_START, NIGHT_END = "15:00", "05:00"
+STATE_KEY = {"day": "today", "night": "night"}
 
-def settings() -> dict:
-    st = (config.settings().get("futures_day") or {})
-    return {k: (type(v)(st[k]) if k in st and not isinstance(v, (list, bool)) else st.get(k, v)) for k, v in DEFAULTS.items()}
+
+def _merge(base: dict, over: dict) -> dict:
+    return {k: (type(v)(over[k]) if k in over and not isinstance(v, (list, bool)) else over.get(k, v)) for k, v in base.items()}
+
+
+def settings(session: str = "day") -> dict:
+    """設定：日盤讀 futures_day；夜盤先套 futures_day（資金、口數、停損等共用），再套 NIGHT 預設與 futures_night 的覆蓋。"""
+    all_cfg = config.settings()
+    cfg = _merge(DEFAULTS, all_cfg.get("futures_day") or {})
+    if session == "night":
+        night_cfg = all_cfg.get("futures_night") or {}
+        over = _merge({**DEFAULTS, **NIGHT}, {k: v for k, v in night_cfg.items() if k in {**DEFAULTS, **NIGHT} and k != "enabled"})
+        cfg.update({k: over[k] for k in NIGHT})
+        cfg.update({k: over[k] for k in DEFAULTS if k in night_cfg and k not in NIGHT})
+        cfg["enabled"] = bool(cfg["enabled"]) and bool(night_cfg.get("enabled", True))
+    return cfg
 
 
 def _hm(s: str) -> tuple[int, int]:
@@ -54,9 +84,15 @@ def _hm(s: str) -> tuple[int, int]:
     return int(h), int(m)
 
 
-def _after(now: datetime, hm: str) -> bool:
+def _rel(h: int, m: int, base: str) -> int:
+    bh, bm = _hm(base)
+    return (h * 60 + m - (bh * 60 + bm)) % 1440
+
+
+def _after(now: datetime, hm: str, base: str = "00:00") -> bool:
+    """now 是否已到 hm；以 base 為一場的起點（夜盤 15:00 開、跨午夜）比較。base＝00:00 時就是一般的鐘點比較。"""
     h, m = _hm(hm)
-    return (now.hour, now.minute) >= (h, m)
+    return _rel(now.hour, now.minute, base) >= _rel(h, m, base)
 
 
 def new_day(day: str) -> dict:
@@ -115,12 +151,12 @@ def _alert(st: dict, key: str, kind: str, now: datetime, price: float, text: str
 def _board(st: dict, cfg: dict) -> str:
     r = _range_pct(st)
     ok = "合格" if r >= cfg["active_range_pct"] else "未達"
-    return f"盤面：日內振幅 {r:.2f}%（加碼合格線 {cfg['active_range_pct']}%，{ok}）"
+    return f"盤面：{cfg['label']}振幅 {r:.2f}%（加碼合格線 {cfg['active_range_pct']}%，{ok}）"
 
 
 def _risk_line(cfg: dict) -> str:
     cap = cfg["capital"] * cfg["daily_loss_pct"] / 100
-    return (f"風控：{cfg['contract']}每點 {cfg['contract_multiplier']:g} 元；當日虧損上限 {cap:,.0f} 元"
+    return (f"風控：{cfg['contract']}每點 {cfg['contract_multiplier']:g} 元；{cfg['loss_word']}虧損上限 {cap:,.0f} 元"
             f"（資金 {cfg['capital']:,.0f} 的 {cfg['daily_loss_pct']}%），賠錢不加碼。")
 
 
@@ -128,6 +164,7 @@ def step(st: dict, now: datetime, price: float, cfg: dict, closes: list[float] |
          exch_high: float | None = None, exch_low: float | None = None) -> list[dict]:
     """餵一筆報價，回傳這一筆觸發的訊號（0 到多則）。st 會被就地更新（可存檔、換執行也能接續）。"""
     out: list[dict] = []
+    base = cfg["session_start"]
     st.setdefault("entry_bar", "")
     st.setdefault("last_fill", None)
     st.setdefault("last_fill_ts", None)
@@ -147,9 +184,9 @@ def step(st: dict, now: datetime, price: float, cfg: dict, closes: list[float] |
     rng = _range_pct(st)
     if not st["qualified"] and not st["halted"] and rng >= cfg["active_range_pct"]:
         st["qualified"] = True
-        early = "，早盤動能強" if not _after(now, "09:30") and rng >= cfg["early_trend_pct"] else ""
+        early = f"，{cfg['early_word']}" if not _after(now, cfg["early_until"], cfg["session_start"]) and rng >= cfg["early_trend_pct"] else ""
         _alert(st, "qualified", "盤面", now, price,
-               f"🟢 盤面合格{early}：日內振幅 {rng:.2f}% ≥ {cfg['active_range_pct']}%（真正行情），之後依訊號進場／加碼。", out)
+               f"🟢 盤面合格{early}：{cfg['label']}振幅 {rng:.2f}% ≥ {cfg['active_range_pct']}%（真正行情），之後依訊號進場／加碼。", out)
     if st["halted"]:
         return out
     sign = 1 if st["dir"] == "long" else -1
@@ -165,7 +202,7 @@ def step(st: dict, now: datetime, price: float, cfg: dict, closes: list[float] |
             return out
         if loss_twd >= cap:
             _flat(st, price, "dailyloss", "停損", now, out,
-                  f"🛑 當日虧損已達上限 {cap:,.0f} 元：全出、今天不再做。出場用市價（範圍市價）。")
+                  f"🛑 {cfg['loss_word']}虧損已達上限 {cap:,.0f} 元：全出、{cfg['period']}不再做。出場用市價（範圍市價）。")
             st["halted"] = True
             return out
         if closes and abs(streak(closes)) >= 3 and last is not None:
@@ -179,12 +216,12 @@ def step(st: dict, now: datetime, price: float, cfg: dict, closes: list[float] |
                       f"現在{'單筆跳動' if jump >= cfg['tick_jump_pct'] else '5 分 K 振幅'}過大（{max(jump, brange):.2f}%）、行情亂跳，這通常是出場點。用市價（範圍市價），千萬不要掛限價，因為常常成交不了。")
                 return out
         done = st["exits_done"]
-        if _after(now, cfg["exit_times"][-1]) and "final" not in done:
+        if _after(now, cfg["exit_times"][-1], base) and "final" not in done:
             done.append("final")
             _flat(st, price, "exit_final", "出場", now, out, f"⏰ 收盤前出場 {price:,.0f}：剩下的全部出場（抱到快收盤、獲利與持有時間成正比）。用市價（範圍市價）。")
             return out
         unit = max(1, int(cfg["unit_lots"]))
-        if len(cfg["exit_times"]) > 1 and _after(now, cfg["exit_times"][0]) and "half" not in done and st["lots"] > unit:
+        if len(cfg["exit_times"]) > 1 and _after(now, cfg["exit_times"][0], base) and "half" not in done and st["lots"] > unit:
             done.append("half")
             n = max(unit, st["lots"] // 2 // unit * unit)       # 以「單位」為準出一半
             pts = (price - st["avg"]) * sign * n
@@ -221,14 +258,14 @@ def step(st: dict, now: datetime, price: float, cfg: dict, closes: list[float] |
             st["avg"], st["adds"] = new_avg, st["adds"] + 1
             st["last_fill"], st["last_fill_ts"] = price, now.isoformat(timespec="seconds")
             _alert(st, f"ext:{st['entries']}:{st['lots']}", "加碼", now, price,
-                   f"➕ 順勢加碼 {unit} 口{cfg['contract']}（{'多' if sign > 0 else '空'}）{price:,.0f}：{'創日內新高' if sign > 0 else '創日內新低'}，比上一筆成交 {lf:,.0f} 又多走 {abs(price - lf):,.0f} 點、目前獲利。"
+                   f"➕ 順勢加碼 {unit} 口{cfg['contract']}（{'多' if sign > 0 else '空'}）{price:,.0f}：{'創' + cfg['label'] + '新高' if sign > 0 else '創' + cfg['label'] + '新低'}，比上一筆成交 {lf:,.0f} 又多走 {abs(price - lf):,.0f} 點、目前獲利。"
                    f"累計 {st['lots']} 口，平均成本 {new_avg:,.1f}（上限 {cfg['max_lots']} 口）。", out)
         return out
 
     # ---- 空手：突破今日高低點 → 試單（一天一個方向）
-    if (st["entries"] < cfg["max_entries"] and _after(now, cfg["entry_start"]) and not _after(now, cfg["entry_until"])
+    if (st["entries"] < cfg["max_entries"] and _after(now, cfg["entry_start"], base) and not _after(now, cfg["entry_until"], base)
             and prev_high is not None and rng >= cfg["min_open_range_pct"]
-            and not _after(now, cfg["exit_times"][-1])):
+            and not _after(now, cfg["exit_times"][-1], base)):
         want = None
         if price > prev_high and st["dir"] in (None, "long"):
             want = "long"
@@ -247,8 +284,8 @@ def step(st: dict, now: datetime, price: float, cfg: dict, closes: list[float] |
             tail = ("盤面已合格，後續拉回可依訊號加碼。" if st["qualified"] else
                     f"盤面還沒到真正行情（振幅未達 {cfg['active_range_pct']}%），先只試單、不要太積極，也不要加碼。")
             _alert(st, f"enter{st['entries']}", "進場", now, price,
-                   f"{'🔺 做多' if want == 'long' else '🔻 做空'}試單 {unit} 口{cfg['contract']} {price:,.0f}：{'突破今日高點' if want == 'long' else '跌破今日低點'} {prev_high if want == 'long' else prev_low:,.0f}。"
-                   f"停損 {stop_px:,.1f}（平均成本外 {cfg['stop_pct']}%，這一單停損約虧 {risk:,.0f} 元）。{tail}今天只做這個方向。", out)
+                   f"{'🔺 做多' if want == 'long' else '🔻 做空'}試單 {unit} 口{cfg['contract']} {price:,.0f}：{'突破' + cfg['today_word'] + '高點' if want == 'long' else '跌破' + cfg['today_word'] + '低點'} {prev_high if want == 'long' else prev_low:,.0f}。"
+                   f"停損 {stop_px:,.1f}（平均成本外 {cfg['stop_pct']}%，這一單停損約虧 {risk:,.0f} 元）。{tail}{cfg['period']}只做這個方向。", out)
     return out
 
 
@@ -262,7 +299,7 @@ def _flat(st: dict, price: float, key: str, kind: str, now: datetime, out: list,
 
 
 def format_message(sigs: list[dict], st: dict, cfg: dict) -> str:
-    head = f"📈 台指期日內訊號 {sigs[0]['time']}"
+    head = f"📈 台指期{cfg['label']}訊號 {sigs[0]['time']}"
     body = "\n".join(s["text"] for s in sigs)
     return f"{head}\n{body}\n{_board(st, cfg)}\n{_risk_line(cfg)}\n（待校準）"
 
@@ -285,23 +322,34 @@ def replay(ticks: list[tuple[datetime, float]], cfg: dict | None = None, closes:
 
 
 # ---------------------------------------------------------------- 存檔（跟著 state/ 一起 commit，換執行也能接續）
+# 一個檔三份資料：closes＝前幾天的日收盤、today＝日盤這一場的狀態、night＝夜盤這一場的狀態（存的時候互相保留，不會蓋掉對方）。
 
-def load_state(day: str, path: Path | None = None) -> dict:
-    path = path or STATE_PATH
+def _read_all(path: Path) -> dict:
     try:
         d = json.loads(path.read_text(encoding="utf-8"))
-        if d.get("today", {}).get("date") == day:
-            return d["today"]
-    except (OSError, ValueError, AttributeError):
+        return d if isinstance(d, dict) else {}
+    except (OSError, ValueError):
+        return {}
+
+
+def _write_all(path: Path, data: dict) -> None:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(json.dumps(data, ensure_ascii=False) + "\n", encoding="utf-8")
+
+
+def load_state(day: str, path: Path | None = None, session: str = "day") -> dict:
+    path = path or STATE_PATH
+    try:
+        d = _read_all(path).get(STATE_KEY[session], {})
+        if d.get("date") == day:
+            return d
+    except AttributeError:
         pass
     return new_day(day)
 
 
 def _load_closes_raw(path: Path) -> list[dict]:
-    try:
-        return [c for c in json.loads(path.read_text(encoding="utf-8")).get("closes", []) if isinstance(c, dict)]
-    except (OSError, ValueError, AttributeError):
-        return []
+    return [c for c in _read_all(path).get("closes", []) if isinstance(c, dict)]
 
 
 def load_closes(day: str, path: Path | None = None) -> list[float]:
@@ -309,12 +357,14 @@ def load_closes(day: str, path: Path | None = None) -> list[float]:
     return [float(c["c"]) for c in _load_closes_raw(path or STATE_PATH) if c.get("d") != day]
 
 
-def save_state(st: dict, path: Path | None = None, keep_ticks: int = 4000) -> None:
+def save_state(st: dict, path: Path | None = None, keep_ticks: int = 4000, session: str = "day") -> None:
     path = path or STATE_PATH
+    data = _read_all(path)
     slim = dict(st)
     slim["ticks"] = st["ticks"][-keep_ticks:]
-    path.parent.mkdir(parents=True, exist_ok=True)
-    path.write_text(json.dumps({"closes": _load_closes_raw(path), "today": slim}, ensure_ascii=False) + "\n", encoding="utf-8")
+    data["closes"] = _load_closes_raw(path)
+    data[STATE_KEY[session]] = slim
+    _write_all(path, data)
 
 
 def finish_day(st: dict, cfg: dict, path: Path | None = None) -> str | None:
@@ -322,9 +372,30 @@ def finish_day(st: dict, cfg: dict, path: Path | None = None) -> str | None:
     path = path or STATE_PATH
     if not st["ticks"] or datetime.fromisoformat(st["ticks"][-1][0]).hour * 60 + datetime.fromisoformat(st["ticks"][-1][0]).minute < 13 * 60 + 15:
         return None   # 沒跑到收盤附近（中途停掉）：不記日收盤，免得拿盤中價當收盤
+    data = _read_all(path)
     closes = [c for c in _load_closes_raw(path) if c.get("d") != st["date"]] + [{"d": st["date"], "c": st["last_price"]}]
     slim = dict(st)
     slim["ticks"] = st["ticks"][-4000:]
-    path.parent.mkdir(parents=True, exist_ok=True)
-    path.write_text(json.dumps({"closes": closes[-10:], "today": slim}, ensure_ascii=False) + "\n", encoding="utf-8")
+    data["closes"], data["today"] = closes[-10:], slim
+    _write_all(path, data)
+    return summary(st, cfg) if st["entries"] else None
+
+
+# ---------------------------------------------------------------- 夜盤（15:00–隔天 05:00）
+
+def night_session(now: datetime) -> tuple[str, datetime, datetime]:
+    """now 所屬的那一場夜盤：（場次代號、開盤時間、收盤時間）。14:30 以後算今天開的那場，凌晨算前一天開的那場。"""
+    h, m = _hm(NIGHT_START)
+    start = now.replace(hour=h, minute=m, second=0, microsecond=0)
+    if now < start - timedelta(minutes=30):      # 開盤前 30 分鐘內算今晚這一場（先啟動等開盤），再早就是前一晚那一場
+        start -= timedelta(days=1)
+    eh, em = _hm(NIGHT_END)
+    end = (start + timedelta(days=1)).replace(hour=eh, minute=em)
+    return f"{start:%Y-%m-%d}N", start, end
+
+
+def finish_night(st: dict, cfg: dict, path: Path | None = None) -> str | None:
+    """夜盤收盤：標記這一場結束（不再接續）、存檔，回傳計畫帳摘要（有進場才有）。夜盤不記日收盤。"""
+    st["finished"] = True
+    save_state(st, path, session="night")
     return summary(st, cfg) if st["entries"] else None
