@@ -1,0 +1,173 @@
+{
+ "topic": "供需事件：時報拿下輝達訂單或認證（傳聞求證）",
+ "one_line": "求證結果：查不到名叫『時報』的公司拿下輝達訂單或認證，推測是把來源媒體『工商時報』誤抽成公司名（未證實）。佇列附的原文標題其實是『中國 AI 新創月之暗面轉向歐洲租用輝達』——只取得標題，找不到歐洲租用的第二來源；搜尋摘要的背景是月之暗面與阿里雲約 2 萬顆輝達晶片算力協議、被指在泰國用 GB300、尋求更多 Blackwell 訓練 Kimi K4，美方正審查陸企租用海外算力，RASA 草案眾議院已過、參議院未動。此事屬輝達與雲端租賃層級，沒有臺灣個股的直接訂單訊號。",
+ "status": "傳聞",
+ "horizon": "短期（事件驅動，數天到數週）",
+ "keywords": [
+  "時報",
+  "輝達",
+  "月之暗面",
+  "Moonshot",
+  "Kimi",
+  "算力租賃",
+  "出口管制",
+  "RASA",
+  "Blackwell",
+  "歐洲",
+  "傳聞求證"
+ ],
+ "catalysts": [
+  "標題原文與歐洲租用的第二來源",
+  "美方對遠端租用的審查與 RASA 進度",
+  "輝達財報對中國需求的說明",
+  "臺灣供應鏈出現明確客戶名稱＋訂單或認證的公告"
+ ],
+ "risks": [
+  "把媒體名稱誤認為公司名而炒作",
+  "標題內容未證實（只取得標題）",
+  "與臺灣個股無直接訂單關聯"
+ ],
+ "spec_tables": [
+  {
+   "title": "表：月之暗面算力取得方式（搜尋摘要）",
+   "columns": [
+    "來源",
+    "內容",
+    "狀態"
+   ],
+   "rows": [
+    [
+     "阿里雲",
+     "約 2 萬顆輝達晶片的算力協議",
+     "彭博轉述；阿里雲否認 H200 說法"
+    ],
+    [
+     "泰國設施",
+     "被指使用 GB300 訓練 Kimi K3",
+     "白宮官員公開指稱（2026/7）"
+    ],
+    [
+     "Blackwell",
+     "尋求更多晶片訓練 Kimi K4",
+     "The Information 轉述"
+    ],
+    [
+     "歐洲",
+     "標題稱轉向歐洲租用",
+     "未找到第二來源"
+    ]
+   ],
+   "note": "全部為二手摘要；未經核對。"
+  }
+ ],
+ "evolution": [
+  {
+   "name": "2026/1",
+   "composition": "RASA 草案眾議院通過",
+   "spec": "參議院尚未處理",
+   "application": "政策面"
+  },
+  {
+   "name": "2026/7",
+   "composition": "美方指稱泰國 GB300、月之暗面暫停新訂閱",
+   "spec": "算力緊缺",
+   "application": "需求面"
+  },
+  {
+   "name": "2026/11",
+   "composition": "標題稱轉向歐洲租用",
+   "spec": "未證實",
+   "application": "本次觸發"
+  }
+ ],
+ "concepts": [
+  {
+   "title": "供需缺口怎麼來的",
+   "points": [
+    "中國 AI 公司需要高階算力但受管制，需求轉向租賃",
+    "租賃來源分散在阿里雲與海外資料中心",
+    "美方開始審查遠端租用，租賃管道可能被收緊"
+   ]
+  },
+  {
+   "title": "誰受惠、誰受傷",
+   "points": [
+    "受惠：握有輝達晶片並出租的雲端業者、輝達",
+    "受傷：被審查的租賃業者與中國承租方",
+    "臺灣個股：此標題無直接訂單訊號"
+   ]
+  },
+  {
+   "title": "如何驗證傳聞",
+   "points": [
+    "先確認標題原文與第二來源",
+    "檢查是否有『公司名＋客戶＋訂單或認證』的公告",
+    "警惕自動抽取把媒體名稱當成公司"
+   ]
+  }
+ ],
+ "conclusion": [
+  "『時報』查不到是公司，推測為『工商時報』的誤抽（未證實），『拿下輝達訂單或認證』沒有證據。",
+  "原文標題是月之暗面轉向歐洲租用輝達（只取得標題、找不到歐洲第二來源）；背景是中國 AI 公司透過阿里雲與東南亞取得輝達算力，美方正審查。",
+  "此事屬輝達與雲端租賃層級，沒有臺灣個股的直接訂單訊號。"
+ ],
+ "sources": [
+  {
+   "title": "Google 新聞（來源：工商時報 ctee.com.tw 搜尋『漲價』）：中國 AI 新創月之暗面轉向歐洲租用輝達（觸發標題；只取得標題）",
+   "url": "https://news.google.com/rss/articles/CBMiX0FVX3lxTFBUVFFmRklHS2hKWnRGejNCOFRXaDNzcERrRkl0aUtHZmhNYjRaZ2FtdUpUVV9GSUlfZDdGQzk0S2xnV2NjMDlVTjZZUk9RcmgyLUJrZkJ6S21Sa3paRjYw?oc=5"
+  },
+  {
+   "title": "TechNews（2026/08/20）：Chinese AI firms are tapping banned Nvidia chips through Southeast Asian data centers（標題）",
+   "url": "https://technews.tw/2026/08/20/chinese-ai-firms-are-tapping-banned-nvidia-chips-through-southeast-asian-data-centers/"
+  },
+  {
+   "title": "TechNews：月之暗面與阿里巴巴算力協議、可使用約 2 萬顆輝達晶片（彭博轉述，搜尋摘要）",
+   "url": "https://technews.tw/?p=1596457"
+  },
+  {
+   "title": "TechNews：月之暗面尋求更多 Blackwell 晶片訓練 Kimi K4（The Information 轉述，搜尋摘要）",
+   "url": "https://technews.tw/?p=1594369"
+  },
+  {
+   "title": "旺得富（2026/07/29）：月之暗面尋求更多輝達 Blackwell 晶片（搜尋摘要）",
+   "url": "https://wantrich.chinatimes.com/news/20260729900306-420101"
+  },
+  {
+   "title": "聯合報：被中國 AI 進步神速嚇到…美國要查陸企透過雲端租用輝達晶片 堵管制漏洞（標題）",
+   "url": "https://udn.com/news/story/6811/9678248"
+  },
+  {
+   "title": "DataCenterDynamics：AI lab Moonshot leases 20,000 Nvidia GPUs from Alibaba Cloud — report（標題）",
+   "url": "https://www.datacenterdynamics.com/en/news/ai-lab-moonshot-leases-20000-nvidia-gpus-from-alibaba-cloud-report/"
+  }
+ ],
+ "layers": [
+  {
+   "layer": "中國 AI 公司的算力需求",
+   "description": "受出口管制無法直接購買，轉向租賃與海外資料中心；月之暗面算力緊缺並尋求 Blackwell。",
+   "global_players": [
+    "月之暗面（Moonshot）",
+    "阿里雲",
+    "輝達"
+   ],
+   "tw_stocks": []
+  },
+  {
+   "layer": "海外資料中心與算力租賃",
+   "description": "泰國、馬來西亞、日本等地被指轉租受限晶片；標題稱轉向歐洲，未找到第二來源。",
+   "global_players": [
+    "Nscale（歐洲，與月之暗面是否有關未證實）",
+    "東南亞資料中心業者"
+   ],
+   "tw_stocks": []
+  },
+  {
+   "layer": "管制與政策",
+   "description": "美方審查陸企租用海外運算；RASA 草案 2026/1 眾議院通過、參議院未處理。",
+   "global_players": [
+    "美國商務部／國會"
+   ],
+   "tw_stocks": []
+  }
+ ]
+}

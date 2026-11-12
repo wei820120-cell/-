@@ -1,0 +1,250 @@
+{
+ "topic": "供需事件：下單之後癡癡等！輝達RTX晶片缺貨 陸企未來4個",
+ "one_line": "經濟日報（11/4）標題：輝達 RTX 晶片缺貨，陸企下單後未來 4 個月到貨恐僅訂單量 1%（內文未取得）。背景為 Reuters 10/20 獨家（匿名來源）：字節、阿里、騰訊對 RTX PRO 5500 下單逾 300 萬張、逾 350 億美元（單價約 1.14 萬美元），中國客戶總訂單逾 600 萬張；輝達無法保證滿足、合作夥伴可能只拿到所要求量的 5～10%，2027 年全球產量上限約 300 萬張，12 月出樣品、2027 Q1 才商業交貨。1% 與 5～10% 口徑不同、不能互證；台廠影響目前沒有直接證據，皆為推論。",
+ "status": "傳聞",
+ "horizon": "中期（3-12個月）",
+ "keywords": [
+  "輝達",
+  "RTX PRO 5500",
+  "RTX 缺貨",
+  "中國需求",
+  "字節跳動",
+  "阿里巴巴",
+  "騰訊",
+  "出口管制",
+  "GDDR7",
+  "工作站晶片"
+ ],
+ "catalysts": [
+  "經濟日報該篇內文（1% 的來源）",
+  "輝達下一次財報與法說對中國需求的說法",
+  "美國對 RTX PRO 類產品的出口規定",
+  "12 月樣品與 2027 Q1 交貨時程",
+  "台系板卡／ODM 10、11 月營收"
+ ],
+ "risks": [
+  "1% 為標題層級，內文與出處未取得",
+  "Reuters 數字為匿名來源，輝達未證實",
+  "產品名稱與規格未見輝達官方資料",
+  "出口管制鬆緊會改變需求",
+  "台廠影響皆為推論，無直接證據"
+ ],
+ "spec_tables": [
+  {
+   "title": "表：Reuters 10/20 報導數字（匿名來源，輝達未證實）",
+   "columns": [
+    "項目",
+    "數字",
+    "備註"
+   ],
+   "rows": [
+    [
+     "下單客戶",
+     "字節跳動、阿里巴巴、騰訊",
+     "—"
+    ],
+    [
+     "下單數量與金額",
+     "逾 300 萬張；逾 350 億美元",
+     "單價約 1.14 萬美元"
+    ],
+    [
+     "中國客戶總訂單",
+     "逾 600 萬張",
+     "兩位消息人士"
+    ],
+    [
+     "配貨",
+     "合作夥伴被告知可能只拿到所要求量的 5～10%",
+     "與經濟日報標題的 1% 口徑不同"
+    ],
+    [
+     "2027 全球產量上限",
+     "約 300 萬張",
+     "另一位消息人士"
+    ],
+    [
+     "時程",
+     "12 月樣品；2027 Q1 商業交貨",
+     "—"
+    ],
+    [
+     "出口狀態",
+     "RTX PRO 5500 為工作站晶片；B300 資料中心晶片不得賣中國",
+     "—"
+    ]
+   ],
+   "note": "1% 的數字本次未找到內文佐證。"
+  }
+ ],
+ "evolution": [
+  {
+   "name": "RTX 5090D 對中停供傳聞",
+   "composition": "消費級旗艦對中國",
+   "spec": "傳訂單被取消（Tom's Hardware，未證實）",
+   "application": "2025"
+  },
+  {
+   "name": "RTX 5090 傳停止配貨",
+   "composition": "GB202 改配 RTX PRO",
+   "spec": "傳聞，輝達未證實",
+   "application": "2026/10 上旬"
+  },
+  {
+   "name": "RTX PRO 5500 中國大單",
+   "composition": "工作站晶片",
+   "spec": "逾 300 萬張；配貨 5～10%",
+   "application": "2026/10/20 Reuters；11/4 標題 1%"
+  }
+ ],
+ "concepts": [
+  {
+   "title": "供需缺口怎麼來的",
+   "points": [
+    "中國買家買不到資料中心晶片，需求轉向可合法出口的工作站晶片",
+    "下單量（逾 600 萬張）遠大於 2027 年全球產量上限（約 300 萬張）",
+    "商業交貨要到 2027 Q1，所以『未來 4 個月幾乎沒有量』在時程上說得通（推論）"
+   ]
+  },
+  {
+   "title": "誰受惠、誰受傷",
+   "points": [
+    "輝達握有分配與定價權",
+    "中國雲端大廠拿不到足量算力，可能轉向替代方案（推論）",
+    "台廠間接受影響的可能是晶圓、記憶體與板卡整機，但目前沒有證據"
+   ]
+  },
+  {
+   "title": "怎麼驗證",
+   "points": [
+    "找經濟日報內文確認 1% 的來源",
+    "看輝達財報對中國需求與配貨的說法",
+    "看台系 ODM 與板卡廠營收是否出現對應變化"
+   ]
+  }
+ ],
+ "conclusion": [
+  "事件有 Reuters 匿名來源背景：中國三大雲端廠對 RTX PRO 5500 下單逾 300 萬張、逾 350 億美元，輝達無法保證滿足，配貨 5～10%，2027 年產量上限約 300 萬張，2027 Q1 才交貨。",
+  "經濟日報標題的『未來 4 個月僅 1%』沒有內文佐證，與 5～10% 口徑不同，不能互證。",
+  "台廠影響目前全是推論；下一步找原文內文與輝達財報說法，並看台系 ODM 與板卡廠營收。"
+ ],
+ "sources": [
+  {
+   "title": "BNN Bloomberg（Reuters 獨家，2026/10/20）：ByteDance、Alibaba、Tencent 對輝達晶片下單逾 350 億美元",
+   "url": "https://www.bnnbloomberg.ca/business/company-news/2026/10/20/bytedance-alibaba-tencent-place-over-us35-billion-worth-of-nvidia-chip-orders-reuters-exclusive"
+  },
+  {
+   "title": "CP24（Reuters 獨家轉載，2026/10/20）：ByteDance、Alibaba、Tencent 下單逾 350 億美元輝達晶片",
+   "url": "https://www.cp24.com/news/world/2026/10/20/bytedance-alibaba-tencent-place-over-us35-billion-worth-of-nvidia-chip-orders-reuters-exclusive/"
+  },
+  {
+   "title": "RTTNews：ByteDance、Alibaba、Tencent order over $35 bln of Nvidia chips（報導轉述）",
+   "url": "https://www.rttnews.com/3700721/bytedance-alibaba-tencent-order-over-35-bln-of-nvidia-chips-reports.aspx"
+  },
+  {
+   "title": "Let's Data Science：China giants ordered $35 billion of Nvidia cards, can't be promised（部落格轉述，來源較弱）",
+   "url": "https://letsdatascience.com/blog/china-giants-ordered-35-billion-nvidia-cards-cant-promise"
+  },
+  {
+   "title": "Tom's Hardware：Nvidia reportedly halts RTX 5090D deliveries in China（背景）",
+   "url": "https://www.tomshardware.com/pc-components/gpus/nvidia-reportedly-halts-rtx-5090d-deliveries-in-china-undelivered-orders-canceled-gpu-ban-speculated"
+  }
+ ],
+ "layers": [
+  {
+   "layer": "需求端：中國雲端大廠",
+   "description": "字節、阿里、騰訊對 RTX PRO 5500 下單逾 300 萬張、逾 350 億美元；中國客戶總訂單逾 600 萬張（Reuters 匿名來源）。",
+   "global_players": [
+    "輝達",
+    "字節跳動",
+    "阿里巴巴",
+    "騰訊"
+   ],
+   "tw_stocks": []
+  },
+  {
+   "layer": "供給端：晶圓與先進封裝",
+   "description": "2027 年全球產量上限約 300 萬張；這顆晶片的製程與產能分配本次沒查到，是否擠占其他產品屬未知。",
+   "global_players": [
+    "輝達"
+   ],
+   "tw_stocks": [
+    {
+     "code": "2330",
+     "name": "台積電",
+     "role": "晶圓代工（若為其製造；本次未查證）",
+     "impact": "推論，無證據"
+    }
+   ]
+  },
+  {
+   "layer": "記憶體（GDDR7／DRAM）",
+   "description": "前一案（RTX 5090 傳停產）提到 GDDR7 與 DRAM 供應吃緊；與本案的關聯本次沒查到。",
+   "global_players": [
+    "三星",
+    "SK 海力士",
+    "美光"
+   ],
+   "tw_stocks": [
+    {
+     "code": "2408",
+     "name": "南亞科",
+     "role": "DRAM",
+     "impact": "推論"
+    },
+    {
+     "code": "2344",
+     "name": "華邦電",
+     "role": "利基型記憶體",
+     "impact": "推論"
+    },
+    {
+     "code": "3260",
+     "name": "威剛",
+     "role": "記憶體模組",
+     "impact": "推論"
+    }
+   ]
+  },
+  {
+   "layer": "板卡與整機（工作站、伺服器）",
+   "description": "工作站與伺服器廠能否拿到配貨、2027 Q1 才交貨；本次沒有台廠證據。",
+   "global_players": [
+    "PNY",
+    "Leadtek"
+   ],
+   "tw_stocks": [
+    {
+     "code": "2357",
+     "name": "華碩",
+     "role": "板卡／整機",
+     "impact": "推論"
+    },
+    {
+     "code": "2376",
+     "name": "技嘉",
+     "role": "板卡／整機",
+     "impact": "推論"
+    },
+    {
+     "code": "2377",
+     "name": "微星",
+     "role": "板卡／整機",
+     "impact": "推論"
+    },
+    {
+     "code": "2465",
+     "name": "麗臺",
+     "role": "專業卡",
+     "impact": "推論"
+    },
+    {
+     "code": "2382",
+     "name": "廣達",
+     "role": "伺服器",
+     "impact": "推論"
+    }
+   ]
+  }
+ ]
+}

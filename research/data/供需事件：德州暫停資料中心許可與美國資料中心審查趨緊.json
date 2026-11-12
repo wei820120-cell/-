@@ -1,0 +1,230 @@
+{
+ "topic": "供需事件：德州暫停資料中心許可與美國資料中心審查趨緊",
+ "one_line": "德州州長艾波特自 2026/8 起指示暫停資料中心並網核准、9/21 再下令暫停環境許可，ERCOT 稽核預計 12 月完成（搜尋摘要）；規模：ERCOT 審理 474GW、約 49.8GW 受影響、彭博稱美國約 20% 資料中心管線有延遲風險；自建電廠不並網者不在此限。Podcast 稱 11/6『擋 AI 爆恐慌、台積電跌停』查無盤勢佐證（未證實），10/30 台股重挫與台達電跌停有報導。",
+ "status": "混合",
+ "horizon": "短中期（ERCOT 稽核 2026/12；資本支出與出貨遞延觀察到 2027 Q1）",
+ "keywords": [
+  "德州",
+  "資料中心",
+  "ERCOT",
+  "TCEQ",
+  "艾波特",
+  "暫停許可",
+  "並網",
+  "電力瓶頸",
+  "AI 伺服器",
+  "資本支出",
+  "期中選舉",
+  "台達電"
+ ],
+ "catalysts": [
+  "ERCOT 稽核結果（預計 2026/12）",
+  "TCEQ 許可恢復與否",
+  "雲端大廠財報對資本支出與交付時程的說明",
+  "其他州的資料中心暫停法案",
+  "臺灣 ODM／電源散熱廠法說會提到遞延"
+ ],
+ "risks": [
+  "把 Podcast／Threads 的說法當成事實（11/6 盤勢與『擋 AI 發展』定義未證實）",
+  "許可暫停的實際範圍（不需並網者是否適用）未明",
+  "訂單遞延與取消的差別",
+  "資料缺口：11 月最新狀態與臺廠實質影響"
+ ],
+ "spec_tables": [
+  {
+   "title": "表：德州資料中心審批時間軸（搜尋摘要）",
+   "columns": [
+    "日期",
+    "動作",
+    "範圍／備註"
+   ],
+   "rows": [
+    [
+     "2026/6",
+     "要求資料中心『使用者付費』負擔電網升級",
+     "擬修法"
+    ],
+    [
+     "2026/8/3",
+     "指示 PUCT 與 ERCOT 稽核期間暫停核准",
+     "ERCOT 暫停『批次零』審查"
+    ],
+    [
+     "2026/9/14",
+     "TWDB 嚴格執行大用水戶申報",
+     "含資料中心"
+    ],
+    [
+     "2026/9/21",
+     "TCEQ 暫停資料中心環境許可",
+     "與 ERCOT 以外區域的關係未明；未明示排除不並網者"
+    ],
+    [
+     "2026/12（預計）",
+     "ERCOT 稽核完成",
+     "11 月最新狀態查不到"
+    ]
+   ],
+   "note": "全部為搜尋結果摘要；原文與官方公告未核對。"
+  }
+ ],
+ "evolution": [
+  {
+   "name": "2026/3",
+   "composition": "甲骨文與 OpenAI 放棄 Abilene 擴建",
+   "spec": "電力延遲與融資因素",
+   "application": "個案"
+  },
+  {
+   "name": "2026/8～9",
+   "composition": "德州暫停並網核准與環境許可",
+   "spec": "全州稽核，非禁建",
+   "application": "制度性收緊"
+  },
+  {
+   "name": "2026/11",
+   "composition": "11/3 期中選舉；Podcast 稱市場恐慌",
+   "spec": "跌幅與原因未證實",
+   "application": "本次觸發"
+  }
+ ],
+ "concepts": [
+  {
+   "title": "供需缺口怎麼來的",
+   "points": [
+    "AI 資料中心並網申請暴增，電網與審批成為瓶頸",
+    "地方民怨（用電、用水）促成政治收緊",
+    "目前是延遲而非取消"
+   ]
+  },
+  {
+   "title": "誰受惠、誰受傷",
+   "points": [
+    "受傷：依賴新並網的專案與出貨時點",
+    "受惠：自建電廠、電力設備與儲能（推論）",
+    "臺灣供應鏈的實質影響查不到"
+   ]
+  },
+  {
+   "title": "如何驗證傳聞",
+   "points": [
+    "Podcast／Threads 的『恐慌、跌停』要用證交所與主流媒體盤勢核對",
+    "官方指令範圍以 DLA Piper、Jones Day 等法律摘要為準",
+    "等雲端大廠財報與臺灣法說會說明"
+   ]
+  }
+ ],
+ "conclusion": [
+  "德州暫停資料中心許可有多個來源支持（8/3 並網核准、9/21 環境許可；ERCOT 稽核預計 12 月完成），範圍是全州稽核而非禁建，不並網的自建電廠不在此限。",
+  "受影響規模約 49.8GW，彭博稱約 20% 的美國資料中心管線有延遲風險；目前是專案延遲，不是需求消失。",
+  "Podcast 稱 11/6『擋 AI 爆恐慌、台積電跌停』查無盤勢佐證（未證實）；10/30 台股重挫與台達電跌停有報導。臺灣供應鏈的實質訂單影響這次查不到。"
+ ],
+ "sources": [
+  {
+   "title": "Threads @ai.podcast.summarist：兆華與股惑仔 EP1217 重點摘要（觸發貼文；未證實、原文未讀）",
+   "url": "https://www.threads.com/@ai.podcast.summarist/post/DfZPXGmHQgi"
+  },
+  {
+   "title": "Threads @ai.podcast.summarist：美國資料中心業者『不管怎樣都要蓋』（觸發貼文；未證實）",
+   "url": "https://www.threads.com/@ai.podcast.summarist/post/DfZPZTVHXV8"
+  },
+  {
+   "title": "TechNews（2026/9/22，搜尋摘要）：德州暫停核發 AI 資料中心環境許可",
+   "url": "https://technews.tw/2026/09/22/texas-suspends-environmental-permits-for-ai-data-centers/"
+  },
+  {
+   "title": "TechNews（2026/6/11，搜尋摘要）：AI 資料中心狂吃電 德州擬修法『業者全額買單』",
+   "url": "https://technews.tw/2026/06/11/texas-governor-seeks-new-limits-on-data-centers/"
+  },
+  {
+   "title": "FOX 7 Austin（搜尋摘要）：Gov. Abbott orders pause for all data centers until ERCOT audit is finished",
+   "url": "https://www.fox7austin.com/news/texas-pausing-permits-all-data-centers"
+  },
+  {
+   "title": "Data Center Dynamics（搜尋摘要）：Abbott halts new Texas data center permits pending ERCOT audit",
+   "url": "https://datacenterdynamics.com/en/news/abbott-halts-new-texas-data-center-permits-pending-ercot-audit"
+  },
+  {
+   "title": "Jones Day（搜尋摘要，2026/8）：Texas pauses data center approvals for statewide audit, stops short of ban",
+   "url": "https://www.jonesday.com/de/insights/2026/08/texas-pauses-data-center-approvals-for-statewide-audit-stops-short-of-ban"
+  },
+  {
+   "title": "DLA Piper（搜尋摘要，2026/9/25）：Governor Abbott expands data center permitting pause",
+   "url": "https://www.dlapiper.com/en-gb/insights/publications/2026/09/governor-abbott-expands-data-center-permitting-pause"
+  },
+  {
+   "title": "Texas Standard（搜尋摘要）：Gov. Abbott has ordered a pause on data center approvals — will it make a difference?",
+   "url": "https://texasstandard.org/stories/gov-abbott-has-ordered-a-pause-on-data-center-approvals-will-it-make-a-difference/"
+  },
+  {
+   "title": "WTOP（搜尋摘要，2026/8）：Data center approvals in Texas halted until audits completed",
+   "url": "https://wtop.com/news/2026/08/data-center-approvals-in-texas-halted-until-audits-completed-gov-greg-abbott-says/"
+  },
+  {
+   "title": "The Star／Bloomberg 轉述（搜尋摘要，2026/3/7）：Oracle and OpenAI end plans to expand Texas data center site",
+   "url": "https://www.thestar.com.my/tech/tech-news/2026/03/07/oracle-and-openai-end-plans-to-expand-texas-data-center-site-bloomberg-news-reports"
+  },
+  {
+   "title": "今周刊／商業週刊系（搜尋摘要，2026/10/30）：台股重挫 1156 點、台達電跌停與資料中心延遲（businesstoday 202611020003）",
+   "url": "https://www.businesstoday.com.tw/article/category/183015/post/202611020003/"
+  }
+ ],
+ "layers": [
+  {
+   "layer": "美國電力與審批（並網、環境許可、用水）",
+   "description": "德州 8/3 暫停並網核准、9/21 暫停環境許可、9/14 加強用水申報；ERCOT 稽核預計 12 月完成。",
+   "global_players": [
+    "德州政府（PUCT、ERCOT、TCEQ、TWDB）",
+    "ERCOT"
+   ],
+   "tw_stocks": []
+  },
+  {
+   "layer": "資料中心開發與租戶",
+   "description": "約 49.8GW 專案受稽核影響；甲骨文與 OpenAI 曾放棄 Abilene 擴建（電力與融資因素）；自建電廠者不受限。",
+   "global_players": [
+    "甲骨文",
+    "OpenAI",
+    "微軟",
+    "Meta",
+    "Google",
+    "Crusoe"
+   ],
+   "tw_stocks": []
+  },
+  {
+   "layer": "臺灣 AI 伺服器與電源散熱（推論）",
+   "description": "交付遞延可能影響出貨時點；實質訂單遞延與金額查不到。",
+   "global_players": [
+    "輝達",
+    "博通"
+   ],
+   "tw_stocks": [
+    {
+     "code": "2382",
+     "name": "廣達",
+     "role": "AI 伺服器 ODM",
+     "impact": "推論：交付時點可能受影響，未證實"
+    },
+    {
+     "code": "6669",
+     "name": "緯穎",
+     "role": "AI 伺服器",
+     "impact": "推論：同上，未證實"
+    },
+    {
+     "code": "2308",
+     "name": "台達電",
+     "role": "電源與散熱",
+     "impact": "10/30 跌停有報導；與德州事件關聯未證實"
+    },
+    {
+     "code": "3017",
+     "name": "奇鋐",
+     "role": "散熱",
+     "impact": "推論，未證實"
+    }
+   ]
+  }
+ ]
+}

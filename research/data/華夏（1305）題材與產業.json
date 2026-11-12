@@ -1,0 +1,276 @@
+{
+ "topic": "華夏（1305）題材與產業",
+ "one_line": "華夏（1305）是臺灣 PVC 主要廠商（營收約 67% 為 VCM／PVC、23% PVC 製品、10% 鹼氯，2025 年前三季資料）；11/5 因油價重挫、塑化股跌停被列入連動名單（只取得標題，個股走勢未取得）。Win投資整理：2025 全年 EPS −1.58 元，2026 Q1 −0.21 元、Q2 0.23 元，上半年 0.02 元；9 月營收 7.40 億元（月增 8.41%、年減 0.59%），前三季累計 73.93 億元與去年同期持平。公司 2026/3 法說稱美伊戰事使 PVC 轉向供給緊縮，但營收尚未完整反映。Q3 單季 EPS 與現行產能未取得。",
+ "status": "混合",
+ "horizon": "短期（1-3個月）",
+ "keywords": [
+  "華夏",
+  "1305",
+  "華夏海灣塑膠",
+  "PVC",
+  "VCM",
+  "鹼氯",
+  "塑化",
+  "油價",
+  "美伊",
+  "出口退稅",
+  "印度"
+ ],
+ "catalysts": [
+  "Q3 財報（11 月中旬前）",
+  "10 月營收（11/10 前）",
+  "PVC 報價與中國出口、印度政策",
+  "布蘭特與美伊談判",
+  "膠布產能恢復進度"
+ ],
+ "risks": [
+  "EPS 基期低，價格小幅變動即大幅影響獲利",
+  "油價急跌時塑化股被先賣",
+  "漲價預期未必轉為營收（9 月仍年減）",
+  "印度與中國的貿易措施說法互相衝突、未核對",
+  "產能數字較舊；11/5 當日走勢未取得"
+ ],
+ "spec_tables": [
+  {
+   "title": "表：華夏 2026 營收與 EPS（Win投資整理，非公司公告原文）",
+   "columns": [
+    "期間",
+    "數字",
+    "備註"
+   ],
+   "rows": [
+    [
+     "2025 全年 EPS",
+     "−1.58 元",
+     ""
+    ],
+    [
+     "2026 Q1 EPS",
+     "−0.21 元",
+     ""
+    ],
+    [
+     "2026 Q2 EPS",
+     "0.23 元",
+     "上半年累計 0.02 元"
+    ],
+    [
+     "5 月營收",
+     "9.73 億元",
+     "月減 18.39%、年增 20.69%"
+    ],
+    [
+     "6 月營收",
+     "5.64 億元",
+     "月減 42.01%、年減 44.67%"
+    ],
+    [
+     "7 月營收",
+     "5.68 億元",
+     "年減 24.55%"
+    ],
+    [
+     "8 月營收",
+     "6.82 億元",
+     "月增 20.15%、年減 11.24%"
+    ],
+    [
+     "9 月營收",
+     "7.40 億元",
+     "月增 8.41%、年減 0.59%"
+    ],
+    [
+     "前三季累計營收",
+     "73.93 億元",
+     "年增 0.11%"
+    ]
+   ],
+   "note": "Q3 單季 EPS 與毛利率未取得。"
+  }
+ ],
+ "evolution": [
+  {
+   "name": "2025",
+   "composition": "全年虧損",
+   "spec": "EPS −1.58 元；火損使膠布產能緊縮",
+   "application": "2025"
+  },
+  {
+   "name": "2026 H1",
+   "composition": "Q2 轉盈",
+   "spec": "Q1 −0.21 元、Q2 0.23 元",
+   "application": "2026 上半年"
+  },
+  {
+   "name": "2026 Q3 起",
+   "composition": "PVC 供給緊縮預期",
+   "spec": "待財報驗證",
+   "application": "2026 Q3～Q4"
+  }
+ ],
+ "concepts": [
+  {
+   "title": "為什麼華夏會被油價與美伊消息帶動",
+   "points": [
+    "原料與報價受能源價格影響，戰事使供給緊縮預期升高",
+    "油價急跌時市場先賣掉『戰爭溢價』",
+    "這是價格連動，不等於基本面同日變化"
+   ]
+  },
+  {
+   "title": "漲價預期 vs 營收",
+   "points": [
+    "法說稱價格預期急速攀升",
+    "9 月營收仍年減 0.59%、前三季與去年持平",
+    "需要 Q3 毛利率與 PVC 報價驗證"
+   ]
+  },
+  {
+   "title": "如何驗證",
+   "points": [
+    "看 Q3 財報的毛利率",
+    "看 10 月營收",
+    "看 PVC 報價與中國出口政策"
+   ]
+  }
+ ],
+ "conclusion": [
+  "華夏是 PVC 為主的臺灣塑化廠，獲利剛由虧轉平（上半年 EPS 0.02 元）；11/5 被點名只有標題，個股走勢未取得。",
+  "公司稱 PVC 供給緊縮，但 9 月營收仍年減，漲價預期尚未完整轉為營收（觀察）。",
+  "下一步看 Q3 財報、10 月營收與 PVC 報價、印度與中國的政策。"
+ ],
+ "sources": [
+  {
+   "title": "鉅亨網（2026/11/05，觸發報導，只取得標題）：〈焦點股〉民主黨選舉大勝油價重挫 台塑化、南亞打入跌停",
+   "url": "https://news.cnyes.com/news/id/6647772"
+  },
+  {
+   "title": "Win投資：華夏（1305）2026 年 5 月營收 9.73 億元 月減 18.39% 年增 20.69%",
+   "url": "https://winvest.tw/News/Detail/86390"
+  },
+  {
+   "title": "Win投資：華夏（1305）2026 年 6 月營收 5.64 億元 月減 42.01% 年減 44.67%",
+   "url": "https://winvest.tw/News/Detail/88897"
+  },
+  {
+   "title": "Win投資：華夏（1305）2026 年 7 月營收 5.68 億元 月增 0.63% 年減 24.55%",
+   "url": "https://winvest.tw/News/Detail/91732"
+  },
+  {
+   "title": "Win投資：華夏（1305）2026 年 8 月營收 6.82 億元 月增 20.15% 年減 11.24%",
+   "url": "https://winvest.tw/News/Detail/93378"
+  },
+  {
+   "title": "Win投資（搜尋結果列出，標題與全文未讀；摘要含 9 月營收 7.40 億元與 EPS）",
+   "url": "https://winvest.tw/News/Detail/95450"
+  },
+  {
+   "title": "優分析：〈華夏法說〉華夏：戰事帶來塑化市場契機 PVC 供給緊縮預期價格急速攀升（標題；2026/3 法說，全文未讀）",
+   "url": "https://uanalyze.com.tw/articles/8763849240"
+  },
+  {
+   "title": "富果研究：華夏 2025/11/21 法說會（搜尋結果列出，內容未讀）",
+   "url": "https://blog.fugle.tw/post/earnings-call-1305-2025-11-21"
+  },
+  {
+   "title": "Yahoo 股市：《塑膠股》華夏去年每股虧損1.22元 決議配發現金0.15元（標題；年份不明）",
+   "url": "https://tw.stock.yahoo.com/news/%E5%A1%91%E8%86%A0%E8%82%A1-%E8%8F%AF%E5%A4%8F%E5%8E%BB%E5%B9%B4%E6%AF%8F%E8%82%A1%E8%99%A7%E6%90%8D1-22%E5%85%83-%E6%B1%BA%E8%AD%B0%E9%85%8D%E7%99%BC%E7%8F%BE%E9%87%910-15%E5%85%83-071601852.html"
+  },
+  {
+   "title": "Procurement Resource（2026/10/30）：China PVC market firms through October（搜尋摘要）",
+   "url": "https://www.procurementresource.com/news-and-articles/china-pvc-market-firms-through-october"
+  },
+  {
+   "title": "Polymer Update（搜尋結果列出，亞洲 PVC 報價，時間點不確定）",
+   "url": "https://polymerupdate.com/News/Details/1500534"
+  },
+  {
+   "title": "S&P Global：Commodities 2026 — global PVC on the edge of production cuts and trade-flow twists（標題，全文未讀）",
+   "url": "https://www.spglobal.com/energy/en/news-research/latest-news/chemicals/122325-commodities-2026-global-2026-pvc-on-the-edge-of-production-cuts-and-trade-flow-twists"
+  },
+  {
+   "title": "SunSirs（2026/5，搜尋結果列出）：中國 PVC 產能與檢修",
+   "url": "https://www.sunsirs.com/commodity-news/petail-30653.html"
+  },
+  {
+   "title": "鉅亨網：華夏 公司資料",
+   "url": "https://www.cnyes.com/twstock/1305/company/profile"
+  },
+  {
+   "title": "科技新報（2023/6/30）：投資台灣再添三家，華夏海灣塑膠砸 10 億最佳化製程",
+   "url": "https://finance.technews.tw/2023/06/30/invest-in-taiwan-and-add-3-more-companies/"
+  }
+ ],
+ "layers": [
+  {
+   "layer": "鹼氯／VCM／PVC",
+   "description": "華夏核心（約 67%）；2026/3 法說稱 PVC 市場轉向供給緊縮。",
+   "global_players": [
+    "Shin-Etsu／Shintech",
+    "Westlake（科隆廠 2027 Q1 關閉）",
+    "OxyChem（未逐一核對）",
+    "中國電石法 PVC 廠"
+   ],
+   "tw_stocks": [
+    {
+     "code": "1305",
+     "name": "華夏",
+     "role": "VCM／PVC",
+     "impact": "核心；EPS 剛由虧轉平"
+    },
+    {
+     "code": "1301",
+     "name": "台塑",
+     "role": "PVC 與液鹼（臺灣最大）",
+     "impact": "見台塑研究"
+    }
+   ]
+  },
+  {
+   "layer": "PVC 製品",
+   "description": "膠布等；2025 年火損事故使膠布產能緊縮。",
+   "global_players": [
+    "未核對"
+   ],
+   "tw_stocks": [
+    {
+     "code": "1305",
+     "name": "華夏",
+     "role": "PVC 製品（約 23%）",
+     "impact": "產能恢復情形未取得"
+    }
+   ]
+  },
+  {
+   "layer": "鹼氯產品",
+   "description": "液鹼等；價格受中國新產能影響。",
+   "global_players": [
+    "未核對"
+   ],
+   "tw_stocks": [
+    {
+     "code": "1305",
+     "name": "華夏",
+     "role": "鹼氯產品（約 10%）",
+     "impact": "—"
+    }
+   ]
+  },
+  {
+   "layer": "貿易與政策",
+   "description": "中國取消 13% 出口退稅（4 月）；印度措施說法不一。",
+   "global_players": [
+    "中國出口商",
+    "印度買家"
+   ],
+   "tw_stocks": [
+    {
+     "code": "1305",
+     "name": "華夏",
+     "role": "出口與內銷",
+     "impact": "政策方向未核對"
+    }
+   ]
+  }
+ ]
+}
