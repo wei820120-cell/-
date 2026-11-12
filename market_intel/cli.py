@@ -726,6 +726,9 @@ def cmd_futures_night(args) -> None:
         ts = q and q["ts"]
         fresh = bool(q and ts and abs((now - ts).total_seconds()) <= 180
                      and start - timedelta(minutes=5) <= ts <= end + timedelta(minutes=5))      # 沒資料、或報價太舊：不拿舊價發訊號
+        if args.no_push:       # 測試模式：把這一筆報價印出來，方便確認欄位與時間
+            print(f"{now:%H:%M:%S} 夜盤報價 {q and q['symbol']} {q and q['price']}（本場高 {q and q['high']}、低 {q and q['low']}、報價時間 {ts and f'{ts:%m/%d %H:%M:%S}'}）"
+                  f"{'有效' if fresh else '過期或無資料，略過'}")
         if fresh:
             sigs = futures_day.step(st, now, q["price"], cfg, closes, q["high"], q["low"])
             if sigs:

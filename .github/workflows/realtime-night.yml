@@ -46,7 +46,7 @@ jobs:
           DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
         run: |
           if [ "${{ inputs.test }}" = "true" ] || [ "${{ github.event_name }}" = "push" ]; then
-            python -m market_intel futures-night --once --force --no-push
+            python -m market_intel futures-night --minutes 1.5 --interval 15 --force --no-push
             python -m market_intel futures-night --status --force
             exit 0
           fi
