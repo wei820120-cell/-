@@ -645,6 +645,8 @@ def cmd_realtime(args) -> None:
             from .trade import futures_day
             summary = futures_day.finish_day(fd["st"], fd["cfg"])
             if summary:
+                from .trade import futures_log
+                futures_log.safe(futures_log.refresh, fd["st"], fd["cfg"], "day")
                 notify.send(f"📈 台指期日內計畫帳收盤\n{summary}", channel="trade")
         except Exception as e:  # noqa: BLE001
             log.warning("台指期日內收盤記錄失敗：%s", e)
@@ -661,7 +663,7 @@ def _futures_day_setup() -> dict | None:
 
 
 def _futures_day_check(fd: dict, now: datetime) -> None:
-    from .trade import futures_day
+    from .trade import futures_day, futures_log
     q = txf.fetch()
     ts = q and q["ts"]
     if not q or not ts or ts.date() != now.date() or (now - ts).total_seconds() > 180:
@@ -669,6 +671,7 @@ def _futures_day_check(fd: dict, now: datetime) -> None:
     sigs = futures_day.step(fd["st"], now, q["price"], fd["cfg"], fd["closes"], q["high"], q["low"])
     if sigs:
         notify.send(futures_day.format_message(sigs, fd["st"], fd["cfg"]), channel="trade")
+        futures_log.safe(futures_log.record, fd["st"], sigs, fd["cfg"], "day")
     futures_day.save_state(fd["st"])
 
 
@@ -679,7 +682,7 @@ def cmd_futures_night(args) -> None:
     結束碼：0＝這一段跑完、這一場還沒結束（要接續）；10＝這一場已結束、或今晚沒有夜盤（不用接續）。
     --status 只印 run／skip（要不要啟動夜盤監控），--no-push 不推播、改印在畫面上（測試用）。
     """
-    from .trade import futures_day
+    from .trade import futures_day, futures_log
     ensure_dirs()
     cfg = futures_day.settings("night")
     now = now_tw()
@@ -733,6 +736,7 @@ def cmd_futures_night(args) -> None:
             sigs = futures_day.step(st, now, q["price"], cfg, closes, q["high"], q["low"])
             if sigs:
                 send(futures_day.format_message(sigs, st, cfg))
+                futures_log.safe(futures_log.record, st, sigs, cfg, "night")
             futures_day.save_state(st, session="night")
         elif not st["ticks"] and not args.force and now >= start + timedelta(minutes=45):
             print("夜盤開盤 45 分鐘仍沒有報價：今晚沒有夜盤（休市日）。")
@@ -747,10 +751,19 @@ def cmd_futures_night(args) -> None:
         time.sleep(interval)
     if rc == 10 and not st.get("finished"):
         summary = futures_day.finish_night(st, cfg)
+        futures_log.safe(futures_log.refresh, st, cfg, "night")
         if summary:
             send(f"🌙 台指期夜盤計畫帳收盤\n{summary}")
     if rc:
         raise SystemExit(rc)
+
+
+def cmd_futures_log(args) -> None:
+    """印出微台計畫帳觸發紀錄（state/futures_log.md；有 --rebuild 就先用 state/futures_log.json 重排一次）。"""
+    from .trade import futures_log
+    if args.rebuild:
+        futures_log.save(futures_log.load())
+    print(futures_log.render_md(futures_log.load()))
 
 
 # ---------------------------------------------------------------- news / target
@@ -3152,6 +3165,9 @@ def main(argv: list[str] | None = None) -> None:
     fn.add_argument("--no-push", action="store_true", help="不推播，改印在畫面上")
     fn.add_argument("--status", action="store_true", help="只印 run／skip：現在該不該啟動夜盤監控")
     fn.set_defaults(func=cmd_futures_night)
+    fl = sub.add_parser("futures-log", help="印出微台計畫帳（日盤＋夜盤）觸發紀錄與每場損益（state/futures_log.md）")
+    fl.add_argument("--rebuild", action="store_true", help="用 state/futures_log.json 重排 md 再印")
+    fl.set_defaults(func=cmd_futures_log)
 
     nw = sub.add_parser("news", help="掃描新聞與公告")
     nw.add_argument("--limit", type=int, default=50)

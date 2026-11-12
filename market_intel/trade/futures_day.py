@@ -145,7 +145,7 @@ def _alert(st: dict, key: str, kind: str, now: datetime, price: float, text: str
     if key in st["alerts"]:
         return
     st["alerts"].append(key)
-    out.append({"kind": kind, "time": f"{now:%H:%M}", "price": price, "text": text})
+    out.append({"kind": kind, "time": f"{now:%H:%M}", "ts": now.isoformat(timespec="seconds"), "price": price, "text": text})
 
 
 def _board(st: dict, cfg: dict) -> str:
@@ -309,6 +309,18 @@ def summary(st: dict, cfg: dict) -> str:
     return (f"計畫帳：{st['entries']} 次進場、加碼 {st['adds']} 次、"
             f"{'持倉 ' + str(st['lots']) + ' 口' if st['lots'] else '空手'}、損益約 {pts:+,.0f} 點（{pts * cfg['contract_multiplier']:+,.0f} 元）；"
             f"振幅 {_range_pct(st):.2f}%。")
+
+
+def snapshot(st: dict, cfg: dict) -> dict:
+    """這一場目前的計畫帳數字（給觸發紀錄用）：點數＝已實現＋未平倉浮動，元＝點數 × 每點元數。"""
+    last = st.get("last_price")
+    open_pts = _unreal(st, last) if st["lots"] and last else 0.0
+    pts = st["realized_pts"] + open_pts
+    return {"dir": st["dir"], "entries": st["entries"], "adds": st["adds"], "lots_left": st["lots"],
+            "realized_pts": round(st["realized_pts"], 1), "open_pts": round(open_pts, 1),
+            "pts": round(pts, 1), "twd": round(pts * cfg["contract_multiplier"]),
+            "open": st.get("open"), "high": st.get("day_high"), "low": st.get("day_low"), "close": last,
+            "range_pct": round(_range_pct(st), 2), "qualified": bool(st["qualified"]), "halted": bool(st["halted"])}
 
 
 def replay(ticks: list[tuple[datetime, float]], cfg: dict | None = None, closes: list[float] | None = None) -> tuple[list[dict], dict]:
