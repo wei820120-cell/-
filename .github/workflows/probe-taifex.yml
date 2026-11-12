@@ -1,0 +1,40 @@
+# 一次性探測：確認 GitHub 執行環境抓得到哪些台指期歷史資料（用來評估回測可行性）。確認完就會刪掉。
+name: probe-taifex
+
+on:
+  push:
+    branches: ["claude/funny-goodall-fft1u6"]
+    paths: [".github/workflows/probe-taifex.yml"]
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: probe
+        run: |
+          set +e
+          UA='Mozilla/5.0'
+          get() { code=$(curl -sS -L -m 30 -A "$UA" -o /tmp/o.bin -w "%{http_code} bytes=%{size_download}" "$1" 2>&1); echo "== $1 -> $code"; }
+          for u in \
+            "https://www.taifex.com.tw/cht/3/dlFutPrevious30DaysSalesData" \
+            "https://www.taifex.com.tw/cht/3/dlFutDataDown" \
+            "https://www.taifex.com.tw/file/taifex/Dailydownload/Dailydownload/Daily_2023_11_10.zip" \
+            "https://www.taifex.com.tw/file/taifex/Dailydownload/DailydownloadCSV/Daily_2023_11_10.zip" \
+            "https://openapi.taifex.com.tw/swagger.json" \
+            "https://query1.finance.yahoo.com/v8/finance/chart/%5ETWII?range=60d&interval=5m" \
+            "https://api.finmindtrade.com/api/v4/data?dataset=TaiwanFuturesDaily&data_id=TX&start_date=2023-11-01&end_date=2023-11-10" \
+            "https://api.finmindtrade.com/api/v4/data?dataset=TaiwanFuturesTick&data_id=TX&start_date=2026-11-10" ; do
+            get "$u"
+            head -c 400 /tmp/o.bin | tr '\n' ' ' ; echo
+          done
+          echo "---- links on download pages"
+          for p in dlFutPrevious30DaysSalesData dlFutDataDown; do
+            echo "# $p"
+            curl -sS -L -m 30 -A "$UA" "https://www.taifex.com.tw/cht/3/$p" | grep -o -i -E "(href|value|src)=\"[^\"]*(zip|csv|Daily|file/taifex)[^\"]*\"" | sort -u | head -40
+          done
+          echo "---- openapi paths with Tick/Intraday/Daily/Futures"
+          curl -sS -L -m 30 -A "$UA" "https://openapi.taifex.com.tw/swagger.json" | python3 -c "import json,sys; d=json.load(sys.stdin); print('\n'.join(p for p in d.get('paths',{}) if any(k in p for k in ('Tick','Intraday','Daily','Futures','Final'))))" | head -40
