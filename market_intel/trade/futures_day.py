@@ -264,7 +264,7 @@ def _flat(st: dict, price: float, key: str, kind: str, now: datetime, out: list,
 def format_message(sigs: list[dict], st: dict, cfg: dict) -> str:
     head = f"📈 台指期日內訊號 {sigs[0]['time']}"
     body = "\n".join(s["text"] for s in sigs)
-    return f"{head}\n{body}\n{_board(st, cfg)}\n{_risk_line(cfg)}\n（依 @pingyunhuang 手法的計畫帳，只是提醒、不是下單；點數已換成 %，待校準）"
+    return f"{head}\n{body}\n{_board(st, cfg)}\n{_risk_line(cfg)}\n（待校準）"
 
 
 def summary(st: dict, cfg: dict) -> str:
