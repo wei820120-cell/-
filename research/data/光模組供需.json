@@ -1,0 +1,283 @@
+{
+ "topic": "光模組供需",
+ "one_line": "美國 FCC 草擬以 Covered List 禁止進口中國製新型號資料中心光收發模組（Reuters 8/4 報導，草案文字未公開）；中國業者占全球約六成營收／三分之二出貨，美系 Coherent、Lumentum 短期無法補缺口（Counterpoint 估 12–24 個月）。佇列稱微軟遊說擱置禁令，我只見標題，搜尋找到的是 ITI 8/13 的信與雲端業者遊說豁免。台灣受惠的是光通訊元件與被動光器件（媒體說法）。",
+ "status": "混合",
+ "horizon": "中期（3-12個月）",
+ "keywords": [
+  "光收發模組",
+  "光模組",
+  "FCC",
+  "Covered List",
+  "中際旭創",
+  "新易盛",
+  "天孚通信",
+  "Coherent",
+  "Lumentum",
+  "800G",
+  "1.6T",
+  "CPO",
+  "ITI",
+  "微軟",
+  "Reuters",
+  "泰國產線"
+ ],
+ "catalysts": [
+  "FCC 公布草案文字、立案與意見期限",
+  "是否給過渡期或豁免",
+  "雲端業者資本支出與光模組採購說法",
+  "台灣光通訊元件廠月營收與法說（轉單是否落地）",
+  "中國反制措施",
+  "美中領袖會晤"
+ ],
+ "risks": [
+  "禁令落實機率與範圍不確定，可能被當談判籌碼、修改或擱置（國泰海通認為一刀切機率極低）",
+  "『微軟遊說』只見佇列標題，搜尋找到的是 ITI 信與四大雲端業者遊說",
+  "美系產能缺口使轉單有時間差，台灣受惠不一定快速落地",
+  "台灣概念股多半已被市場提前反映（本檔未查股價）",
+  "資料缺口：FCC 草案與 Reuters 原文、11 月最新進展未讀到"
+ ],
+ "spec_tables": [
+  {
+   "title": "表 A：光收發模組供給與市占（搜尋摘要）",
+   "columns": [
+    "項目",
+    "數字／說法",
+    "來源性質"
+   ],
+   "rows": [
+    [
+     "中國業者全球光收發模組供給",
+     "約 60% 營收、約 2/3 出貨量",
+     "Counterpoint 與媒體，口徑不同"
+    ],
+    [
+     "中際旭創（資料中心光模組營收）",
+     "約 27%，全球第一",
+     "Counterpoint 估算"
+    ],
+    [
+     "Coherent",
+     "約 17%（收發模組營收）",
+     "Counterpoint／媒體"
+    ],
+    [
+     "Lumentum",
+     "約 6%（收發模組營收）",
+     "媒體轉述"
+    ],
+    [
+     "中際旭創＋新易盛＋天孚通信（800G 以上）",
+     "合計逾 70%",
+     "媒體說法"
+    ],
+    [
+     "美系補缺口時間",
+     "12–24 個月內難以承接",
+     "Counterpoint"
+    ]
+   ],
+   "note": "各來源口徑不同，數字只供量級參考。"
+  },
+  {
+   "title": "表 B：事件與反應時間線",
+   "columns": [
+    "時間",
+    "事件",
+    "備註"
+   ],
+   "rows": [
+    [
+     "2026/8/4",
+     "Reuters：FCC 草擬禁止進口中國新型號光收發模組",
+     "草案文字未公開"
+    ],
+    [
+     "2026/8/4 當日",
+     "新易盛深圳一度重挫 10%，中際旭創約 -8%，天孚通信約 -6%",
+     "媒體"
+    ],
+    [
+     "2026/8/13",
+     "ITI 致函 FCC，請求不要把光收發模組列入",
+     "搜尋摘要"
+    ],
+    [
+     "2026/9",
+     "分析稱尚無個別業者在 ET Docket 21-232 提出意見",
+     "分析文章"
+    ],
+    [
+     "2026/11/12",
+     "cnyes 標題：微軟遊說停止禁令、『光禁令』擔憂緩解",
+     "僅見標題，未證實"
+    ]
+   ],
+   "note": "時間線來自搜尋摘要。"
+  }
+ ],
+ "evolution": [
+  {
+   "name": "資料中心光互連（400G → 800G）",
+   "composition": "可插拔光收發模組為主",
+   "spec": "400G／800G",
+   "application": "雲端與 AI 叢集"
+  },
+  {
+   "name": "800G／1.6T 與矽光",
+   "composition": "更高速模組、DSP、矽光與雷射晶片",
+   "spec": "800G／1.6T",
+   "application": "AI 訓練叢集（NVIDIA 800G 出貨中國業者占多數）"
+  },
+  {
+   "name": "CPO／NPO 光引擎",
+   "composition": "光引擎貼近交換晶片",
+   "spec": "共封裝光學",
+   "application": "若禁令延伸到終端設備也可能受影響"
+  }
+ ],
+ "concepts": [
+  {
+   "title": "供需缺口怎麼來的",
+   "points": [
+    "禁令把約六成的光模組供給放進政策風險",
+    "美系替代產能（無塵室、自動化封裝、良率）12–24 個月內補不上",
+    "所以消息出來時市場先交易『缺口』與『轉單』，而不是已發生的缺貨"
+   ]
+  },
+  {
+   "title": "誰受惠、誰受傷（替代供應、轉單、成本上升）",
+   "points": [
+    "受傷：美國雲端業者（成本上升、延遲）、中國模組廠（北美營收）",
+    "受惠（說法）：Coherent、Lumentum 與台灣光通訊元件廠，無源器件被視為較穩定的受益者",
+    "轉單：800G／1.6T 可能轉向非中國供應商，但有產能時間差",
+    "替代供應：泰國等第三地產線若以製造地判斷可能不受影響"
+   ]
+  },
+  {
+   "title": "供應鏈互相依賴",
+   "points": [
+    "中國模組廠依賴美系 DSP 與美日雷射晶片",
+    "這也是業界認為一刀切機率低的原因",
+    "禁令是政策風險而不是已發生的缺貨"
+   ]
+  }
+ ],
+ "conclusion": [
+  "FCC 擬禁中國新型號光模組是政策風險事件：草案未公開，範圍、過渡期與豁免都未定",
+  "若落實，美系與台灣光通訊元件有轉單機會，但美系產能缺口 12–24 個月；雲端業者成本與延遲是代價",
+  "『微軟遊說』在佇列標題，我沒找到原始報導；搜尋看到的是 ITI 信與四大雲端遊說豁免",
+  "要追蹤 FCC 草案、豁免、雲端資本支出與台灣元件廠月營收"
+ ],
+ "sources": [
+  {
+   "title": "Counterpoint：FCC China ban AI component（僅看到搜尋摘要）",
+   "url": "https://counterpointresearch.com/en/insights/fcc-china-ban-ai-component"
+  },
+  {
+   "title": "TNW：FCC optical transceiver ban China US hyperscalers（僅看到搜尋摘要）",
+   "url": "https://thenextweb.com/news/fcc-optical-transceiver-ban-china-us-hyperscalers"
+  },
+  {
+   "title": "Cignal AI：FCC ban on new Chinese optical modules（僅看到搜尋摘要）",
+   "url": "https://cignal.ai/2026/08/fcc-ban-on-new-chinese-optical-modules/"
+  },
+  {
+   "title": "cnyes：中際旭創、Coherent 與 Lumentum：FCC 擬禁中國新型光模組（僅看到搜尋摘要）",
+   "url": "https://hao.cnyes.com/post/262310"
+  },
+  {
+   "title": "udn：美擬禁陸製光收發模組 IET、聯亞、波若威有望受惠（僅看到標題）",
+   "url": "https://udn.com/news/story/7331/9670985"
+  },
+  {
+   "title": "udn 經濟日報：美國擬封殺中國光通訊模組 800G、1.6T 恐爆轉單潮（僅看到標題）",
+   "url": "https://money.udn.com/money/amp/story/5607/9692384"
+  },
+  {
+   "title": "BankInfoSecurity：US FCC weighs Chinese transceiver supply chain crackdown（僅看到搜尋摘要）",
+   "url": "https://www.bankinfosecurity.com/us-fcc-weighs-chinese-transceiver-supply-chain-crackdown-a-32584"
+  },
+  {
+   "title": "cnyes（佇列來源，僅看到標題與摘要）",
+   "url": "https://news.cnyes.com/news/id/6659958"
+  }
+ ],
+ "layers": [
+  {
+   "layer": "光收發模組（800G／1.6T）",
+   "description": "禁令直接衝擊的環節。中國業者（中際旭創約 27% 營收、新易盛、天孚通信）占全球約六成營收；美系 Coherent 約 17%、Lumentum 約 6%。美系產能 12–24 個月內難承接缺口；若以製造地判斷，泰國產線可能在範圍外。",
+   "global_players": [
+    "中際旭創（Innolight）",
+    "新易盛（Eoptolink）",
+    "天孚通信",
+    "Coherent",
+    "Lumentum",
+    "三菱電機"
+   ],
+   "tw_stocks": []
+  },
+  {
+   "layer": "雷射與光晶片（InP／EML／CW）",
+   "description": "模組的核心零件；中國模組廠仍依賴美日雷射晶片。台灣的 InP 磊晶與雷射上游被媒體點名可能受惠，細節請參考既有研究「光通訊雷射InP」。IET-KY 也被點名（代號本檔未確認）。",
+   "global_players": [
+    "Lumentum",
+    "Coherent",
+    "三菱電機",
+    "Broadcom"
+   ],
+   "tw_stocks": [
+    {
+     "code": "3081",
+     "name": "聯亞",
+     "role": "InP 磊晶與光通訊雷射晶片上游，被媒體點名為禁令可能受惠者",
+     "impact": "受惠"
+    }
+   ]
+  },
+  {
+   "layer": "被動光器件（WDM、連接器、光纖陣列）",
+   "description": "無源器件不涉及資安疑慮，被分析認為是較穩定的受益者；波若威被 udn 點名。細節請參考既有研究與佇列中的上詮（3363）。",
+   "global_players": [
+    "Lumentum",
+    "Coherent",
+    "住友",
+    "Corning"
+   ],
+   "tw_stocks": [
+    {
+     "code": "3163",
+     "name": "波若威",
+     "role": "光被動元件（WDM 等），被 udn 點名有望受惠",
+     "impact": "受惠"
+    },
+    {
+     "code": "3363",
+     "name": "上詮",
+     "role": "光纖連接與光通訊被動元件，題材相關（另有專題）",
+     "impact": "受惠"
+    }
+   ]
+  },
+  {
+   "layer": "雲端業者與資料中心",
+   "description": "購買端。若禁令落實，美國雲端業者成本上升、AI 加速器稼動率下降；ITI 8/13 致函 FCC 反對，報導稱四大雲端業者遊說豁免；佇列標題稱微軟遊說（我未找到原文）。",
+   "global_players": [
+    "微軟",
+    "亞馬遜 AWS",
+    "Google",
+    "Meta"
+   ],
+   "tw_stocks": []
+  },
+  {
+   "layer": "中國 A 股光通訊",
+   "description": "佇列摘要稱創業板與科創板最大跌幅近 50%、『光』題材拖累指數逾半、3550–3600 點接近政策底（cnyes 摘要，未核對）；8/4 消息當日新易盛深圳一度重挫 10%、中際旭創約跌 8%、天孚通信約跌 6%。",
+   "global_players": [
+    "中際旭創",
+    "新易盛",
+    "天孚通信"
+   ],
+   "tw_stocks": []
+  }
+ ]
+}
