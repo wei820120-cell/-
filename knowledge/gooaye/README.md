@@ -13,7 +13,7 @@
 | 2020 | 見 `research/podcasts/股癌/` | EP1～101（共 101 集；其餘轉錄後補讀；筆記在 `episodes/2020.md`） |
 | 2021 | 見 `research/podcasts/股癌/` | EP102～205（共 104 集；其餘轉錄後補讀；筆記在 `episodes/2021.md`） |
 | 2022 | 見 `research/podcasts/股癌/` | EP206～310（共 105 集；其餘轉錄後補讀；筆記在 `episodes/2022.md`） |
-| 2026 | 見 `research/podcasts/股癌/` | EP624～626、EP634、EP644、EP649、EP651～652、EP654、EP656～660、EP662～665、EP669、EP671、EP673～674、EP676～687、EP689～690、EP694～695、EP698～708（共 49 集；其餘轉錄後補讀；筆記在 `episodes/2026.md`） |
+| 2026 | 見 `research/podcasts/股癌/` | EP624～708（共 85 集，2026 年已全部讀完；筆記在 `episodes/2026.md`；2026 年 1～9 月補讀心得見 `principles.md` §4.14，近期框架見 §5） |
 | 2024 | 見 `research/podcasts/股癌/` | EP415～518（共 104 集，2024 全年；筆記在 `episodes/2024.md`，全年心得見 `principles.md` §4.12） |
 | 2025 | 見 `research/podcasts/股癌/` | EP519～623（共 105 集，2025 全年；筆記在 `episodes/2025.md`，全年心得見 `principles.md` §4.13） |
 | 2023 | 見 `research/podcasts/股癌/` | EP311～414（共 104 集；其餘轉錄後補讀；筆記在 `episodes/2023.md`） |
