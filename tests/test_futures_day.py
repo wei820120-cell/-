@@ -312,3 +312,53 @@ def test_state_save_keeps_both_sessions(tmp_path):
     summary = fd.finish_night(night, NIGHT_CFG, p)
     assert summary is None and fd.load_state("2026-11-12N", p, "night")["finished"] is True
     assert fd.load_closes("2026-11-13", p) == []                             # 夜盤不記日收盤
+
+
+# ---------------------------------------------------------------- 夜盤跨午夜的報價日期（2026-11-13 實測：MIS 的 CDate 過了午夜仍是開盤那天）
+
+def test_night_quote_ts_adds_a_day_after_midnight_only():
+    start = datetime(2026, 11, 12, 15, 0, tzinfo=TW_TZ)
+    assert fd.night_quote_ts(datetime(2026, 11, 12, 1, 8, 0, tzinfo=TW_TZ), start) == datetime(2026, 11, 13, 1, 8, 0, tzinfo=TW_TZ)   # CDate 沒換日
+    assert fd.night_quote_ts(datetime(2026, 11, 13, 1, 8, 0, tzinfo=TW_TZ), start) == datetime(2026, 11, 13, 1, 8, 0, tzinfo=TW_TZ)   # 萬一哪天換日了，不重複加
+    assert fd.night_quote_ts(datetime(2026, 11, 12, 16, 30, tzinfo=TW_TZ), start) == datetime(2026, 11, 12, 16, 30, tzinfo=TW_TZ)     # 午夜前不動
+    assert fd.night_quote_ts(datetime(2026, 11, 12, 14, 58, tzinfo=TW_TZ), start) == datetime(2026, 11, 12, 14, 58, tzinfo=TW_TZ)     # 開盤前 5 分鐘內的報價不動
+    assert fd.night_quote_ts(None, start) is None
+
+
+def _night_cli(monkeypatch, tmp_path, now, quote_ts, ticks=None):
+    """跑一次 cmd_futures_night（--once）：報價與時間都是假的，狀態與紀錄都寫在 tmp。"""
+    import argparse
+    from market_intel import cli, notify
+    from market_intel.trade import futures_log
+    monkeypatch.setattr(fd, "STATE_PATH", tmp_path / "futures_day.json")
+    monkeypatch.setattr(futures_log, "LOG_PATH", tmp_path / "futures_log.json")
+    monkeypatch.setattr(futures_log, "MD_PATH", tmp_path / "futures_log.md")
+    monkeypatch.setattr(cli, "now_tw", lambda: now)
+    monkeypatch.setattr(cli.txf, "fetch", lambda night=False: {"symbol": "TXFK6-M", "price": 43588.0, "high": 44034.0, "low": 42371.0,
+                                                           "open": 43180.0, "volume": 74520.0, "ts": quote_ts})
+    sent = []
+    monkeypatch.setattr(notify, "send", lambda text, channel="market": sent.append(text))
+    sid, _, _ = fd.night_session(now)
+    if ticks:
+        st = fd.new_day(sid)
+        st["ticks"], st["last_price"] = ticks, ticks[-1][1]
+        fd.save_state(st, session="night")
+    cli.cmd_futures_night(argparse.Namespace(status=False, force=False, no_push=False, once=True, minutes=0, interval=1))
+    return fd.load_state(sid, session="night"), sent
+
+
+def test_night_cli_records_ticks_after_midnight_when_mis_date_has_not_rolled(monkeypatch, tmp_path):
+    now = datetime(2026, 11, 13, 1, 8, 5, tzinfo=TW_TZ)
+    st, sent = _night_cli(monkeypatch, tmp_path, now, datetime(2026, 11, 12, 1, 8, 0, tzinfo=TW_TZ))   # CDate 20261112、CTime 010800
+    assert st["date"] == "2026-11-12N" and len(st["ticks"]) == 1 and st["last_price"] == 43588.0
+    assert not any("超過 20 分鐘" in t for t in sent)
+
+
+def test_night_cli_warns_once_when_quotes_stall_for_20_minutes(monkeypatch, tmp_path):
+    now = datetime(2026, 11, 13, 1, 30, 0, tzinfo=TW_TZ)
+    old = [["2026-11-12T23:59:55+08:00", 43891.0]]
+    stale_quote = datetime(2026, 11, 12, 0, 5, 0, tzinfo=TW_TZ)        # 補一天也還是 25 小時前 → 無效報價
+    st, sent = _night_cli(monkeypatch, tmp_path, now, stale_quote, ticks=old)
+    assert any("超過 20 分鐘沒有更新" in t and "23:59" in t for t in sent) and st["stale_alerted"] is True
+    st, sent = _night_cli(monkeypatch, tmp_path, now, stale_quote)       # 再跑一次：已提醒過，不重複
+    assert not any("超過 20 分鐘" in t for t in sent)

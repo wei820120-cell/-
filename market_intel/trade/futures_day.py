@@ -406,6 +406,14 @@ def night_session(now: datetime) -> tuple[str, datetime, datetime]:
     return f"{start:%Y-%m-%d}N", start, end
 
 
+def night_quote_ts(ts: datetime | None, start: datetime) -> datetime | None:
+    """MIS 夜盤報價的日期欄位過了午夜不會換日（00:00 之後仍是開盤那天的日期，只有時間欄位歸零重算；2026-11-13 01:08 實測 CDate 還是 20261112）。
+    所以報價時間比開盤時間早很多，就是已經過了午夜，要補一天，不然會被當成 24 小時前的舊報價、整個午夜後都沒有訊號。"""
+    if ts is not None and ts < start - timedelta(minutes=5):
+        return ts + timedelta(days=1)
+    return ts
+
+
 def finish_night(st: dict, cfg: dict, path: Path | None = None) -> str | None:
     """夜盤收盤：標記這一場結束（不再接續）、存檔，回傳計畫帳摘要（有進場才有）。夜盤不記日收盤。"""
     st["finished"] = True

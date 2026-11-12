@@ -494,6 +494,87 @@
     "qualified": true,
     "halted": false
    }
+  },
+  {
+   "date": "2026-11-12N",
+   "session": "night",
+   "source": "補錄",
+   "finished": false,
+   "events": [
+    {
+     "ts": null,
+     "time": "",
+     "kind": "進場",
+     "price": null,
+     "text": "🔺 做多試單（第 1 次進場）"
+    },
+    {
+     "ts": null,
+     "time": "",
+     "kind": "盤面",
+     "price": null,
+     "text": "🟢 盤面合格（振幅達加碼合格線）"
+    },
+    {
+     "ts": null,
+     "time": "",
+     "kind": "加碼",
+     "price": null,
+     "text": "➕ 順勢加碼（做多，累計 2 口）"
+    },
+    {
+     "ts": null,
+     "time": "",
+     "kind": "加碼",
+     "price": null,
+     "text": "➕ 順勢加碼（做多，累計 3 口）"
+    },
+    {
+     "ts": null,
+     "time": "約 18:05",
+     "kind": "加碼",
+     "price": null,
+     "text": "➕ 拉回加碼（18:00 的 5 分 K 收完後）"
+    },
+    {
+     "ts": null,
+     "time": "",
+     "kind": "停損",
+     "price": null,
+     "text": "🛑 停損全出"
+    },
+    {
+     "ts": null,
+     "time": "約 23:15～23:20（那根 5 分 K 內）",
+     "kind": "進場",
+     "price": null,
+     "text": "🔺 做多試單（第 2 次進場）"
+    },
+    {
+     "ts": null,
+     "time": "",
+     "kind": "停損",
+     "price": null,
+     "text": "🛑 停損全出"
+    }
+   ],
+   "summary": {
+    "dir": "long",
+    "entries": 2,
+    "adds": 0,
+    "lots_left": 0,
+    "realized_pts": -350.0,
+    "open_pts": 0.0,
+    "pts": -350.0,
+    "twd": -3500,
+    "open": 43295.0,
+    "high": 43930.0,
+    "low": 42371.0,
+    "close": 43891.0,
+    "range_pct": 3.6,
+    "qualified": true,
+    "halted": false
+   }
   }
  ]
 }

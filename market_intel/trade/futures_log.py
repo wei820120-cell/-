@@ -147,14 +147,14 @@ def events_from_keys(st: dict, cfg: dict) -> list[dict]:
     return out
 
 
-def backfill(st: dict, cfg: dict, session: str = "day", path: Path | None = None) -> bool:
+def backfill(st: dict, cfg: dict, session: str = "day", path: Path | None = None, finished: bool = True) -> bool:
     """把一天已存的最終狀態補進紀錄（只補紀錄裡還沒有的場次、而且要有進場才算「觸發」）。回傳有沒有補。"""
     if not st.get("entries"):
         return False
     data = load(path)
     if any(s["date"] == st["date"] and s["session"] == session for s in data["sessions"]):
         return False
-    data["sessions"].append({"date": st["date"], "session": session, "source": "補錄", "finished": True,
+    data["sessions"].append({"date": st["date"], "session": session, "source": "補錄", "finished": finished,
                              "events": events_from_keys(st, cfg), "summary": futures_day.snapshot(st, cfg)})
     save(data, path)
     return True
@@ -188,7 +188,7 @@ def render_md(data: dict) -> str:
     st = stats(data)
     lines = ["# 微台計畫帳 — 觸發紀錄（模擬、不下單）", "",
              "> 日盤＋夜盤每次觸發（進場、加碼、出場、停損）與每場損益，累積存放。元 ＝ 點數 × 每點 10 元（微台）。",
-             "> 「補錄」＝日盤上線到夜盤加入之前的場次：當天沒存訊號全文，只剩觸發順序與損益（損益是當時存檔的數字）；事件時間只在代號帶得出來時才寫。",
+             "> 「補錄」＝記錄功能上線前的場次（日盤 11/4～11/12、夜盤 11/12 前半場）：當時沒存訊號全文，只剩觸發順序與損益（損益是當時存檔的數字）；事件時間只在代號帶得出來時才寫。",
              "> 夜盤的門檻是暫定值，尚未校準；以上只是模擬計畫帳，不是真實成交，也不是投資建議。", ""]
     if not st["n"]:
         return "\n".join(lines + ["（還沒有觸發紀錄）", ""])
