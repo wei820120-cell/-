@@ -15,6 +15,13 @@ def series(start: str, values: list[float], tz: bool = True) -> pd.Series:
     return pd.Series(values, index=idx)
 
 
+def test_impact_class_groups_free_text_by_leading_label():
+    assert sb.impact_class("受惠") == "受惠" and sb.impact_class("受惠，毛利率創高") == "受惠" and sb.impact_class("受惠（傳聞）") == "受惠"
+    assert sb.impact_class("受傷") == "受傷" and sb.impact_class("中性偏負") == "中性" and sb.impact_class("混合") == "混合"
+    assert sb.impact_class("同業，另案研究") == "其他" and sb.impact_class("間接") == "其他"      # 開頭不是四個標籤就歸其他，不猜
+    assert sb.impact_class("") == "未標註" and sb.impact_class(None) == "未標註" and sb.impact_class("未標註") == "未標註"
+
+
 def test_study_type_by_topic_name():
     assert sb.study_type("供需事件：輝達客戶Megaspeed") == "供需事件"
     assert sb.study_type("宏碁（2353）題材與產業") == "個股題材"
@@ -71,7 +78,7 @@ def test_load_studies_reads_index_and_layer_impacts(tmp_path):
         "乙": {"date": "2026-11-02", "status": "傳聞", "codes": ["3333"]},
         "沒日期": {"status": "混合", "codes": ["4444"]}}), encoding="utf-8")
     (tmp_path / "research" / "data" / "供需事件：甲.json").write_text(json.dumps({"layers": [
-        {"tw_stocks": [{"code": "1111", "impact": "受惠"}, {"code": "2222", "impact": "受傷"}]},
+        {"tw_stocks": [{"code": "1111", "impact": "受惠，毛利率創高"}, {"code": "2222", "impact": "受傷"}]},
         {"tw_stocks": [{"code": "1111", "impact": "中性"}]}]}), encoding="utf-8")       # 重複的代號取第一次的標註
     st = {s["topic"]: s for s in sb.load_studies(tmp_path)}
     assert st["供需事件：甲"]["picks"] == {"1111": "受惠", "2222": "受傷"} and st["供需事件：甲"]["type"] == "供需事件"

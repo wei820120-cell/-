@@ -26,6 +26,16 @@ def study_type(topic: str) -> str:
     return "產業題材"
 
 
+def impact_class(text: str | None) -> str:
+    """研究裡每檔個股的 impact 是自由文字（「受惠，毛利率創高」「同業，另案研究」…）。歸成 受惠／受傷／中性／混合／其他：
+    看開頭，開頭不是這四個字就用「其他」，不去猜整句的意思。"""
+    t = (text or "").strip()
+    for k in ("受惠", "受傷", "中性", "混合"):
+        if t.startswith(k):
+            return k
+    return "未標註" if not t or t == "未標註" else "其他"
+
+
 def load_studies(root: Path) -> list[dict]:
     """每篇研究：topic、type、status、date、picks（{code: impact}，同一檔取第一次出現的標註）。沒有日期或沒有個股的略過。"""
     try:
@@ -43,7 +53,7 @@ def load_studies(root: Path) -> list[dict]:
                 for s in layer.get("tw_stocks", []):
                     code = str(s.get("code") or "").strip()
                     if code and code not in picks:
-                        picks[code] = s.get("impact") or "未標註"
+                        picks[code] = impact_class(s.get("impact"))
         except (OSError, ValueError):
             for code in (meta or {}).get("codes", []):      # 沒有 data 檔就只用索引的代號、方向未標註
                 picks.setdefault(str(code), "未標註")
