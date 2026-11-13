@@ -1,0 +1,196 @@
+{
+  "topic": "供需事件：AAOI買下德州廠房、傳第二份長約將簽（未證實）",
+  "one_line": "AAOI（Applied Optoelectronics）8-K：2026-11-06 以 1.0225 億美元現金買下德州 Hightower Business Park 第一期三棟建物（行使 5 月租約的購買選擇權、無罰款），另租第 4、5 號棟待興建。Threads 貼文稱 CEO 透露「第二份長期合約」即將簽署、規模比第一份大五倍、約 50～75 億美元（貼文自己的推估）——我找不到公司或媒體來源，未證實。買廠房只顯示擴產決心，不等於合約已簽；對台廠沒有查到直接合作。",
+  "status": "傳聞",
+  "horizon": "短期（事件驅動，數天到數週）",
+  "layers": [
+    {
+      "layer": "光模組與 InP 雷射（美系）",
+      "description": "AAOI 自製 InP 雷射並擴產德州與台灣；買下廠房把產能鎖在自己手上。產能目標（2027 年底雷射產能 +350%、800G／1.6T 月產 93 萬顆）來自第三方分析，是目標不是已達成。",
+      "global_players": [
+        "Applied Optoelectronics（AAOI）",
+        "Coherent",
+        "Lumentum"
+      ],
+      "tw_stocks": []
+    },
+    {
+      "layer": "台灣光通訊零組件（同題材，與 AAOI 的合作關係未查到）",
+      "description": "800G／1.6T 需求帶動 InP 雷射與磊晶、光通零組件；AAOI 若把雷射與組裝放在美國與自家廠，可能分走部分原本外包或進口的訂單（推論，未證實）。台廠細節見既有研究「光通訊雷射InP」與「光模組供需」。",
+      "global_players": [],
+      "tw_stocks": [
+        {
+          "code": "3081",
+          "name": "聯亞",
+          "role": "InP 磊晶與光通零組件同題材（與 AAOI 合作關係未查到）",
+          "impact": "中性"
+        },
+        {
+          "code": "2455",
+          "name": "全新",
+          "role": "化合物半導體磊晶同題材（與 AAOI 合作關係未查到）",
+          "impact": "中性"
+        },
+        {
+          "code": "3363",
+          "name": "上詮",
+          "role": "光通訊零組件同題材（與 AAOI 合作關係未查到）",
+          "impact": "中性"
+        }
+      ]
+    }
+  ],
+  "keywords": [
+    "AAOI",
+    "Applied Optoelectronics",
+    "Hightower Business Park",
+    "休士頓",
+    "InP 雷射",
+    "800G",
+    "1.6T",
+    "長期合約",
+    "光模組",
+    "8-K"
+  ],
+  "catalysts": [
+    "AAOI 是否公告新的長期合約（8-K／新聞稿）與客戶、金額",
+    "AAOI Q3 財報與法說（逐字稿）",
+    "第 4、5 號棟的興建與購買",
+    "台灣同題材個股月營收與法說的 800G／1.6T 說法"
+  ],
+  "risks": [
+    "第二份長約、五倍、50～75 億美元皆來自貼文，沒有查到來源",
+    "買廠房可能是租轉買的財務考量，不等於已有新訂單",
+    "第三方資料的產能目標與 1.6T 時程不一致",
+    "既有長約客戶集中",
+    "只讀搜尋摘要，未讀 8-K 全文與法說逐字稿"
+  ],
+  "spec_tables": [
+    {
+      "title": "表 A：8-K 可查到的事實（搜尋摘要）",
+      "columns": [
+        "項目",
+        "內容",
+        "備註"
+      ],
+      "rows": [
+        [
+          "收購日",
+          "2026-11-06",
+          "現金完成"
+        ],
+        [
+          "標的",
+          "Hightower Business Park 第一期三棟建物",
+          "約 736,216 平方呎，製造／倉儲／辦公"
+        ],
+        [
+          "金額",
+          "1.0225 億美元",
+          "行使 2026-05-08 三份租約的購買選擇權"
+        ],
+        [
+          "租約",
+          "三份租約同日終止",
+          "無提前終止罰款"
+        ],
+        [
+          "後續",
+          "2026-08-31 租用第 4、5 號棟（未興建）",
+          "合計購買價約 1.4657 億美元，依每平方呎調整"
+        ]
+      ],
+      "note": "數字來自搜尋摘要，以 8-K 全文為準。"
+    },
+    {
+      "title": "表 B：貼文說法與核對狀態",
+      "columns": [
+        "貼文說法",
+        "核對結果"
+      ],
+      "rows": [
+        [
+          "第二份長期合約即將簽署",
+          "沒有查到公司或媒體來源"
+        ],
+        [
+          "規模比第一份大五倍以上",
+          "沒有查到來源"
+        ],
+        [
+          "市場預期 50～75 億美元",
+          "貼文自己的推估"
+        ],
+        [
+          "涵蓋 800G、1.6T、自研雷射與關鍵零組件",
+          "沒有查到來源"
+        ]
+      ],
+      "note": "貼文是個人說法，未證實。"
+    }
+  ],
+  "evolution": [],
+  "concepts": [
+    {
+      "title": "供需缺口怎麼來的",
+      "points": [
+        "需求：AI 資料中心 800G／1.6T 光模組，客戶以美系雲端大廠為主",
+        "供給：InP 雷射與先進組裝產能是瓶頸，AAOI 自製雷射、在美國與台灣擴產並買下廠房",
+        "買廠房顯示擴產決心與資本支出，不等於合約已簽"
+      ]
+    },
+    {
+      "title": "誰受惠、誰受傷",
+      "points": [
+        "受惠（情境）：AAOI、美國本土光模組與雷射供應鏈",
+        "台灣同題材個股受惠於同一波需求，但與 AAOI 的合作關係未查到",
+        "若 AAOI 把雷射與組裝都放自家，可能分走部分外包或進口訂單（推論）"
+      ]
+    },
+    {
+      "title": "資訊可信度",
+      "points": [
+        "廠房收購是 8-K 事實",
+        "第二份長約與金額是貼文說法，未證實",
+        "第三方的產能與時程資料彼此不一致"
+      ]
+    }
+  ],
+  "conclusion": [
+    "AAOI 買下德州廠房是 8-K 公告的事實，顯示擴產決心；貼文所稱的第二份長期合約與 50～75 億美元沒有找到來源，不當成事實",
+    "對台灣沒有查到直接合作；同題材個股要看月營收與法說的 800G／1.6T 說法",
+    "追蹤 AAOI 是否公告新的長約、Q3 財報與法說"
+  ],
+  "sources": [
+    {
+      "title": "SEC EDGAR：Applied Optoelectronics 8-K（僅看到搜尋摘要）",
+      "url": "https://www.sec.gov/Archives/edgar/data/0001158114/000168316826008616/aaoi_8k.htm"
+    },
+    {
+      "title": "TipRanks：Applied Optoelectronics Completes Houston Business Park Acquisition（僅看到標題與摘要）",
+      "url": "https://www.tipranks.com/news/company-announcements/applied-optoelectronics-completes-houston-business-park-acquisition"
+    },
+    {
+      "title": "rallies.ai：Applied Optoelectronics buys three Houston buildings for $102.25 million（僅看到標題）",
+      "url": "https://rallies.ai/news/applied-optoelectronics-buys-three-houston-buildings-for-10225-million-09197881393410fd"
+    },
+    {
+      "title": "MoneyDJ：AAOI：光學元件至少缺到明年、擴產台灣/德州（僅看到標題）",
+      "url": "https://www.moneydj.com/kmdj/news/newsviewer.aspx?a=eab1f4ed-4d28-48e6-9fcb-09669364b5e3"
+    },
+    {
+      "title": "富果：AAOI 1Q26 法說會（僅看到標題與摘要）",
+      "url": "https://blog.fugle.tw/post/us-aaoi-2026q1-analysis"
+    },
+    {
+      "title": "simpletechtrend：法說精華 AAOI Q2 FY2026（僅看到標題）",
+      "url": "https://www.simpletechtrend.com/post/aaoi-q2-fy2026-earnings-800g-laser-capacity"
+    },
+    {
+      "title": "Threads @big5.cpt27 貼文（個人說法、未證實）",
+      "url": "https://www.threads.com/@big5.cpt27/post/DfqdV_Qj94t"
+    }
+  ],
+  "report": "# 供需事件：AAOI（Applied Optoelectronics）買下德州廠房、傳第二份長約將簽\n\n> 資料說明：來自搜尋摘要（SEC EDGAR 8-K 搜尋結果、TipRanks、rallies.ai、MoneyDJ、富果、uanalyze、simpletechtrend 與投資部落格），**沒有讀到 8-K 全文與法說逐字稿**。觸發來源是 Threads 帳號 @big5.cpt27 的貼文（2026-11-13，**個人說法、未證實**）。**廠房收購是 8-K 公告的事實；貼文裡的「第二份長約」「五倍」「50～75 億美元」我找不到公司或媒體來源，不當成事實。**\n\n## 1. 可查到的事實（搜尋摘要）\n- **8-K：2026-11-06 AAOI 以現金 1.0225 億美元完成收購**德州休士頓 Hightower Business Park 第一期的三棟建物（含土地與改良、約 736,216 平方呎可租面積，用途含製造、倉儲與辦公）。\n- 依據是 **2026-05-08 簽的三份租約裡的「購買選擇權」**；三份租約同日終止、**沒有提前終止罰款**。賣方為 Hightower Phase I Owner, LLC。\n- **同一個園區還有後續**：2026-08-31 AAOI 與同一房東的關係企業簽約租用**尚未興建的第 4、5 號棟**，合計購買價約 1.4657 億美元（依每平方呎調整，搜尋摘要）。\n\n## 2. 貼文的說法（未證實，我沒有查到來源）\n- 「CEO 上週透露與另一家客戶的『第二份長期合約』已進入最後簽署階段，預計未來數週內敲定」；「規模比第一份大五倍以上」；「市場預期 50 億至 75 億美元」（貼文自己用第一份合約推估）；「涵蓋 800G、1.6T、自研雷射與關鍵零組件」。\n- 我的搜尋**沒有找到**這些內容，也**沒有找到它與亞馬遜既有長約的區分**；要確認需看 AAOI 最近一次法說逐字稿與新聞稿。\n\n## 3. 背景（較早或第三方資料，數字未核對）\n- **既有的大客戶長約**：搜尋摘要稱 AAOI 與亞馬遜簽有含認股權證的長期供貨協議（累計採購 40 億美元後最多約 795 萬股認股權）；另有投資分析稱 1.6T 已有約 4.5 億美元在手訂單與 10～15 億美元長約。**這些都是第三方轉述，我沒有核對公司文件。**\n- **產能**：分析文章稱德州半導體創新基金補助 2,090 萬美元、目標 2027 年底把雷射製造產能提高 350%、800G／1.6T 每月總產能 93 萬顆（目標，不是已達成）；simpletechtrend 標題稱 Q2 FY2026 產能訂到 2027。\n- **垂直整合**：自製 InP（磷化銦）雷射是其護城河；MoneyDJ 標題稱「光學元件至少缺到明年、擴產台灣／德州」。AAOI 在台灣也租用廠房（分析文章說法）。\n\n## 4. 供需缺口怎麼來的\n- **需求端**：AI 資料中心 800G／1.6T 光模組需求，客戶以美系雲端大廠為主（既有長約對象）。\n- **供給端**：光模組的關鍵是雷射晶片與先進組裝，InP 雷射產能是瓶頸之一；AAOI 自製雷射、在美國與台灣擴產，並買下廠房把產能鎖在自己手上。\n- 買廠房本身只顯示**擴產決心與資本支出**，不等於合約已簽；是否有「第二份長約」要看公司公告。\n\n## 5. 誰受惠、誰受傷\n- **受惠（情境）**：AAOI；美國本土的光模組與雷射供應鏈（地緣與供應鏈在地化）。\n- **對台灣**：同題材的台廠（InP 雷射與磊晶、光通零組件）受惠於同一波 800G／1.6T 需求，但**我沒有查到這些台廠與 AAOI 的直接合作關係**；若 AAOI 把雷射與組裝都放在美國與自家廠，**可能分走部分原本外包或進口的訂單**（推論，未證實）。\n- **受傷（情境）**：被取代的第二供應商；若 1.6T 良率或客戶認證延遲，擴產會變成費用壓力。\n\n## 6. 風險與矛盾\n- **貼文未證實**：第二份長約的存在、客戶、金額（50～75 億美元是貼文自己的推估）都沒有來源。\n- 買廠房也可能只是財務與稅務考量（租轉買、折舊與補助），不一定代表已有新訂單。\n- 第三方資料之間產能目標與 1.6T 時程不一致（有的是較早的法說摘要）。\n- 客戶集中：既有長約依賴單一大客戶。\n\n## 7. 要追蹤的時間點\n- AAOI 下一次公告：是否有新的長期合約 8-K、客戶與金額；Q3 財報與法說（逐字稿）。\n- 第 4、5 號棟的興建與購買時程。\n- 台灣同題材個股月營收與法說，看有沒有 800G／1.6T 的新訂單（另見既有研究「光通訊雷射InP」與「光模組供需」）。\n\n## 資料來源\n- [SEC EDGAR：Applied Optoelectronics 8-K（僅看到搜尋摘要）](https://www.sec.gov/Archives/edgar/data/0001158114/000168316826008616/aaoi_8k.htm)\n- [TipRanks：Applied Optoelectronics Completes Houston Business Park Acquisition（僅看到標題與摘要）](https://www.tipranks.com/news/company-announcements/applied-optoelectronics-completes-houston-business-park-acquisition)\n- [rallies.ai：Applied Optoelectronics buys three Houston buildings for $102.25 million（僅看到標題）](https://rallies.ai/news/applied-optoelectronics-buys-three-houston-buildings-for-10225-million-09197881393410fd)\n- [MoneyDJ：AAOI：光學元件至少缺到明年、擴產台灣/德州（僅看到標題）](https://www.moneydj.com/kmdj/news/newsviewer.aspx?a=eab1f4ed-4d28-48e6-9fcb-09669364b5e3)\n- [富果：AAOI 1Q26 法說會（僅看到標題與摘要）](https://blog.fugle.tw/post/us-aaoi-2026q1-analysis)\n- [simpletechtrend：法說精華 AAOI Q2 FY2026（僅看到標題）](https://www.simpletechtrend.com/post/aaoi-q2-fy2026-earnings-800g-laser-capacity)\n- [Threads @big5.cpt27 貼文（個人說法、未證實）](https://www.threads.com/@big5.cpt27/post/DfqdV_Qj94t)\n",
+  "trigger": "2026-11-13 Threads @big5.cpt27（13:28 台北時間看到的貼文，未證實）：AAOI 8-K 公告行使購買權買下德州 Hightower Business Park 第一期 1～3 號棟（約 1.02 億美元）；貼文稱 CEO 上週透露與另一家客戶的「第二份長期合約」即將簽署、規模比第一份大五倍以上、市場預期 50 億至 75 億美元（貼文自己的推估）、範圍含 800G、1.6T、自研雷射與關鍵零組件。https://www.threads.com/@big5.cpt27/post/DfqdV_Qj94t"
+}
