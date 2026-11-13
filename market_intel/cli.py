@@ -766,6 +766,32 @@ def cmd_futures_night(args) -> None:
         raise SystemExit(rc)
 
 
+def cmd_research_scoreboard(args) -> None:
+    """研究成績單：每篇研究點名的個股，研究日之後相對加權指數的表現（依研究類型、方向標註、狀態分組）。
+
+    寫到 research/scoreboard.md 並印出來。價格用 Yahoo 日 K（近 6 個月）；研究都是近幾週的，所以窗口很短，只是初步線索。
+    """
+    from .analysis import research_scoreboard as sb
+    from .fetchers import yahoo
+    studies = sb.load_studies(research.ROOT)
+    listings = _listings()
+    codes = sorted({c for s in studies for c in s["picks"]})
+    syms = {c: yahoo.yahoo_symbol(c, (listings.get(c) or {}).get("market") or "tse") for c in codes}
+    hist = yahoo.fetch_many(list(syms.values()), range_="6mo")
+    prices = {c: hist[s]["close"] for c, s in syms.items() if s in hist}
+    bench_df = yahoo.fetch_many([sb.BENCH], range_="6mo").get(sb.BENCH)
+    bench = bench_df["close"] if bench_df is not None else None
+    if bench is None:
+        log.warning("抓不到加權指數，超額報酬無法計算")
+    rows = sb.build_rows(studies, prices, bench)
+    md = sb.render(rows, studies, now_tw().replace(tzinfo=None))
+    out = Path(args.out) if args.out else research.ROOT / "research" / "scoreboard.md"
+    out.parent.mkdir(parents=True, exist_ok=True)
+    out.write_text(md, encoding="utf-8")
+    print(f"個股有價格 {len(prices)}／{len(codes)} 檔、{len(rows)} 列；已寫入 {out}")
+    print(md)
+
+
 def cmd_futures_log(args) -> None:
     """印出微台計畫帳觸發紀錄（state/futures_log.md；有 --rebuild 就先用 state/futures_log.json 重排一次）。"""
     from .trade import futures_log
@@ -3176,6 +3202,9 @@ def main(argv: list[str] | None = None) -> None:
     fl = sub.add_parser("futures-log", help="印出微台計畫帳（日盤＋夜盤）觸發紀錄與每場損益（state/futures_log.md）")
     fl.add_argument("--rebuild", action="store_true", help="用 state/futures_log.json 重排 md 再印")
     fl.set_defaults(func=cmd_futures_log)
+    sb_ = sub.add_parser("research-scoreboard", help="研究成績單：每篇研究點名的個股、研究日之後相對大盤的表現（寫 research/scoreboard.md）")
+    sb_.add_argument("--out", default="", help="輸出檔（預設 research/scoreboard.md）")
+    sb_.set_defaults(func=cmd_research_scoreboard)
 
     nw = sub.add_parser("news", help="掃描新聞與公告")
     nw.add_argument("--limit", type=int, default=50)

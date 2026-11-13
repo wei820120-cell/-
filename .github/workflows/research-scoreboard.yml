@@ -1,0 +1,38 @@
+# 研究成績單：每篇研究點名的個股、研究日之後相對加權指數的表現（market_intel/analysis/research_scoreboard.py）。
+# Yahoo 日 K 在雲端沙盒抓不到，所以在 GitHub 上跑；結果寫到 research/scoreboard.md 並 commit 回去（也印在日誌裡）。
+# 手動執行（workflow_dispatch，只在預設分支）；開發分支改這個檔時也會跑一次（push 觸發，方便第一次檢查）。
+name: research-scoreboard
+on:
+  workflow_dispatch:
+  push:
+    branches: [claude/funny-goodall-fft1u6]
+    paths: [".github/workflows/research-scoreboard.yml"]
+permissions:
+  contents: write
+concurrency:
+  group: research-scoreboard
+  cancel-in-progress: false
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+      - run: pip install -r requirements.txt
+      - run: python -m market_intel research-scoreboard
+      - name: 存檔
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add research/scoreboard.md
+          git diff --cached --quiet && exit 0
+          git commit -q -m "研究成績單 $(TZ=Asia/Taipei date '+%F %H:%M')"
+          for i in 1 2 3; do
+            git pull --rebase -q && git push -q && exit 0
+            git rebase --abort 2>/dev/null; sleep 5
+          done
+          echo "存檔衝突，放棄這次記錄"
