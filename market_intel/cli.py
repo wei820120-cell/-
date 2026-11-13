@@ -726,7 +726,7 @@ def cmd_futures_night(args) -> None:
         except Exception as e:  # noqa: BLE001
             log.warning("夜盤報價抓取失敗：%s", e)
             q = None
-        ts = q and q["ts"]
+        ts = futures_day.night_quote_ts(q and q["ts"], start)       # 過了午夜 MIS 的日期欄位不換日，要補一天
         fresh = bool(q and ts and abs((now - ts).total_seconds()) <= 180
                      and start - timedelta(minutes=5) <= ts <= end + timedelta(minutes=5))      # 沒資料、或報價太舊：不拿舊價發訊號
         if args.no_push:       # 測試模式：把這一筆報價印出來，方便確認欄位與時間
@@ -737,7 +737,15 @@ def cmd_futures_night(args) -> None:
             if sigs:
                 send(futures_day.format_message(sigs, st, cfg))
                 futures_log.safe(futures_log.record, st, sigs, cfg, "night")
+            st["stale_alerted"] = False
             futures_day.save_state(st, session="night")
+        elif (st["ticks"] and not st.get("stale_alerted") and not args.force and now < end
+              and now - datetime.fromisoformat(st["ticks"][-1][0]) >= timedelta(minutes=20)):
+            # 夜盤進行中卻超過 20 分鐘沒有有效報價：不要靜悄悄（2026-11-13 午夜報價被擋了一個多小時沒人知道），發一次提醒
+            st["stale_alerted"] = True
+            futures_day.save_state(st, session="night")
+            send(f"⚠️ 夜盤報價超過 20 分鐘沒有更新（最後一筆 {st['ticks'][-1][0][11:16]}，{st['ticks'][-1][1]:,.0f}）。"
+                 "可能是資料源異常或暫停交易；系統會持續嘗試，恢復後自動接續。")
         elif not st["ticks"] and not args.force and now >= start + timedelta(minutes=45):
             print("夜盤開盤 45 分鐘仍沒有報價：今晚沒有夜盤（休市日）。")
             st["finished"] = True
