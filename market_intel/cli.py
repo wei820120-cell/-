@@ -799,8 +799,10 @@ def cmd_market_stress(args) -> None:
     if df.empty:
         print("抓不到全市場日行情")
         return
-    index_df, _ = yahoo.fetch_chart("^TWII", range_="1mo")
-    day = args.day or (f"{index_df.index[-1].tz_convert('Asia/Taipei'):%Y-%m-%d}" if not index_df.empty else f"{now_tw():%Y-%m-%d}")
+    day = args.day or df.attrs.get("date")        # 行情資料自己帶的日期最準；沒有才用加權指數最近一個交易日
+    if not day:
+        index_df, _ = yahoo.fetch_chart("^TWII", range_="1mo")
+        day = f"{index_df.index[-1].tz_convert('Asia/Taipei'):%Y-%m-%d}" if not index_df.empty else f"{now_tw():%Y-%m-%d}"
     r = ms.record(day, ms.day_stats(df))
     print(f"{day}：" + ms.text(r))
 
@@ -819,10 +821,13 @@ def cmd_panic_watch(args) -> None:
     prices = {c: hist[s]["close"] for c, s in syms.items() if s in hist}
     details = pw.load_details(research.ROOT, sorted({s["topic"] for s in studies}))
     names = {c: (v.get("name") or "") for c, v in listings.items()}
-    rows = pw.candidates(studies, prices, details, names, drop_pct=args.drop)
+    revenue = tw_daily.load_revenue()
+    rows = pw.candidates(studies, prices, details, names, drop_pct=args.drop, revenue=revenue, min_yoy=args.min_yoy)
+    total = len(rows)
+    rows = rows[:args.top]
     days = ms.load()
     level = days[-1]["level"] if days else None
-    md = pw.render(rows, level, f"{now_tw():%Y-%m-%d}", args.drop)
+    md = pw.render(rows, level, f"{now_tw():%Y-%m-%d}", args.drop, total=total, min_yoy=args.min_yoy)
     out = Path(args.out) if args.out else research.ROOT / "research" / "panic_watch.md"
     out.parent.mkdir(parents=True, exist_ok=True)
     out.write_text(md, encoding="utf-8")
@@ -2982,7 +2987,11 @@ def _market_stress_section(rst: dict, closes: dict, today: str) -> str:
         from .trade import leverage as lv
         if not (ms.settings()["enabled"] and lv.settings()["enabled"]):
             return ""
-        sday = ms.record(today, ms.day_stats(tw_daily.fetch_day_all()))
+        df = tw_daily.fetch_day_all()
+        data_day = df.attrs.get("date") or today        # 資料自己的日期；若和今天不同（交易所還沒更新），照資料日期記，並在訊息裡標出來
+        sday = ms.record(data_day, ms.day_stats(df))
+        if data_day != today:
+            sday["reasons"] = [f"⚠️ 行情資料日期是 {data_day}（不是 {today}，交易所可能還沒更新）"] + list(sday.get("reasons", []))
         eq = float(rst["equity"])
         peak = lv.update_peak(eq, float(rst["capital"]))
         notional, lev = lv.exposure(rst["positions"], closes, eq)
@@ -3266,7 +3275,9 @@ def main(argv: list[str] | None = None) -> None:
     ms_.add_argument("--day", default="", help="日期 YYYY-MM-DD（預設用加權指數最近一個交易日）")
     ms_.set_defaults(func=cmd_market_stress)
     pw_ = sub.add_parser("panic-watch", help="恐慌日研究清單：研究過、受惠、價格回落的個股＋催化與風險（寫 research/panic_watch.md）")
-    pw_.add_argument("--drop", type=float, default=12.0, help="相對研究日或研究後高點回落多少 %% 才列入（預設 12）")
+    pw_.add_argument("--drop", type=float, default=20.0, help="相對研究日或研究後高點回落多少 %% 才列入（預設 20）")
+    pw_.add_argument("--min-yoy", type=float, default=20.0, help="最新月營收年增至少多少 %% 才列入（股價回落但營收仍成長；預設 20，填 -999 不篩）")
+    pw_.add_argument("--top", type=int, default=40, help="最多列幾檔（依回落幅度排序，預設 40）")
     pw_.add_argument("--out", default="", help="輸出檔（預設 research/panic_watch.md）")
     pw_.set_defaults(func=cmd_panic_watch)
 

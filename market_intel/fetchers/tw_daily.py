@@ -64,16 +64,32 @@ def parse_tpex_day_all(rows: list[dict]) -> pd.DataFrame:
     return pd.DataFrame(out, columns=DAY_COLUMNS)
 
 
+def iso_date(rows: list[dict]) -> str | None:
+    """原始行情列裡的資料日期（欄位 Date／日期；民國 1151113、1151113 或西元 20261113、2026-11-13 都行）→ YYYY-MM-DD；找不到回傳 None。"""
+    for r in rows[:5]:
+        raw = str(pick(r, "Date", "日期", default="") or "").strip().replace("/", "").replace("-", "")
+        if raw.isdigit() and len(raw) == 7:
+            return f"{int(raw[:3]) + 1911}-{raw[3:5]}-{raw[5:7]}"
+        if raw.isdigit() and len(raw) == 8:
+            return f"{raw[:4]}-{raw[4:6]}-{raw[6:8]}"
+    return None
+
+
 def fetch_day_all() -> pd.DataFrame:
-    """上市 + 上櫃最近一個交易日的全部個股行情。"""
+    """上市 + 上櫃最近一個交易日的全部個股行情。資料日期（若原始資料有）放在 df.attrs["date"]。"""
     frames = []
+    dates = []
     try:
-        frames.append(parse_twse_day_all(net.get_json(f"{TWSE_OPENAPI}/exchangeReport/STOCK_DAY_ALL")))
+        rows = net.get_json(f"{TWSE_OPENAPI}/exchangeReport/STOCK_DAY_ALL")
+        frames.append(parse_twse_day_all(rows))
+        dates.append(iso_date(rows))
     except Exception as e:  # noqa: BLE001
         log.warning("上市行情抓取失敗：%s", e)
     for attempt in range(2):  # 櫃買中心偶爾連線中斷，多試一次
         try:
-            frames.append(parse_tpex_day_all(net.get_json(f"{TPEX_OPENAPI}/tpex_mainboard_daily_close_quotes", timeout=30)))
+            rows = net.get_json(f"{TPEX_OPENAPI}/tpex_mainboard_daily_close_quotes", timeout=30)
+            frames.append(parse_tpex_day_all(rows))
+            dates.append(iso_date(rows))
             break
         except Exception as e:  # noqa: BLE001
             log.warning("上櫃行情抓取失敗（第 %d 次）：%s", attempt + 1, e)
@@ -81,6 +97,9 @@ def fetch_day_all() -> pd.DataFrame:
         return pd.DataFrame(columns=DAY_COLUMNS)
     df = pd.concat(frames, ignore_index=True)
     df["pct"] = df["change"] / (df["close"] - df["change"]) * 100
+    found = [d for d in dates if d]
+    if found:
+        df.attrs["date"] = max(found)       # 上市、上櫃日期若不同（一邊還沒更新），取較新的
     return df
 
 

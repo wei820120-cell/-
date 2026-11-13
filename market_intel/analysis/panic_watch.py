@@ -52,8 +52,11 @@ def load_details(root: Path, topics: list[str]) -> dict[str, dict]:
 
 
 def candidates(studies: list[dict], prices: dict[str, pd.Series], details: dict[str, dict], names: dict[str, str] | None = None,
-               drop_pct: float = DROP_PCT, impacts: tuple[str, ...] = ("受惠",), min_days: int = 1) -> list[dict]:
-    """每檔個股（同一檔在多篇研究時合併）：現價相對研究日 ≤ −drop_pct%，或相對研究後高點回落 ≥ drop_pct%。回落最多的排前面。"""
+               drop_pct: float = DROP_PCT, impacts: tuple[str, ...] = ("受惠",), min_days: int = 1,
+               revenue: dict[str, dict] | None = None, min_yoy: float | None = None) -> list[dict]:
+    """每檔個股（同一檔在多篇研究時合併）：現價相對研究日 ≤ −drop_pct%，或相對研究後高點回落 ≥ drop_pct%。回落最多的排前面。
+    給 revenue（tw_daily.load_revenue）時附上最新月營收年增；再給 min_yoy 就只留年增 ≥ min_yoy 的（股價回落、基本面還在成長＝流動性殺出來的候選；
+    沒有營收資料的略過）。"""
     names = names or {}
     per_code: dict[str, list[tuple[dict, dict]]] = {}
     for st in studies:
@@ -69,24 +72,35 @@ def candidates(studies: list[dict], prices: dict[str, pd.Series], details: dict[
         if not hit:
             continue
         st0, m0 = min(hit, key=lambda x: x[1]["dd"])           # 回落最多的那一篇當代表；列出所有提到它的研究
+        rv = (revenue or {}).get(code) or {}
+        if min_yoy is not None and (rv.get("yoy") is None or rv["yoy"] < min_yoy):
+            continue
         best[code] = {"code": code, "name": names.get(code, ""), "topics": [st["topic"] for st, _ in items], "since": m0["since"],
+                      "yoy": rv.get("yoy"), "cum_yoy": rv.get("cum_yoy"), "ym": rv.get("ym", ""),
                       "dd": m0["dd"], "last": m0["last"], "base": m0["base"], "date": st0["date"],
                       "details": [details.get(st["topic"], {"catalysts": [], "risks": []}) for st, _ in items]}
     return sorted(best.values(), key=lambda r: r["dd"])
 
 
-def render(rows: list[dict], level: str | None = None, asof: str = "", drop_pct: float = DROP_PCT) -> str:
+def render(rows: list[dict], level: str | None = None, asof: str = "", drop_pct: float = DROP_PCT, total: int | None = None,
+           min_yoy: float | None = None) -> str:
     head = [f"# 恐慌日研究清單（{asof}）", ""]
     if level:
         head.append(f"市場流動性狀態：**{level}**。")
-    head += [f"條件：研究過、當初標註「受惠」，現價相對研究日 ≤ −{drop_pct:g}% 或相對研究後高點回落 ≥ {drop_pct:g}%（暫定門檻）。", "",
+    cond = f"條件：研究過、當初標註「受惠」，現價相對研究日 ≤ −{drop_pct:g}% 或相對研究後高點回落 ≥ {drop_pct:g}%（暫定門檻）"
+    if min_yoy is not None and min_yoy > -900:
+        cond += f"，且最新月營收年增 ≥ {min_yoy:g}%（價格回落、營收仍在成長）"
+    if total is not None and total > len(rows):
+        cond += f"。共 {total} 檔符合，只列回落最多的前 {len(rows)} 檔"
+    head += [cond + "。", "",
              "> **不是買進建議。** 順序是先確保部位（降槓桿、保現金），再看這份清單：每檔下面列當初研究寫的催化與風險——"
              "風險裡的情況若已經發生，代表邏輯被打破，價格便宜不算數。他的說法是「買一張未來就是賺一張，前提是你部位還在」。", ""]
     if not rows:
         return "\n".join(head + ["（目前沒有符合條件的個股）", ""])
-    head += ["| 代號 | 名稱 | 研究日 | 相對研究日 | 相對研究後高點 | 現價 | 研究題材 |", "|---|---|---|---:|---:|---:|---|"]
+    head += ["| 代號 | 名稱 | 研究日 | 相對研究日 | 相對研究後高點 | 現價 | 最新月營收年增 | 研究題材 |", "|---|---|---|---:|---:|---:|---:|---|"]
     for r in rows:
-        head.append(f"| {r['code']} | {r['name']} | {r['date']} | {r['since']:+.1f}% | {r['dd']:+.1f}% | {r['last']:,.1f} | "
+        yoy = f"{r['yoy']:+.0f}%（{r['ym']}）" if r.get("yoy") is not None else "—"
+        head.append(f"| {r['code']} | {r['name']} | {r['date']} | {r['since']:+.1f}% | {r['dd']:+.1f}% | {r['last']:,.1f} | {yoy} | "
                     f"{'、'.join(dict.fromkeys(r['topics']))[:60]} |")
     head += ["", "## 逐檔：邏輯還在嗎？", ""]
     for r in rows:

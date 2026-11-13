@@ -1,7 +1,7 @@
 # 恐慌日研究清單＋市場流動性指標（analysis/market_stress.py、analysis/panic_watch.py；巨人傑的做法，筆記 knowledge/methods/巨人傑-盤勢操作與槓桿.md）。
 # 先更新 state/market_stress.json（跌停家數、量縮…），再列出「研究過、受惠、現價比研究時更低」的個股（research/panic_watch.md，不是買進建議）。
 # Yahoo 日 K 在雲端沙盒抓不到，所以在 GitHub 上跑，結果 commit 回去（也印在日誌裡）。手動執行（workflow_dispatch，只在預設分支）；
-# 開發分支改這個檔時也會跑一次（push 觸發，方便檢查）。
+# 開發分支改這個檔時也會跑一次（push 觸發，方便檢查）。篩選：價格回落 ≥ 20%、最新月營收年增 ≥ 20%，最多 40 檔。
 name: panic-watch
 on:
   workflow_dispatch:

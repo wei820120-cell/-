@@ -128,3 +128,35 @@ def test_post_close_section_combines_stress_and_leverage_and_never_raises(tmp_pa
     assert "市場流動性：恐慌" in out and "跌停 120 家" in out and "階梯：防守" in out and "超過防守上限" in out     # 槓桿 2 倍 > 0.5
     monkeypatch.setattr(cli.tw_daily, "fetch_day_all", lambda: (_ for _ in ()).throw(RuntimeError("網路失敗")))
     assert cli._market_stress_section(rst, {}, "2026-11-09") == ""                                                  # 抓不到資料：不丟例外
+
+
+def test_iso_date_handles_roc_and_western_formats():
+    from market_intel.fetchers import tw_daily
+    assert tw_daily.iso_date([{"Date": "1151113"}]) == "2026-11-13"
+    assert tw_daily.iso_date([{"Date": "20261113"}]) == "2026-11-13"
+    assert tw_daily.iso_date([{"日期": "115/11/13"}]) == "2026-11-13"
+    assert tw_daily.iso_date([{"Code": "2330"}]) is None and tw_daily.iso_date([]) is None
+
+
+def test_panic_watch_revenue_filter_and_cap_text():
+    studies = [{"topic": "甲", "type": "個股題材", "status": "混合", "date": "2026-10-05", "picks": {"1111": "受惠", "2222": "受惠", "3333": "受惠"}}]
+    fall = [100, 100, 100, 90, 80, 70, 60, 60]
+    prices = {c: series("2026-10-01", fall) for c in ("1111", "2222", "3333")}
+    rev = {"1111": {"yoy": 45.0, "cum_yoy": 30.0, "ym": "2026/10"}, "2222": {"yoy": -5.0, "cum_yoy": 2.0, "ym": "2026/10"}}   # 3333 沒營收資料
+    rows = pw.candidates(studies, prices, {}, {}, drop_pct=20, revenue=rev, min_yoy=20)
+    assert [r["code"] for r in rows] == ["1111"] and rows[0]["yoy"] == 45.0 and rows[0]["ym"] == "2026/10"
+    assert len(pw.candidates(studies, prices, {}, {}, drop_pct=20)) == 3                 # 不篩營收：三檔都在
+    md = pw.render(rows, "正常", "2026-11-14", 20, total=7, min_yoy=20)
+    assert "最新月營收年增 ≥ 20%" in md and "共 7 檔符合，只列回落最多的前 1 檔" in md and "+45%（2026/10）" in md
+
+
+def test_post_close_section_flags_stale_market_data_date(tmp_path, monkeypatch):
+    from market_intel import cli
+    monkeypatch.setattr(ms, "STATE_PATH", tmp_path / "ms.json")
+    monkeypatch.setattr(lv, "STATE_PATH", tmp_path / "lev.json")
+    df = day_df([(f"{1000 + i}", 100.0, 1.0, 1000, 1e8) for i in range(50)])
+    df.attrs["date"] = "2026-11-12"                                                   # 交易所還沒更新到今天
+    monkeypatch.setattr(cli.tw_daily, "fetch_day_all", lambda: df)
+    rst = {"equity": 100_000.0, "capital": 100_000.0, "positions": []}
+    out = cli._market_stress_section(rst, {}, "2026-11-13")
+    assert "行情資料日期是 2026-11-12" in out and ms.load(tmp_path / "ms.json")[0]["d"] == "2026-11-12"
