@@ -86,3 +86,23 @@ futures_night:                # 微台夜盤（15:00–隔天 05:00，realtime-n
   bar_range_pct: 0.75         # 斷頭日型：5 分 K 高低差 ≥ 此 %（日盤 1.07%，待校準）
   tick_jump_pct: 0.2          # 同上：相鄰兩筆報價跳動 ≥ 此 %（日盤 0.27%，待校準）
   min_open_range_pct: 0.2     # 進場前本場高低差至少 %（日盤 0.3%，待校準）
+
+market_stress:               # 市場流動性／恐慌指標（巨人傑的做法：先看流動性與籌碼結構；analysis/market_stress.py）。門檻都是暫定值，累積幾週後再校準
+  enabled: true
+  panic_limit_down: 100      # 跌停家數 ≥ 此值＝恐慌（他說「破百家跌停」）
+  warn_limit_down: 30        # 跌停家數 ≥ 此值＝警戒
+  recover_limit_down: 10     # 恐慌／警戒後，跌停降到此值以下且上漲家數 ≥ 下跌家數＝回穩
+  recover_window: 5          # 回穩要看最近幾個交易日有沒有出現過恐慌／警戒
+  thin_turnover_ratio: 0.8   # 成交值低於近 20 日均的這個倍數、而且下跌家數多於上漲＝量縮下跌（警戒）
+  min_history: 5             # 至少累積幾天紀錄才算量縮
+  limit_pct: 9.5             # 漲跌幅超過 ±這個 % 當作漲停／跌停（近似）
+
+leverage:                    # 槓桿階梯與自我檢查（提醒用、不下單；trade/leverage.py）。數字是暫定值，沒有實績可校準
+  enabled: true
+  base: 1.0                  # 標準槓桿上限（持倉名目價值 ÷ 權益）
+  defense_mult: 0.5          # 防守（市場恐慌、或帳戶回落）
+  probe_mult: 0.75           # 試探（恐慌後回穩）
+  expand_mult: 1.5           # 擴張（未實現獲利拉開、市場正常）
+  drawdown_defense_pct: 10   # 帳戶距歷史高點回落 ≥ 此 % → 防守
+  profit_expand_pct: 10      # 累積獲利 ≥ 此 % 且市場正常 → 可擴張
+  gap_pct: 10                # 壓力測試：全部持倉一次跌這個 %（≈跌停）
