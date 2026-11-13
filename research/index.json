@@ -10185,5 +10185,29 @@
   "status": "混合",
   "usd": 0.0,
   "auto": false
+ },
+ "供需事件：AAOI買下德州廠房、傳第二份長約將簽（未證實）": {
+  "file": "2026-11-13-供需事件：AAOI買下德州廠房、傳第二份長約將簽（未證實）.md",
+  "date": "2026-11-13",
+  "keywords": [
+   "AAOI",
+   "Applied Optoelectronics",
+   "Hightower Business Park",
+   "休士頓",
+   "InP 雷射",
+   "800G",
+   "1.6T",
+   "長期合約",
+   "光模組",
+   "8-K"
+  ],
+  "codes": [
+   "3081",
+   "2455",
+   "3363"
+  ],
+  "status": "傳聞",
+  "usd": 0.0,
+  "auto": false
  }
 }
