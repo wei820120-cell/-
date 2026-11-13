@@ -499,7 +499,7 @@
    "date": "2026-11-12N",
    "session": "night",
    "source": "補錄",
-   "finished": false,
+   "finished": true,
    "events": [
     {
      "ts": null,
