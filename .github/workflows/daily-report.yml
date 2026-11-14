@@ -27,7 +27,6 @@ jobs:
       - run: pip install -r requirements.txt
       - name: 安裝中文字型（題材卡圖片）
         run: fc-list | grep -qi "Noto Sans CJK" || sudo apt-get install -y -q fonts-noto-cjk >/dev/null || (sudo apt-get update -q >/dev/null && sudo apt-get install -y -q fonts-noto-cjk >/dev/null)
-      - run: python -m pytest -q
       - name: 產生盤後報告
         env:
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
@@ -56,3 +55,7 @@ jobs:
             sleep 5
           done
           exit 1
+      # 測試放在最後：失敗仍會讓這次執行變紅（看得到），但不再擋住盤後報告與存檔（之前測試壞掉時，報告連續好幾天沒產生）
+      - name: 測試
+        if: always()
+        run: python -m pytest -q

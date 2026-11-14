@@ -1,5 +1,5 @@
 """離線測試：用樣本資料驗證解析與計算邏輯（不連網）。"""
-from datetime import datetime
+from datetime import date, datetime, timezone
 
 import json
 import numpy as np
@@ -941,8 +941,8 @@ def test_push_theme_cards_research_first(tmp_path, monkeypatch):
     import pandas as pd
     from market_intel import cli, config, notify, research, theme_card
     idx = tmp_path / "index.json"
-    idx.write_text(json.dumps({"玻纖布與石英布": {"date": "2026-10-03", "codes": ["1802", "1815", "5340", "5475"],
-                                                 "file": "x.md"}}), encoding="utf-8")
+    idx.write_text(json.dumps({"玻纖布與石英布": {"date": f"{research.now_tw():%Y-%m-%d}", "codes": ["1802", "1815", "5340", "5475"],
+                                                 "file": "x.md"}}), encoding="utf-8")       # 研究日期用今天：寫死日期會隨時間變成「太舊、重新研究」
     monkeypatch.setattr(research, "INDEX_PATH", idx)
     monkeypatch.setattr(research, "QUEUE_DIR", tmp_path / "queue")
     monkeypatch.setattr(theme_card, "SENT_PATH", tmp_path / "sent.json")
@@ -2529,7 +2529,8 @@ def test_podcast_paragraphs_transcript_and_timestamps(tmp_path, monkeypatch):
     assert path.name.startswith("2026-10-21_") and "標題：EP2 新集數" in text and "[00:09] 接著聊別的" in text
     old = tmp_path / "podcasts" / "股癌" / "2026-01-01_abc.txt"
     old.write_text("x", encoding="utf-8")
-    assert pc.prune_transcripts(14) >= 1 and not old.exists() and path.exists()
+    keep = (datetime.now(timezone.utc).date() - date(2026, 10, 21)).days + 1      # 檔名日期 2026-10-21 的逐字稿要留下：保留天數隨今天往後推
+    assert pc.prune_transcripts(keep) >= 1 and not old.exists() and path.exists()
 
 
 def test_podcasts_cmd_end_to_end(tmp_path, monkeypatch):
@@ -2557,6 +2558,7 @@ def test_podcasts_cmd_end_to_end(tmp_path, monkeypatch):
     monkeypatch.setattr(config, "sources", lambda: {"podcasts": [{"name": "股癌", "feed": "https://f"}], "podcast_max_age_days": 3650})
     monkeypatch.setattr(cli, "_listings", lambda: SIG_LISTINGS)
     monkeypatch.setattr(cli, "now_tw", lambda: research.now_tw().replace(year=2026, month=10, day=22, hour=12, minute=0))
+    monkeypatch.setattr(pc, "prune_transcripts", lambda *a, **k: 0)     # 清除舊逐字稿用真實日期，測試用的集數日期是 2026-10，會被誤刪（prune 另有測試）
     sent = []
     monkeypatch.setattr(notify, "send", lambda text, channel="market": sent.append(text))
     monkeypatch.setattr(pc, "fetch_episodes", lambda show: pc.parse_feed(POD_RSS, show["name"]))

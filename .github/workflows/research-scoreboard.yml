@@ -1,5 +1,6 @@
 # 研究成績單：每篇研究點名的個股、研究日之後相對加權指數的表現（market_intel/analysis/research_scoreboard.py）。
 # Yahoo 日 K 在雲端沙盒抓不到，所以在 GitHub 上跑；結果寫到 research/scoreboard.md 並 commit 回去（也印在日誌裡）。
+# 除了加權指數，還算「沒被研究點名的上市櫃隨機 150 檔等權重」對照組（--control）；基準價優先用發布研究當下記錄的價格（research/entry_prices.json）。
 # 手動執行（workflow_dispatch，只在預設分支）；開發分支改這個檔時也會跑一次（push 觸發，方便檢查）。方向標註已歸成受惠／受傷／中性／混合／其他。
 name: research-scoreboard
 on:

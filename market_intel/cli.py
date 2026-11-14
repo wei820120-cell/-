@@ -783,13 +783,30 @@ def cmd_research_scoreboard(args) -> None:
     bench = bench_df["close"] if bench_df is not None else None
     if bench is None:
         log.warning("抓不到加權指數，超額報酬無法計算")
-    rows = sb.build_rows(studies, prices, bench)
-    md = sb.render(rows, studies, now_tw().replace(tzinfo=None))
+    control = None
+    if args.control > 0:      # 對照組：沒被研究點名的上市櫃股票固定隨機樣本，等權重
+        ctl_codes = sb.pick_control(listings, set(codes), n=args.control)
+        ctl_syms = {c: yahoo.yahoo_symbol(c, (listings.get(c) or {}).get("market") or "tse") for c in ctl_codes}
+        ctl_hist = yahoo.fetch_many(list(ctl_syms.values()), range_="6mo")
+        control = {c: ctl_hist[s]["close"] for c, s in ctl_syms.items() if s in ctl_hist}
+        print(f"對照組有價格 {len(control)}／{len(ctl_codes)} 檔")
+    rows = sb.build_rows(studies, prices, bench, control=control)
+    md = sb.render(rows, studies, now_tw().replace(tzinfo=None), control_n=len(control or {}))
     out = Path(args.out) if args.out else research.ROOT / "research" / "scoreboard.md"
     out.parent.mkdir(parents=True, exist_ok=True)
     out.write_text(md, encoding="utf-8")
     print(f"個股有價格 {len(prices)}／{len(codes)} 檔、{len(rows)} 列；已寫入 {out}")
     print(md)
+
+
+def cmd_health(args) -> None:
+    """系統健康日報：各排程昨天有沒有跑／失敗、資料是否過期、夜盤報價有沒有中斷；每天推一則（需要 gh 與 GH_TOKEN，在 GitHub Actions 上跑）。"""
+    from . import health
+    now = now_tw()
+    text = health.render(health.collect(research.ROOT, now), now)
+    print(text)
+    if not args.dry:
+        notify.send(text, channel=args.channel)
 
 
 def cmd_market_stress(args) -> None:
@@ -1430,6 +1447,16 @@ def _podcast_episode(ep, src: dict, args, names: dict, listings: dict, cfg: dict
     signals.process(items, listings, names, skip_patterns=skip, push=False)
 
 
+def _record_entry_prices(out: dict, listings: dict) -> None:
+    """剛發布的研究：記下點名個股與加權指數的最新價（成績單的基準價）。只在 GitHub Actions 上做（沙盒連不到 Yahoo），失敗只留警告。"""
+    if not os.environ.get("GITHUB_ACTIONS"):
+        return
+    try:
+        research.record_entry_prices(out["data"]["topic"], out["layers"], listings)
+    except Exception as e:  # noqa: BLE001
+        log.warning("記錄研究基準價失敗：%s", e)
+
+
 def _git_publish(message: str, paths: list[str]) -> None:
     """在 GitHub Actions 裡把剛產生的檔案立刻 commit＋push（多片同時跑時用 pull --rebase 重試），一集一集存，中途被中斷也不會白跑。"""
     import random
@@ -1912,11 +1939,13 @@ def cmd_research(args) -> None:
         return
     futures = stock_futures.load_stock_futures()
     for out in research.publish_pending(listings(), futures) if pending else []:
+        _record_entry_prices(out, listings())
         notify.send(out["message"], channel=push)
         _send_card_for_topic(out["data"]["topic"], listings(), push, "🔬 研究完成")
     for i, (topic, trigger, is_auto, qfile) in enumerate(queue):
         try:
             out = research.research_topic(topic, trigger, listings(), futures, auto=is_auto)
+            _record_entry_prices(out, listings())
             if qfile:
                 qfile.unlink(missing_ok=True)
             notify.send(out["message"], channel=push)
@@ -3270,7 +3299,12 @@ def main(argv: list[str] | None = None) -> None:
     fl.set_defaults(func=cmd_futures_log)
     sb_ = sub.add_parser("research-scoreboard", help="研究成績單：每篇研究點名的個股、研究日之後相對大盤的表現（寫 research/scoreboard.md）")
     sb_.add_argument("--out", default="", help="輸出檔（預設 research/scoreboard.md）")
+    sb_.add_argument("--control", type=int, default=150, help="等權重對照組的股票檔數（沒被研究點名的上市櫃隨機樣本，0＝不算）")
     sb_.set_defaults(func=cmd_research_scoreboard)
+    hl_ = sub.add_parser("health", help="系統健康日報：排程有沒有跑、資料是否過期、夜盤有沒有中斷（推播一則）")
+    hl_.add_argument("--dry", action="store_true", help="只印出、不推播")
+    hl_.add_argument("--channel", default="market", help="推播頻道（預設 market）")
+    hl_.set_defaults(func=cmd_health)
     ms_ = sub.add_parser("market-stress", help="市場流動性／恐慌指標（跌停家數、量縮…），更新 state/market_stress.json")
     ms_.add_argument("--day", default="", help="日期 YYYY-MM-DD（預設用加權指數最近一個交易日）")
     ms_.set_defaults(func=cmd_market_stress)

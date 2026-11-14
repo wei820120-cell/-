@@ -1,0 +1,38 @@
+# 系統健康日報（market_intel/health.py）：每天台北 08:20 推一則——各排程昨天有沒有跑／失敗、研究佇列有沒有卡住、
+# 市場流動性紀錄是否落後、期貨日盤／夜盤報價有沒有中斷、main 最近一次存檔距今多久。全部正常也推一行（沒收到就代表連這個都沒跑）。
+# GitHub 排程會延遲、偶爾漏跑；這個 workflow 只做檢查與回報，不修任何東西。
+# 手動執行（workflow_dispatch，只在預設分支）；開發分支改這個檔時也會跑一次（push 觸發，只印出不推播，方便檢查）。
+name: health
+on:
+  schedule:
+    - cron: "20 0 * * *"      # 台北 08:20（UTC 00:20），每天（含週末）
+  workflow_dispatch:
+  push:
+    branches: [claude/funny-goodall-fft1u6]
+    paths: [".github/workflows/health.yml"]
+permissions:
+  contents: read
+  actions: read
+concurrency:
+  group: health
+  cancel-in-progress: false
+jobs:
+  report:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+      - run: pip install -r requirements.txt
+      - name: 健康檢查
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+          DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
+        run: |
+          if [ "${{ github.event_name }}" = "push" ]; then DRY="--dry"; else DRY=""; fi
+          python -m market_intel health $DRY
