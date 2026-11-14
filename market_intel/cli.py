@@ -766,6 +766,75 @@ def cmd_futures_night(args) -> None:
         raise SystemExit(rc)
 
 
+def cmd_research_scoreboard(args) -> None:
+    """研究成績單：每篇研究點名的個股，研究日之後相對加權指數的表現（依研究類型、方向標註、狀態分組）。
+
+    寫到 research/scoreboard.md 並印出來。價格用 Yahoo 日 K（近 6 個月）；研究都是近幾週的，所以窗口很短，只是初步線索。
+    """
+    from .analysis import research_scoreboard as sb
+    from .fetchers import yahoo
+    studies = sb.load_studies(research.ROOT)
+    listings = _listings()
+    codes = sorted({c for s in studies for c in s["picks"]})
+    syms = {c: yahoo.yahoo_symbol(c, (listings.get(c) or {}).get("market") or "tse") for c in codes}
+    hist = yahoo.fetch_many(list(syms.values()), range_="6mo")
+    prices = {c: hist[s]["close"] for c, s in syms.items() if s in hist}
+    bench_df = yahoo.fetch_many([sb.BENCH], range_="6mo").get(sb.BENCH)
+    bench = bench_df["close"] if bench_df is not None else None
+    if bench is None:
+        log.warning("抓不到加權指數，超額報酬無法計算")
+    rows = sb.build_rows(studies, prices, bench)
+    md = sb.render(rows, studies, now_tw().replace(tzinfo=None))
+    out = Path(args.out) if args.out else research.ROOT / "research" / "scoreboard.md"
+    out.parent.mkdir(parents=True, exist_ok=True)
+    out.write_text(md, encoding="utf-8")
+    print(f"個股有價格 {len(prices)}／{len(codes)} 檔、{len(rows)} 列；已寫入 {out}")
+    print(md)
+
+
+def cmd_market_stress(args) -> None:
+    """市場流動性／恐慌指標（跌停家數、漲停家數、上漲／下跌家數、成交值相對 20 日均）：更新 state/market_stress.json 並印出。"""
+    from .analysis import market_stress as ms
+    df = tw_daily.fetch_day_all()
+    if df.empty:
+        print("抓不到全市場日行情")
+        return
+    day = args.day or df.attrs.get("date")        # 行情資料自己帶的日期最準；沒有才用加權指數最近一個交易日
+    if not day:
+        index_df, _ = yahoo.fetch_chart("^TWII", range_="1mo")
+        day = f"{index_df.index[-1].tz_convert('Asia/Taipei'):%Y-%m-%d}" if not index_df.empty else f"{now_tw():%Y-%m-%d}"
+    r = ms.record(day, ms.day_stats(df))
+    print(f"{day}：" + ms.text(r))
+
+
+def cmd_panic_watch(args) -> None:
+    """恐慌日研究清單：研究過、標註受惠、現價比研究時更低的個股，附研究的催化與風險（寫 research/panic_watch.md）。不是買進建議。"""
+    from .analysis import market_stress as ms
+    from .analysis import panic_watch as pw
+    from .analysis import research_scoreboard as sb
+    from .fetchers import yahoo
+    studies = sb.load_studies(research.ROOT)
+    listings = _listings()
+    codes = sorted({c for s in studies for c, imp in s["picks"].items() if imp == "受惠"})
+    syms = {c: yahoo.yahoo_symbol(c, (listings.get(c) or {}).get("market") or "tse") for c in codes}
+    hist = yahoo.fetch_many(list(syms.values()), range_="6mo")
+    prices = {c: hist[s]["close"] for c, s in syms.items() if s in hist}
+    details = pw.load_details(research.ROOT, sorted({s["topic"] for s in studies}))
+    names = {c: (v.get("name") or "") for c, v in listings.items()}
+    revenue = tw_daily.load_revenue()
+    rows = pw.candidates(studies, prices, details, names, drop_pct=args.drop, revenue=revenue, min_yoy=args.min_yoy)
+    total = len(rows)
+    rows = rows[:args.top]
+    days = ms.load()
+    level = days[-1]["level"] if days else None
+    md = pw.render(rows, level, f"{now_tw():%Y-%m-%d}", args.drop, total=total, min_yoy=args.min_yoy)
+    out = Path(args.out) if args.out else research.ROOT / "research" / "panic_watch.md"
+    out.parent.mkdir(parents=True, exist_ok=True)
+    out.write_text(md, encoding="utf-8")
+    print(f"受惠標的有價格 {len(prices)}／{len(codes)} 檔，符合 {len(rows)} 檔；已寫入 {out}")
+    print(md)
+
+
 def cmd_futures_log(args) -> None:
     """印出微台計畫帳觸發紀錄（state/futures_log.md；有 --rebuild 就先用 state/futures_log.json 重排一次）。"""
     from .trade import futures_log
@@ -2905,9 +2974,32 @@ def cmd_trade(args) -> None:
         real.save(rst)
         closes = {c: float(d["close"].iloc[-1]) for c, d in prepped.items()}
         section = real.positions_text(rst, closes) + ("\n\n【出場提醒】\n" + "\n".join(alerts) if alerts else "")
+        section += _market_stress_section(rst, closes, today)
         msg = section + "\n\n━━━━ 以下為模擬帳戶（對照用）━━━━\n" + (msg or "")
     paper.push(msg)
     mark("post")
+
+
+def _market_stress_section(rst: dict, closes: dict, today: str) -> str:
+    """盤後報告附的「市場流動性＋槓桿檢查」（巨人傑的做法；提醒用、不下單）。失敗只留警告，不影響其他推播。"""
+    try:
+        from .analysis import market_stress as ms
+        from .trade import leverage as lv
+        if not (ms.settings()["enabled"] and lv.settings()["enabled"]):
+            return ""
+        df = tw_daily.fetch_day_all()
+        data_day = df.attrs.get("date") or today        # 資料自己的日期；若和今天不同（交易所還沒更新），照資料日期記，並在訊息裡標出來
+        sday = ms.record(data_day, ms.day_stats(df))
+        if data_day != today:
+            sday["reasons"] = [f"⚠️ 行情資料日期是 {data_day}（不是 {today}，交易所可能還沒更新）"] + list(sday.get("reasons", []))
+        eq = float(rst["equity"])
+        peak = lv.update_peak(eq, float(rst["capital"]))
+        notional, lev = lv.exposure(rst["positions"], closes, eq)
+        lad = lv.ladder(eq, float(rst["capital"]), peak, sday["level"])
+        return "\n\n" + ms.text(sday) + "\n\n" + lv.text(lad, eq, notional, lev)
+    except Exception as e:  # noqa: BLE001
+        log.warning("市場流動性／槓桿檢查失敗：%s", e)
+        return ""
 
 
 def _trade_explain(query: str, listings: dict, futures: dict, equity: float) -> str:
@@ -3176,6 +3268,18 @@ def main(argv: list[str] | None = None) -> None:
     fl = sub.add_parser("futures-log", help="印出微台計畫帳（日盤＋夜盤）觸發紀錄與每場損益（state/futures_log.md）")
     fl.add_argument("--rebuild", action="store_true", help="用 state/futures_log.json 重排 md 再印")
     fl.set_defaults(func=cmd_futures_log)
+    sb_ = sub.add_parser("research-scoreboard", help="研究成績單：每篇研究點名的個股、研究日之後相對大盤的表現（寫 research/scoreboard.md）")
+    sb_.add_argument("--out", default="", help="輸出檔（預設 research/scoreboard.md）")
+    sb_.set_defaults(func=cmd_research_scoreboard)
+    ms_ = sub.add_parser("market-stress", help="市場流動性／恐慌指標（跌停家數、量縮…），更新 state/market_stress.json")
+    ms_.add_argument("--day", default="", help="日期 YYYY-MM-DD（預設用加權指數最近一個交易日）")
+    ms_.set_defaults(func=cmd_market_stress)
+    pw_ = sub.add_parser("panic-watch", help="恐慌日研究清單：研究過、受惠、價格回落的個股＋催化與風險（寫 research/panic_watch.md）")
+    pw_.add_argument("--drop", type=float, default=20.0, help="相對研究日或研究後高點回落多少 %% 才列入（預設 20）")
+    pw_.add_argument("--min-yoy", type=float, default=20.0, help="最新月營收年增至少多少 %% 才列入（股價回落但營收仍成長；預設 20，填 -999 不篩）")
+    pw_.add_argument("--top", type=int, default=40, help="最多列幾檔（依回落幅度排序，預設 40）")
+    pw_.add_argument("--out", default="", help="輸出檔（預設 research/panic_watch.md）")
+    pw_.set_defaults(func=cmd_panic_watch)
 
     nw = sub.add_parser("news", help="掃描新聞與公告")
     nw.add_argument("--limit", type=int, default=50)

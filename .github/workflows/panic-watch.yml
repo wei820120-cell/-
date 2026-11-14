@@ -1,0 +1,40 @@
+# 恐慌日研究清單＋市場流動性指標（analysis/market_stress.py、analysis/panic_watch.py；巨人傑的做法，筆記 knowledge/methods/巨人傑-盤勢操作與槓桿.md）。
+# 先更新 state/market_stress.json（跌停家數、量縮…），再列出「研究過、受惠、現價比研究時更低」的個股（research/panic_watch.md，不是買進建議）。
+# Yahoo 日 K 在雲端沙盒抓不到，所以在 GitHub 上跑，結果 commit 回去（也印在日誌裡）。手動執行（workflow_dispatch，只在預設分支）；
+# 開發分支改這個檔時也會跑一次（push 觸發，方便檢查）。篩選：價格回落 ≥ 20%、最新月營收年增 ≥ 20%，最多 40 檔。
+name: panic-watch
+on:
+  workflow_dispatch:
+  push:
+    branches: [claude/funny-goodall-fft1u6]
+    paths: [".github/workflows/panic-watch.yml"]
+permissions:
+  contents: write
+concurrency:
+  group: panic-watch
+  cancel-in-progress: false
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+      - run: pip install -r requirements.txt
+      - run: python -m market_intel market-stress
+      - run: python -m market_intel panic-watch
+      - name: 存檔
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add research/panic_watch.md state/market_stress.json
+          git diff --cached --quiet && exit 0
+          git commit -q -m "恐慌日研究清單與市場流動性 $(TZ=Asia/Taipei date '+%F %H:%M')"
+          for i in 1 2 3; do
+            git pull --rebase -q && git push -q && exit 0
+            git rebase --abort 2>/dev/null; sleep 5
+          done
+          echo "存檔衝突，放棄這次記錄"
