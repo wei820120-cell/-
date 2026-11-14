@@ -31,6 +31,8 @@ INBOX_DIR = ROOT / "state" / "inbox"
 QUEUE_DIR = ROOT / "state" / "research_queue"  # 資金流入但還沒研究過的題材，等有 API 金鑰時研究
 RELATED_PATH = ROOT / "state" / "research_related.json"  # 被視為「同一事件」而略過的後續新聞（既有研究的後續報導）
 PENDING_DIR = RESEARCH_DIR / "pending"  # 已寫好、等待發布的研究（JSON：REPORT_SCHEMA 欄位＋report＋trigger）
+ENTRY_PATH = RESEARCH_DIR / "entry_prices.json"  # 發布研究當下記錄的個股價格與加權指數（研究成績單用）
+EVIDENCE_LEVELS = ("官方公告", "數據報告", "媒體報導", "社群傳聞")  # 研究的證據等級（最強來源）：公司／政府公告、海關／TrendForce 等數據、主流媒體、個人與社群說法
 
 SYSTEM = """你是台股產業研究員，專門把一個新題材拆解成完整的供應鏈地圖，給做波段的投資人參考。
 原則：
@@ -81,6 +83,7 @@ REPORT_SCHEMA = {
         "topic": {"type": "string"},
         "one_line": {"type": "string"},
         "status": {"type": "string", "enum": ["已證實", "傳聞", "混合"]},
+        "evidence": {"type": "string", "enum": list(EVIDENCE_LEVELS)},     # 選填：這份研究最主要的證據來源等級
         "horizon": {"type": "string", "enum": ["短期（3個月內）", "中期（3-12個月）", "長期（1年以上）"]},
         "layers": {
             "type": "array",
@@ -371,6 +374,8 @@ def _save_report(topic: str, data: dict, report: str, trigger: str, listings: di
     index[topic] = {"file": fname, "date": f"{now_tw():%Y-%m-%d}", "keywords": data.get("keywords", []),
                     "codes": [s["code"] for layer in layers for s in layer["tw_stocks"]],
                     "status": data.get("status"), "usd": round(usage.usd(), 3), "auto": auto}
+    if data.get("evidence") in EVIDENCE_LEVELS:
+        index[topic]["evidence"] = data["evidence"]
     save_index(index)
     update_auto_themes(topic, layers, data.get("keywords", []))
     qfile = QUEUE_DIR / f"{slug(topic)}.json"
@@ -382,6 +387,8 @@ def _save_report(topic: str, data: dict, report: str, trigger: str, listings: di
     data_dir().mkdir(parents=True, exist_ok=True)
     keep = ("topic", "one_line", "status", "horizon", "keywords", "catalysts", "risks", "spec_tables", "evolution",
             "concepts", "conclusion", "sources")
+    if data.get("evidence") in EVIDENCE_LEVELS:
+        keep = keep + ("evidence",)
     (data_dir() / f"{slug(topic)}.json").write_text(json.dumps(
         {**{k: data.get(k) for k in keep}, "layers": [
             {"layer": l.get("layer"), "description": l.get("description", ""),
@@ -413,6 +420,41 @@ def research_topic(topic: str, trigger: str, listings: dict, futures: dict, auto
     out = _save_report(topic, data, report, trigger, listings, futures, usage, auto)
     log.info("研究完成：%s（約 US$%.2f）", out["file"], usage.usd())
     return out
+
+
+def record_entry_prices(topic: str, layers: list[dict], listings: dict, fetch=None, now: datetime | None = None) -> dict | None:
+    """發布研究當下，記下這份研究點名的個股最新價與加權指數（research/entry_prices.json），成績單用它當基準價。
+
+    失敗（抓不到價格）就略過，不影響發布。fetch(symbols) → {符號: 日K DataFrame}，預設用 Yahoo；測試時給假的。
+    """
+    from .fetchers import yahoo
+    codes = sorted({s["code"] for layer in layers for s in layer.get("tw_stocks", []) if s.get("code")})
+    if not codes:
+        return None
+    fetch = fetch or (lambda syms: yahoo.fetch_many(syms, range_="5d"))
+    syms = {c: yahoo.yahoo_symbol(c, (listings.get(c) or {}).get("market")) for c in codes}
+    try:
+        hist = fetch(list(syms.values()) + ["^TWII"])
+    except Exception as e:  # noqa: BLE001
+        log.warning("記錄研究基準價失敗：%s", e)
+        return None
+
+    def last(sym):
+        df = hist.get(sym)
+        return round(float(df["close"].dropna().iloc[-1]), 2) if df is not None and not df.empty and not df["close"].dropna().empty else None
+
+    px = {c: v for c, sym in syms.items() if (v := last(sym)) is not None}
+    if not px:
+        return None
+    rec = {"asof": (now or now_tw()).isoformat(timespec="seconds"), "bench": last("^TWII"), "px": px}
+    try:
+        data = json.loads(ENTRY_PATH.read_text(encoding="utf-8"))
+    except (OSError, ValueError):
+        data = {}
+    data[topic] = rec
+    ENTRY_PATH.parent.mkdir(parents=True, exist_ok=True)
+    ENTRY_PATH.write_text(json.dumps(data, ensure_ascii=False, indent=1) + "\n", encoding="utf-8")
+    return rec
 
 
 PUBLISHED_PATH = ROOT / "state" / "published_pending.json"
