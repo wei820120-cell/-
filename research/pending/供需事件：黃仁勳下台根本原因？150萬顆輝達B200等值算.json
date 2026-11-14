@@ -1,0 +1,204 @@
+{
+  "topic": "供需事件：黃仁勳下台根本原因？150萬顆輝達B200等值算",
+  "one_line": "SemiAnalysis（約 11/13）稱其模型追蹤到超過 1.5 GW 本不該在中國的輝達 GPU（不含 H20，未公布顆數）；「150 萬顆 B200 等值」是 Tom's Hardware 的換算（換成 H200 約 214 萬顆），不是 SemiAnalysis 的數字。「黃仁勳下台根本原因」是分析師推測。台灣基隆檢方已起訴 9 人（含輝達與美超微台灣子公司員工），約 130 台 B300 伺服器、74 台到中國，經印尼、日本轉運、偽造文件；吹風機調貼紙與美國 25 億美元案件來源薄弱待核對。對台廠是出貨審查與合規壓力，不是需求消失。",
+  "status": "混合",
+  "horizon": "短期（事件驅動，數天到數週）",
+  "layers": [
+    {
+      "layer": "出口管制執法與走私通道",
+      "description": "SemiAnalysis 追蹤 >1.5 GW（估計，無獨立驗證）；台灣基隆檢方起訴 9 人（背信、偽造文書）；手法為人頭公司、偽造文件、第三地轉運（印尼、日本）；美國檢方案件待核對。管制重心從「賣給誰」延伸到「誰在用」（遠端使用漏洞）。",
+      "global_players": [
+        "美國商務部 BIS",
+        "美國與台灣檢方",
+        "SemiAnalysis（估計）"
+      ],
+      "tw_stocks": []
+    },
+    {
+      "layer": "AI 伺服器 OEM／ODM（含台系）",
+      "description": "涉案人員來自輝達與美超微台灣子公司；對台廠的影響是終端客戶審查、出貨文件真實性與合規成本上升；沒有查到台廠個別曝險。",
+      "global_players": [
+        "Supermicro",
+        "Dell",
+        "輝達"
+      ],
+      "tw_stocks": [
+        {
+          "code": "2317",
+          "name": "鴻海",
+          "role": "AI 伺服器組裝，出貨審查與認證壓力（曝險未查）",
+          "impact": "中性"
+        },
+        {
+          "code": "2382",
+          "name": "廣達",
+          "role": "AI 伺服器 ODM（曝險未查）",
+          "impact": "中性"
+        },
+        {
+          "code": "3231",
+          "name": "緯創",
+          "role": "AI 伺服器組裝（曝險未查）",
+          "impact": "中性"
+        },
+        {
+          "code": "6669",
+          "name": "緯穎",
+          "role": "雲端伺服器 ODM（曝險未查）",
+          "impact": "中性"
+        }
+      ]
+    },
+    {
+      "layer": "中國 AI 算力（存量與增量）",
+      "description": "若 1.5 GW 方向正確，存量已在中國；新增管制主要壓縮增量與離岸租賃；中國本土晶片是替代方向。",
+      "global_players": [
+        "華為（本土替代，未點名產品）"
+      ],
+      "tw_stocks": []
+    },
+    {
+      "layer": "輝達對中業務",
+      "description": "合規與聲譽風險、H200 庫存、客戶審查成本；11/17（美東）財報說法是下一個觀察點。",
+      "global_players": [
+        "輝達"
+      ],
+      "tw_stocks": []
+    }
+  ],
+  "keywords": [
+    "SemiAnalysis",
+    "1.5GW",
+    "走私",
+    "輝達",
+    "B200",
+    "B300",
+    "基隆檢方",
+    "美超微",
+    "人頭公司",
+    "印尼轉運",
+    "出口管制",
+    "遠端使用"
+  ],
+  "catalysts": [
+    "基隆案開庭與判決、是否擴大偵辦",
+    "商務部對遠端使用與許可制度的新規；國會作證與 12 月法案",
+    "輝達 11/17（美東）財報對中國業務與合規的說法",
+    "台廠法說對終端客戶審查與出貨地區的說法"
+  ],
+  "risks": [
+    "1.5 GW 是 SemiAnalysis 自己的追蹤估計，無獨立驗證；150 萬顆是第三方換算",
+    "「根本原因」「情報單位介入」是推測",
+    "已起訴不等於定罪；數字是檢方說法（媒體轉述）",
+    "吹風機調貼紙、假伺服器、美國 25 億美元案件來源薄弱或待核對",
+    "只讀搜尋摘要，未讀 SemiAnalysis 全文與起訴書"
+  ],
+  "spec_tables": [
+    {
+      "title": "表 A：數字口徑（搜尋摘要）",
+      "columns": [
+        "項目",
+        "數字",
+        "來源與性質"
+      ],
+      "rows": [
+        [
+          "追蹤到的中國境內輝達 GPU",
+          "> 1.5 GW（不含 H20）",
+          "SemiAnalysis 自己的追蹤估計，未公布顆數"
+        ],
+        [
+          "換算顆數（假設全是 B200 SXM，約 1,000W）",
+          "約 150 萬顆",
+          "Tom's Hardware 換算，非 SemiAnalysis 數字"
+        ],
+        [
+          "換算顆數（假設全是 H200）",
+          "約 214 萬顆",
+          "同上"
+        ],
+        [
+          "基隆案：被起訴",
+          "9 人（8 人涉背信、偽造文書）",
+          "檢方說法，媒體轉述"
+        ],
+        [
+          "基隆案：伺服器",
+          "約 130 台 B300；74 台到中國；56 台邊境查扣",
+          "檢方說法（Al Jazeera 2026-08-25）"
+        ],
+        [
+          "轉運路徑",
+          "50 台經印尼、8 台經日本、其餘直送",
+          "檢方說法"
+        ],
+        [
+          "美國案件（待核對）",
+          "約 25 億美元伺服器、5.1 億美元轉運中國",
+          "搜尋摘要，來源不明確"
+        ]
+      ],
+      "note": "口徑與來源不同，不要混用；皆來自搜尋摘要。"
+    }
+  ],
+  "evolution": [],
+  "concepts": [
+    {
+      "title": "供需缺口怎麼來的（政策與執法面）",
+      "points": [
+        "中國需求強、先進晶片被管制，走私套利出現；通道是第三地轉運、偽造文件與人頭公司",
+        "管制重心從「賣給誰」延伸到「誰在用」（遠端使用、離岸租賃）",
+        "若 1.5 GW 屬實，存量已在中國，新增管制主要壓縮增量"
+      ]
+    },
+    {
+      "title": "誰受惠、誰受傷",
+      "points": [
+        "受傷情境：輝達對中業務、涉案伺服器供應商的合規與信任、轉運與人頭公司",
+        "台灣已有刑事案件，台廠的壓力是終端客戶審查與文件真實性，不是需求消失",
+        "受惠情境：合規能力強的 ODM、中國本土 AI 晶片"
+      ]
+    },
+    {
+      "title": "估計與事實要分清楚",
+      "points": [
+        "1.5 GW 是估計；150 萬顆是換算，換 H200 就是 214 萬顆",
+        "「根本原因」「情報單位介入」是推測",
+        "台灣案件是檢方說法，已起訴不等於定罪"
+      ]
+    }
+  ],
+  "conclusion": [
+    "SemiAnalysis 估計 1.5 GW 以上輝達 GPU 流入中國，台灣基隆檢方已有刑事案件，使管制執法與合規成為輝達與伺服器鏈的主軸之一",
+    "150 萬顆是換算、因果與情報介入是推測；對台廠是審查與認證加嚴，沒有查到個別曝險",
+    "追蹤基隆案、商務部新規、輝達 11/17 財報與台廠法說"
+  ],
+  "sources": [
+    {
+      "title": "SemiAnalysis：Nvidia and the World Without Jensen（僅看到標題與搜尋摘要）",
+      "url": "https://newsletter.semianalysis.com/p/nvidia-and-the-world-without-jensen"
+    },
+    {
+      "title": "Tom's Hardware：Mass smuggling of up to 1.5 million Nvidia AI GPUs could be the underlying cause of Jensen Huang's departure（僅看到標題與搜尋摘要）",
+      "url": "https://www.tomshardware.com/tech-industry/artificial-intelligence/mass-smuggling-of-nvidia-ai-gpus-could-be-the-underlying-cause-of-jensen-huangs-departure-analysts-claim-more-than-1-5-gigawatts-of-banned-chips-tracked-to-china-despite-export-controls"
+    },
+    {
+      "title": "Al Jazeera：Nvidia, Supermicro employees charged over export of AI servers to China（2026-08-25，僅看到標題與搜尋摘要）",
+      "url": "https://www.aljazeera.com/economy/2026/8/25/nvidia-supermicro-employees-charged-over-export-of-ai-servers-to-china"
+    },
+    {
+      "title": "Investing.com：SemiAnalysis speculates U.S. intelligence played role in Nvidia CEO exit（僅看到標題）",
+      "url": "https://au.investing.com/news/stock-market-news/semianalysis-speculates-us-intelligence-played-role-in-nvidia-ceo-exit-4767282"
+    },
+    {
+      "title": "mlq.ai：SemiAnalysis says more than 1.5 GW of banned Nvidia chips reached China（僅看到標題）",
+      "url": "https://mlq.ai/news/semianalysis-says-more-than-15-gw-of-banned-nvidia-chips-reached-china/"
+    },
+    {
+      "title": "鉅亨：黃仁勳下台根本原因？150 萬顆輝達 B200 等值算力疑流入中國（佇列來源，僅看到標題）",
+      "url": "https://news.cnyes.com/news/id/6662319"
+    }
+  ],
+  "report": "# 供需事件：「黃仁勳下台根本原因？」150 萬顆 B200 等值算力疑流入中國（SemiAnalysis 估計）\n\n> 資料說明：來自搜尋摘要（Tom's Hardware、Yahoo、SemiAnalysis 電子報標題、Al Jazeera、Investing.com、mlq.ai、BigGo 等），**沒有讀到 SemiAnalysis 全文、台灣檢方起訴書與美國法院文件**。佇列標題的「150 萬顆 B200 等值」**不是 SemiAnalysis 自己的數字**，是 Tom's Hardware 的換算（見下）。「這就是黃仁勳下台的根本原因」是分析師推測，不是已證實的因果。本檔是 **11/11、11/12、11/13 幾檔輝達與出口管制研究的後續**，重點放在**新的量化估計與台灣檢方案件**。\n\n## 1. 事件（搜尋摘要）\n- **SemiAnalysis（約 11/13）**：其加速器模型**追蹤到超過 1.5 GW 本不該出現在中國的輝達 GPU**，**不含**中國特規品（例如 H20）。**SemiAnalysis 沒有公布確切的顆數與世代比例**。\n- **「150 萬顆」的來源**：Tom's Hardware 的換算——若全部是 B200 SXM（最高約 1,000W）≈ **150 萬顆**；若是 H200 則約 **214 萬顆**。**這是第三方換算，不是 SemiAnalysis 的估計**；1.5 GW 是電力規模，換成顆數要假設型號。\n- **因果說法**：SemiAnalysis 推測**美國情報單位可能在黃仁勳離任中扮演角色**（Investing.com 標題），分析師把大規模走私稱為可能的「根本原因」——這些都是**推測**。\n\n## 2. 台灣檢方案件（Al Jazeera 2026-08-25，引述檢方；其他數字經 SemiAnalysis 轉述）\n- **基隆**（搜尋摘要稱 Keelung）檢方起訴 **9 人**，其中 8 人涉**背信與偽造文書**，案由是**非法出口高階 AI 伺服器**；被告含**輝達台灣子公司 1 名員工、美超微（Supermicro）台灣子公司 2 名員工**。\n- **規模**：約 **130 台 B300 伺服器**，其中 **74 台今年稍早已到中國**；檢方稱這批伺服器 **50 台經印尼轉運、8 台經日本、其餘直接運往中國**；另有 **56 台在台灣邊境被查扣**。\n- **手法**：人頭公司、偽造文件、**申報目的地為日本**但實際運往中國。\n- **「用吹風機調換貼紙躲稽核」**：只在一則 BigGo 摘要裡看到（稱是 Supermicro 台灣員工、九月稽核前），**我沒有找到檢方或法院來源，不採信**。\n\n## 3. 美國案件（搜尋摘要，來源不明確，待核對）\n- 搜尋摘要稱美國檢方起訴 **Supermicro 共同創辦人 Wally Liaw 等人**：約 **25 億美元**伺服器賣給東南亞一家公司，其中約 **5.1 億美元**被轉運到中國，並**佈置假伺服器通過稽核**。**我沒有讀到法院文件或可靠原文，只作為待查線索**。\n\n## 4. 供需缺口怎麼來的（政策與執法面）\n- **供給是「合法管道被管制、非法管道補位」**：中國需求強、先進晶片被管制，形成走私套利；通道是**第三地轉運（印尼、日本、新加坡、馬來西亞）＋偽造文件＋人頭公司**。\n- **管制從「賣給誰」延伸到「誰在用」**：白宮幕僚研議封堵出口許可與**遠端使用**漏洞（見川習會一檔）；國會推動立法（見「共識升溫」）。若 1.5 GW 的估計方向正確，代表**存量已在中國**，新增管制主要壓縮**未來增量與離岸租賃**。\n- **對輝達**：對中業務的合規與聲譽風險、H200 庫存（Baird 推估見 Megaspeed 一檔）、客戶審查成本上升。\n\n## 5. 誰受惠、誰受傷\n- **受傷（情境）**：輝達對中業務與品牌信任；**涉案的系統整合與伺服器供應商（Supermicro 等）的合規成本與客戶信任**；中間轉運商、人頭公司。\n- **台灣**：**台灣已有刑事案件（基隆檢方）涉及輝達、美超微台灣子公司員工**——對台廠的意義是**出貨審查、終端客戶確認與文件真實性的合規壓力上升**，風險在審查與認證加嚴，**不是需求消失**；我沒有查到台廠個別曝險數字。\n- **受惠（情境）**：合規能力強、直接服務美系雲端客戶的 ODM；中國本土 AI 晶片（需求轉向）。\n\n## 6. 風險與矛盾\n- **1.5 GW 是 SemiAnalysis 自己追蹤的估計，沒有獨立驗證**；150 萬顆是換算結果，換成 H200 就是 214 萬顆。\n- 「根本原因」「情報單位介入」是推測。\n- 台灣案件的數字是檢方說法（媒體轉述），已起訴不等於定罪。\n- 吹風機、假伺服器、美國 25 億美元案件，來源薄弱或待核對。\n- SemiAnalysis 與 Tom's Hardware 對「不含 H20」之類的口徑要看原文。\n\n## 7. 要追蹤的時間點\n- 基隆案開庭與判決；是否擴大偵辦（例如更多被告、更多廠商）。\n- 商務部對遠端使用、許可制度的新規；國會作證與 12 月法案。\n- 輝達 11/17（美東）財報對中國業務的說法與合規聲明。\n- 台廠法說對「終端客戶審查」與出貨地區的說法。\n\n## 資料來源\n- [SemiAnalysis：Nvidia and the World Without Jensen（僅看到標題與搜尋摘要）](https://newsletter.semianalysis.com/p/nvidia-and-the-world-without-jensen)\n- [Tom's Hardware：Mass smuggling of up to 1.5 million Nvidia AI GPUs could be the underlying cause of Jensen Huang's departure（僅看到標題與搜尋摘要）](https://www.tomshardware.com/tech-industry/artificial-intelligence/mass-smuggling-of-nvidia-ai-gpus-could-be-the-underlying-cause-of-jensen-huangs-departure-analysts-claim-more-than-1-5-gigawatts-of-banned-chips-tracked-to-china-despite-export-controls)\n- [Al Jazeera：Nvidia, Supermicro employees charged over export of AI servers to China（2026-08-25，僅看到標題與搜尋摘要）](https://www.aljazeera.com/economy/2026/8/25/nvidia-supermicro-employees-charged-over-export-of-ai-servers-to-china)\n- [Investing.com：SemiAnalysis speculates U.S. intelligence played role in Nvidia CEO exit（僅看到標題）](https://au.investing.com/news/stock-market-news/semianalysis-speculates-us-intelligence-played-role-in-nvidia-ceo-exit-4767282)\n- [mlq.ai：SemiAnalysis says more than 1.5 GW of banned Nvidia chips reached China（僅看到標題）](https://mlq.ai/news/semianalysis-says-more-than-15-gw-of-banned-nvidia-chips-reached-china/)\n- [鉅亨：黃仁勳下台根本原因？150 萬顆輝達 B200 等值算力疑流入中國（佇列來源，僅看到標題）](https://news.cnyes.com/news/id/6662319)\n",
+  "trigger": "2026-11-14 供需失衡（政策管制）：黃仁勳下台根本原因？150萬顆輝達B200等值算力疑流入中國\nSemiAnalysis估計，近年逾1.5GW輝達AI加速器在美出口管制下流入中國。&#10;報導稱，美檢方與台灣案件揭露伺服器經第三地轉運、偽造文件與調包標籤等規避手法。&#10;分析師認為，黃仁勳去職與華府擴大雲端算力管制有關，政策分歧恐影響輝達對中業務。\nhttps://news.cnyes.com/news/id/6662319"
+}
