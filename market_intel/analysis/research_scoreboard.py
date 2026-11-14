@@ -47,20 +47,24 @@ def impact_class(text: str | None) -> str:
 def trigger_type(text: str | None) -> str:
     """從研究檔的「觸發來源」文字歸類：這份研究是怎麼被排進來的。看前 200 字，不猜整段的意思。"""
     t = (text or "")[:200]
-    if re.search(r"threads\.com|Threads|Podcast|股癌", t):
+    if re.search(r"threads\.com|Threads|Podcast|股癌|頻道貼文偵測", t):
         return "社群／Podcast"
+    if "使用者" in t or "手動" in t or "指定" in t:
+        return "手動"
     if "盤後資金流入" in t or "資金流入" in t:
         return "資金流入"
+    if "不在任何族群的強勢股" in t:
+        return "強勢股（股價先動）"
     if "連動預研" in t:
         return "連動預研"
     if "早期訊號" in t:
         return "早期訊號（未證實新聞）"
     if "供需失衡" in t:
         return "供需新聞"
-    if "自動偵測" in t:
-        return "自動偵測"
-    if "手動" in t or "指定" in t:
-        return "手動"
+    if "重大事件" in t:
+        return "重大事件新聞"
+    if re.match(r"\s*(經濟部|財政部|金管會|證交所|行政院|商務部)", t) or "公告（" in t[:60]:
+        return "官方公告"
     return "其他／未記錄" if t.strip() else "未記錄"
 
 

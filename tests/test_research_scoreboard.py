@@ -106,6 +106,11 @@ def test_trigger_type_classifies_by_leading_text():
     assert sb.trigger_type("Threads @abc 貼文 https://www.threads.com/@abc/post/x，未證實") == "社群／Podcast"
     assert sb.trigger_type("股癌 EP700 12:30 提到某某公司") == "社群／Podcast"
     assert sb.trigger_type("手動指定") == "手動" and sb.trigger_type("") == "未記錄" and sb.trigger_type("某種新格式") == "其他／未記錄"
+    assert sb.trigger_type("2026-11-10 使用者詢問：高明鐵為什麼沒有被研究到（不在任何族群的強勢股）") == "手動"            # 使用者詢問優先於內文提到的強勢股
+    assert sb.trigger_type("2026-11-05 不在任何族群的強勢股：5222 中華化｜漲停 +9.8%、成交量放大") == "強勢股（股價先動）"
+    assert sb.trigger_type("2026-11-02 重大事件：沙特領銜OPEC+增產") == "重大事件新聞"
+    assert sb.trigger_type("頻道貼文偵測（重要性 4）：ASML Q3營收創高") == "社群／Podcast"
+    assert sb.trigger_type("經濟部 115/10/3 公告（經貿字第1150000號）：自即日起中國") == "官方公告"
 
 
 def test_forward_returns_entry_price_replaces_base():
